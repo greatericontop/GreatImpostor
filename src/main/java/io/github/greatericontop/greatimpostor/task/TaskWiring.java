@@ -31,17 +31,21 @@ public class TaskWiring implements BaseTask {
                 Material.LIME_WOOL, Material.CYAN_WOOL, Material.PURPLE_WOOL,
         };
         Shuffler.shuffle(materials, random);
-        Material targetMaterial = materials[random.nextInt(materials.length)];
+        Material[] targetMaterials = {
+                Material.RED_WOOL, Material.ORANGE_WOOL, Material.YELLOW_WOOL,
+                Material.LIME_WOOL, Material.CYAN_WOOL, Material.PURPLE_WOOL,
+        };
+        Shuffler.shuffle(targetMaterials, random);
 
         for (int i = 0; i < 6; i++) {
-            ItemStack stack = new ItemStack(targetMaterial, 1);
+            ItemStack stack = new ItemStack(targetMaterials[i], 1);
             ItemMeta im = stack.getItemMeta();
-            im.displayName(Component.text("§7Click the corresponding block on the right!"));
+            im.displayName(Component.text("§eIn order, click the colored blocks on the right."));
             stack.setItemMeta(im);
             gui.setItem(i*9, stack);
             gui.setItem(i*9+8, new ItemStack(materials[i], 1));
             for (int j = 1; j < 8; j++) {
-                gui.setItem(i*9+j, new ItemStack(Material.GRAY_STAINED_GLASS, 1));
+                gui.setItem(i*9+j, new ItemStack(Material.GRAY_STAINED_GLASS_PANE, 1));
             }
         }
 
@@ -51,18 +55,33 @@ public class TaskWiring implements BaseTask {
     @EventHandler()
     public void onInventoryClick(InventoryClickEvent event) {
         if (!event.getView().getTitle().equals(INVENTORY_NAME))  return;
+        event.setCancelled(true);
         Player player = (Player) event.getWhoClicked();
 
+        int currentSourceSlot = 0;
+        for (int i = 0; i < 45; i += 9) {
+            if (event.getClickedInventory().getItem(i).getType() == Material.GRAY_STAINED_GLASS) {
+                currentSourceSlot = i + 9;
+            } else {
+                break;
+            }
+        }
+
         int slot = event.getSlot();
-        if (event.getClickedInventory().getItem(slot).getType() == event.getClickedInventory().getItem(0).getType()) {
+        if (event.getClickedInventory().getItem(slot).getType() == event.getClickedInventory().getItem(currentSourceSlot).getType()
+                && slot != currentSourceSlot
+        ) {
             playSuccessSound(player);
-            this.taskSuccessful(player);
+            event.getClickedInventory().setItem(currentSourceSlot, new ItemStack(Material.GRAY_STAINED_GLASS, 1));
+            if (currentSourceSlot == 45) {
+                this.taskSuccessful(player);
+                player.closeInventory();
+            }
         } else {
             playFailSound(player);
             player.sendMessage("§cYou failed!");
+            player.closeInventory();
         }
-        event.setCancelled(true);
-        player.closeInventory();
     }
 
 }
