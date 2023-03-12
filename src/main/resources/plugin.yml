@@ -1,0 +1,12 @@
+name: GreatUHC
+version: '${project.version}'
+main: io.github.greatericontop.greatuhc.GreatImpostorMain
+api-version: 1.19
+authors: [greateric]
+
+softdepend: [PlaceholderAPI]
+
+commands:
+  impostor:
+    description: GreatImpostor command
+    permission: impostor.command
