@@ -1,6 +1,6 @@
-name: GreatUHC
+name: GreatImpostor
 version: '${project.version}'
-main: io.github.greatericontop.greatuhc.GreatImpostorMain
+main: io.github.greatericontop.greatimpostor.GreatImpostorMain
 api-version: 1.19
 authors: [greateric]
 
