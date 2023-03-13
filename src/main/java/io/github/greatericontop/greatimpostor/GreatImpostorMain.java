@@ -1,5 +1,6 @@
 package io.github.greatericontop.greatimpostor;
 
+import io.github.greatericontop.greatimpostor.task.TaskEmptyTrash;
 import io.github.greatericontop.greatimpostor.task.TaskEnterPassword;
 import io.github.greatericontop.greatimpostor.task.TaskRedirectPower;
 import io.github.greatericontop.greatimpostor.task.TaskWiring;
@@ -9,6 +10,7 @@ public class GreatImpostorMain extends JavaPlugin {
     public TaskWiring taskWiring;
     public TaskRedirectPower taskRedirectPower;
     public TaskEnterPassword taskEnterPassword;
+    public TaskEmptyTrash taskEmptyTrash;
 
     @Override
     public void onEnable() {
@@ -19,6 +21,8 @@ public class GreatImpostorMain extends JavaPlugin {
         this.getServer().getPluginManager().registerEvents(taskRedirectPower, this);
         taskEnterPassword = new TaskEnterPassword();
         this.getServer().getPluginManager().registerEvents(taskEnterPassword, this);
+        taskEmptyTrash = new TaskEmptyTrash(this);
+        this.getServer().getPluginManager().registerEvents(taskEmptyTrash, this);
 
         this.getCommand("impostor").setExecutor(new ImpostorCommand(this));
 
