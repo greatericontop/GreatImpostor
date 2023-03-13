@@ -9,4 +9,5 @@ softdepend: [PlaceholderAPI]
 commands:
   impostor:
     description: GreatImpostor command
+    usage: /impostor <...>
     permission: impostor.command
