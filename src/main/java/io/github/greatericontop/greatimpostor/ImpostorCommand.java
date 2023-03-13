@@ -30,7 +30,11 @@ public class ImpostorCommand implements CommandExecutor {
             plugin.taskRedirectPower.startTask(player);
         }
 
-        return true;
+        if (args[0].equals("taskEnterPassword")) {
+            plugin.taskEnterPassword.startTask(player);
+        }
+
+        return false;
     }
 
 }
