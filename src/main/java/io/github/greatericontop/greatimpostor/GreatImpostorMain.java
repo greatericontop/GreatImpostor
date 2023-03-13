@@ -1,16 +1,20 @@
 package io.github.greatericontop.greatimpostor;
 
+import io.github.greatericontop.greatimpostor.task.TaskRedirectPower;
 import io.github.greatericontop.greatimpostor.task.TaskWiring;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class GreatImpostorMain extends JavaPlugin {
     public TaskWiring taskWiring;
+    public TaskRedirectPower taskRedirectPower;
 
     @Override
     public void onEnable() {
 
         taskWiring = new TaskWiring();
         this.getServer().getPluginManager().registerEvents(taskWiring, this);
+        taskRedirectPower = new TaskRedirectPower();
+        this.getServer().getPluginManager().registerEvents(taskRedirectPower, this);
 
         this.getCommand("impostor").setExecutor(new ImpostorCommand(this));
 

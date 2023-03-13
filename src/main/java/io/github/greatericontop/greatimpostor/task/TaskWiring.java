@@ -71,14 +71,14 @@ public class TaskWiring implements BaseTask {
         if (event.getClickedInventory().getItem(slot).getType() == event.getClickedInventory().getItem(currentSourceSlot).getType()
                 && slot != currentSourceSlot
         ) {
-            playSuccessSound(player);
+            this.playSuccessSound(player);
             event.getClickedInventory().setItem(currentSourceSlot, new ItemStack(Material.GRAY_STAINED_GLASS, 1));
             if (currentSourceSlot == 45) {
                 this.taskSuccessful(player);
                 player.closeInventory();
             }
         } else {
-            playFailSound(player);
+            this.playFailSound(player);
             player.sendMessage("§cYou failed!");
             player.closeInventory();
         }

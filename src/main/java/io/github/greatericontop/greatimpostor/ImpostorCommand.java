@@ -22,8 +22,12 @@ public class ImpostorCommand implements CommandExecutor {
         }
         Player player = (Player) sender;
 
-        if (args[0].equals("task")) {
+        if (args[0].equals("taskWiring")) {
             plugin.taskWiring.startTask(player);
+        }
+
+        if (args[0].equals("taskRedirectPower")) {
+            plugin.taskRedirectPower.startTask(player);
         }
 
         return true;

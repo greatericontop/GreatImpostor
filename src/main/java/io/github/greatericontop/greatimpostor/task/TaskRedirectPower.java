@@ -1,0 +1,98 @@
+package io.github.greatericontop.greatimpostor.task;
+
+import net.kyori.adventure.text.Component;
+import org.bukkit.Bukkit;
+import org.bukkit.Material;
+import org.bukkit.entity.Player;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
+
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Random;
+import java.util.UUID;
+
+public class TaskRedirectPower implements BaseTask {
+    public static final String INVENTORY_NAME = "§aAmong Us - Redirect Power";
+    private static final Material[] MATERIALS = {
+            Material.IRON_INGOT, Material.GOLD_INGOT, Material.EMERALD,
+            Material.REDSTONE, Material.LAPIS_LAZULI, Material.DIAMOND,
+    };
+    private static final String[] MATERIAL_NAMES = {
+            "§f§lIRON", "§6GOLD", "§2EMERALD",
+            "§4REDSTONE", "§9LAPIS", "§bDIAMOND",
+    };
+    private final Map<UUID, Integer> playerItemNumbers = new HashMap<>();
+
+    @Override
+    public boolean canExecute(Player player) {
+        return true;
+    }
+
+    @Override
+    public void startTask(Player player) {
+        Random random = new Random();
+        Inventory gui = Bukkit.createInventory(player, 54, Component.text(INVENTORY_NAME));
+
+        int targetItemNumber = random.nextInt(MATERIALS.length);
+        playerItemNumbers.put(player.getUniqueId(), targetItemNumber);
+
+        for (int i = 0; i < 54; i++) {
+            ItemStack stack = new ItemStack(MATERIALS[random.nextInt(MATERIALS.length)], 1);
+            ItemMeta im = stack.getItemMeta();
+            im.displayName(Component.text(String.format("§eClick on all of the %s§e.", MATERIAL_NAMES[targetItemNumber])));
+            stack.setItemMeta(im);
+            gui.setItem(i, stack);
+        }
+
+        player.openInventory(gui);
+    }
+
+    @EventHandler()
+    public void onInventoryClick(InventoryClickEvent event) {
+        if (!event.getView().getTitle().equals(INVENTORY_NAME)) return;
+        event.setCancelled(true);
+        Player player = (Player) event.getWhoClicked();
+
+        if (event.getCurrentItem() == null)  return;
+        Material clickedMaterial = event.getCurrentItem().getType();
+        Material targetMaterial = MATERIALS[playerItemNumbers.get(player.getUniqueId())];
+        if (clickedMaterial == targetMaterial) {
+            this.playSuccessSound(player);
+            event.getInventory().setItem(event.getSlot(), new ItemStack(Material.AIR, 1));
+            messWithInventory(event.getInventory(), new Random());
+            if (containsNone(event.getInventory(), targetMaterial)) {
+                this.taskSuccessful(player);
+                player.closeInventory();
+            }
+        } else {
+            this.playFailSound(player);
+            player.sendMessage("§cYou clicked on the wrong item! You failed!");
+            player.closeInventory();
+        }
+
+    }
+
+    private boolean containsNone (Inventory inventory, Material material) {
+        for (ItemStack stack : inventory.getContents()) {
+            if (stack != null && stack.getType() == material) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    private void messWithInventory(Inventory inventory, Random random) {
+        for (int i = 0; i < 8; i++) {
+            int x = random.nextInt(54);
+            int y = random.nextInt(54);
+            ItemStack temp = inventory.getItem(x);
+            inventory.setItem(x, inventory.getItem(y));
+            inventory.setItem(y, temp);
+        }
+    }
+
+}
