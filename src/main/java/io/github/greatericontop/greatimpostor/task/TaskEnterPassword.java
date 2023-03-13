@@ -18,7 +18,7 @@ import java.util.Random;
 public class TaskEnterPassword implements BaseTask {
     public static final String INVENTORY_NAME = "§aAmong Us - Enter Password";
     private static final Material[] MATERIALS = {
-            Material.RED_WOOL, Material.BLUE_WOOL, Material.GREEN_WOOL,
+            Material.RED_WOOL, Material.BLUE_WOOL, Material.LIME_WOOL,
             Material.YELLOW_WOOL, Material.WHITE_WOOL
     };
     // top-middle 7 slots to display the correct code
@@ -59,6 +59,18 @@ public class TaskEnterPassword implements BaseTask {
         }
         ItemStack stackFirst = new ItemStack(MATERIALS[password.get(0)], 1);
         gui.setItem(DISPLAY_OFFSET, stackFirst);
+
+        // extra visual padding
+        gui.setItem(0, new ItemStack(Material.NETHER_STAR, 1));
+        gui.setItem(8, new ItemStack(Material.NETHER_STAR, 1));
+        for (int i = 19; i <= 25; i++) {
+            gui.setItem(i, new ItemStack(Material.GRAY_STAINED_GLASS_PANE, 1));
+        }
+        gui.setItem(28, new ItemStack(Material.GRAY_STAINED_GLASS_PANE, 1));
+        gui.setItem(34, new ItemStack(Material.GRAY_STAINED_GLASS_PANE, 1));
+        for (int i = 37; i <= 43; i++) {
+            gui.setItem(i, new ItemStack(Material.GRAY_STAINED_GLASS_PANE, 1));
+        }
 
         player.openInventory(gui);
     }
@@ -105,6 +117,7 @@ public class TaskEnterPassword implements BaseTask {
             if (newDigitCount == 8) { // win, solved the 7 case
                 this.taskSuccessful(player);
                 player.closeInventory();
+                return;
             }
             playerDigitCount.put(player, newDigitCount);
             for (int i = 0; i < newDigitCount; i++) {
