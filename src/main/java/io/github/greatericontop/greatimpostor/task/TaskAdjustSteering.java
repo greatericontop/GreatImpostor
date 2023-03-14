@@ -5,6 +5,7 @@ import io.github.greatericontop.greatimpostor.utils.ImpostorUtil;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
+import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.inventory.InventoryClickEvent;
@@ -96,11 +97,13 @@ public class TaskAdjustSteering implements BaseTask {
         im.displayName(Component.text("§eThis is your current position."));
         currentItemStack.setItemMeta(im);
         inv.setItem(clickLocation, currentItemStack);
-        this.playSuccessSound(player);
 
         if (clickLocation % 9 == 8) {
+            this.playSuccessSound(player);
             this.taskSuccessful(player);
             player.closeInventory();
+        } else {
+            player.playSound(player.getLocation(), Sound.BLOCK_NOTE_BLOCK_PLING, 1.0F, 1.0F);
         }
     }
 

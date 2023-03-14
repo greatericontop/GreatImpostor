@@ -3,6 +3,7 @@ package io.github.greatericontop.greatimpostor.task;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
+import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.inventory.InventoryClickEvent;
@@ -17,6 +18,7 @@ import java.util.Random;
 
 public class TaskEnterPassword implements BaseTask {
     public static final String INVENTORY_NAME = "§aAmong Us - Enter Password";
+    private static final float[] PITCHES = {0.707107F, 0.793701F, 0.890899F, 0.943874F, 1.059463F};
     private static final Material[] MATERIALS = {
             Material.RED_WOOL, Material.BLUE_WOOL, Material.LIME_WOOL,
             Material.YELLOW_WOOL, Material.WHITE_WOOL
@@ -101,10 +103,10 @@ public class TaskEnterPassword implements BaseTask {
             }
         }
 
+        player.playSound(player.getLocation(), Sound.BLOCK_NOTE_BLOCK_PLING, 1.0F, PITCHES[indexClicked]);
+
         // Check correctness
-        if (indexClicked == playerPasswordMap.get(player).get(currentDigitIndex)) {
-            this.playSuccessSound(player);
-        } else {
+        if (indexClicked != playerPasswordMap.get(player).get(currentDigitIndex)) {
             this.playFailSound(player);
             player.sendMessage("§cIncorrect password!");
             player.closeInventory();
@@ -113,6 +115,7 @@ public class TaskEnterPassword implements BaseTask {
 
         // Check for "win" condition
         if (currentDigitIndex == playerDigitCount.get(player) - 1) {
+            this.playSuccessSound(player);
             int newDigitCount = playerDigitCount.get(player) + 1;
             if (newDigitCount == 8) { // win, solved the 7 case
                 this.taskSuccessful(player);
