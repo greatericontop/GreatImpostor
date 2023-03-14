@@ -54,6 +54,10 @@ public class ImpostorCommand implements CommandExecutor {
             plugin.taskClearAsteroids.startTask(player);
             return true;
         }
+        if (args[0].equals("taskStartReactor")) {
+            plugin.taskStartReactor.startTask(player);
+            return true;
+        }
 
         return false;
     }

@@ -7,6 +7,7 @@ import io.github.greatericontop.greatimpostor.task.TaskClearAsteroids;
 import io.github.greatericontop.greatimpostor.task.TaskEmptyTrash;
 import io.github.greatericontop.greatimpostor.task.TaskEnterPassword;
 import io.github.greatericontop.greatimpostor.task.TaskRedirectPower;
+import io.github.greatericontop.greatimpostor.task.TaskStartReactor;
 import io.github.greatericontop.greatimpostor.task.TaskWiring;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -19,6 +20,7 @@ public class GreatImpostorMain extends JavaPlugin {
     public TaskAcceptPower taskAcceptPower;
     public TaskCleanOxygenFilter taskCleanOxygenFilter;
     public TaskClearAsteroids taskClearAsteroids;
+    public TaskStartReactor taskStartReactor;
 
     @Override
     public void onEnable() {
@@ -39,6 +41,8 @@ public class GreatImpostorMain extends JavaPlugin {
         this.getServer().getPluginManager().registerEvents(taskCleanOxygenFilter, this);
         taskClearAsteroids = new TaskClearAsteroids();
         this.getServer().getPluginManager().registerEvents(taskClearAsteroids, this);
+        taskStartReactor = new TaskStartReactor();
+        this.getServer().getPluginManager().registerEvents(taskStartReactor, this);
 
         this.getCommand("impostor").setExecutor(new ImpostorCommand(this));
 
