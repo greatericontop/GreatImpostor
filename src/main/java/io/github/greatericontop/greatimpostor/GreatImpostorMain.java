@@ -4,6 +4,7 @@ import io.github.greatericontop.greatimpostor.task.TaskAcceptPower;
 import io.github.greatericontop.greatimpostor.task.TaskAdjustSteering;
 import io.github.greatericontop.greatimpostor.task.TaskCleanOxygenFilter;
 import io.github.greatericontop.greatimpostor.task.TaskClearAsteroids;
+import io.github.greatericontop.greatimpostor.task.TaskDownloadData;
 import io.github.greatericontop.greatimpostor.task.TaskEmptyTrash;
 import io.github.greatericontop.greatimpostor.task.TaskEnterPassword;
 import io.github.greatericontop.greatimpostor.task.TaskRedirectPower;
@@ -23,6 +24,7 @@ public class GreatImpostorMain extends JavaPlugin {
     public TaskClearAsteroids taskClearAsteroids;
     public TaskStartReactor taskStartReactor;
     public TaskStabilizeNavigation taskStabilizeNavigation;
+    public TaskDownloadData taskDownloadData;
 
     @Override
     public void onEnable() {
@@ -47,6 +49,8 @@ public class GreatImpostorMain extends JavaPlugin {
         this.getServer().getPluginManager().registerEvents(taskStartReactor, this);
         taskStabilizeNavigation = new TaskStabilizeNavigation();
         this.getServer().getPluginManager().registerEvents(taskStabilizeNavigation, this);
+        taskDownloadData = new TaskDownloadData(this);
+        this.getServer().getPluginManager().registerEvents(taskDownloadData, this);
 
         this.getCommand("impostor").setExecutor(new ImpostorCommand(this));
 
