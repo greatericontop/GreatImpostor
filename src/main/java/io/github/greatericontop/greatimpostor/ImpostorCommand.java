@@ -46,6 +46,10 @@ public class ImpostorCommand implements CommandExecutor {
             plugin.taskAcceptPower.startTask(player);
             return true;
         }
+        if (args[0].equals("taskCleanOxygenFilter")) {
+            plugin.taskCleanOxygenFilter.startTask(player);
+            return true;
+        }
 
         return false;
     }
