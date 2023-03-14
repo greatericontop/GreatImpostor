@@ -1,5 +1,6 @@
 package io.github.greatericontop.greatimpostor.task;
 
+import io.github.greatericontop.greatimpostor.GreatImpostorMain;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
@@ -10,6 +11,7 @@ import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -30,6 +32,12 @@ public class TaskEnterPassword implements BaseTask {
     private final Map<Player, ArrayList<Integer>> playerPasswordMap = new HashMap<>();
     // e.g. playerDigitCount=2 means second digit (index < 2)
     private final Map<Player, Integer> playerDigitCount = new HashMap<>();
+    private final Map<Player, Boolean> cooldown = new HashMap<>();
+
+    private final GreatImpostorMain plugin;
+    public TaskEnterPassword(GreatImpostorMain plugin) {
+        this.plugin = plugin;
+    }
 
     @Override
     public boolean canExecute(Player player) {
@@ -91,6 +99,18 @@ public class TaskEnterPassword implements BaseTask {
         int indexClicked = event.getSlot() - KEY_OFFSET;
         if (indexClicked < 0 || indexClicked >= 5)  return;
         Inventory inv = event.getInventory();
+
+        // cooldown
+        if (cooldown.getOrDefault(player, false)) {
+            player.sendMessage("§cClicking too fast!");
+            return;
+        }
+        cooldown.put(player, true);
+        new BukkitRunnable() {
+            public void run() {
+                cooldown.put(player, false);
+            }
+        }.runTaskLater(plugin, 3L);
 
         // Check what digit of the password we're on (scan the top row)
         int currentDigitIndex = -1;

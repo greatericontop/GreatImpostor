@@ -31,7 +31,7 @@ public class GreatImpostorMain extends JavaPlugin {
         this.getServer().getPluginManager().registerEvents(taskWiring, this);
         taskRedirectPower = new TaskRedirectPower();
         this.getServer().getPluginManager().registerEvents(taskRedirectPower, this);
-        taskEnterPassword = new TaskEnterPassword();
+        taskEnterPassword = new TaskEnterPassword(this);
         this.getServer().getPluginManager().registerEvents(taskEnterPassword, this);
         taskEmptyTrash = new TaskEmptyTrash(this);
         this.getServer().getPluginManager().registerEvents(taskEmptyTrash, this);
