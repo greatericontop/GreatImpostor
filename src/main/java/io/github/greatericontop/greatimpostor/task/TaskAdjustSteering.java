@@ -1,6 +1,7 @@
 package io.github.greatericontop.greatimpostor.task;
 
 import io.github.greatericontop.greatimpostor.GreatImpostorMain;
+import io.github.greatericontop.greatimpostor.utils.ImpostorUtil;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
@@ -81,11 +82,7 @@ public class TaskAdjustSteering implements BaseTask {
                 return;
             }
         } else {
-            if (clickLocation != lastKnownLocation + 1
-                    && clickLocation != lastKnownLocation - 1
-                    && clickLocation != lastKnownLocation + 9
-                    && clickLocation != lastKnownLocation - 9
-            ) {
+            if (!ImpostorUtil.checkOrthoInvSlots(clickLocation, lastKnownLocation)) {
                 this.playFailSound(player);
                 return;
             }

@@ -1,0 +1,109 @@
+package io.github.greatericontop.greatimpostor.task;
+
+import io.github.greatericontop.greatimpostor.utils.ImpostorUtil;
+import net.kyori.adventure.text.Component;
+import org.bukkit.Bukkit;
+import org.bukkit.Material;
+import org.bukkit.enchantments.Enchantment;
+import org.bukkit.entity.Player;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
+
+import java.util.Random;
+
+public class TaskStabilizeNavigation implements BaseTask {
+    public static final String INVENTORY_NAME = "§aAmong Us - Stabilize Navigation";
+    private static final int MIDDLE = 22;
+    private static final int[] dInv = {-1, 1, -9, 9};
+
+    @Override
+    public boolean canExecute(Player player) {
+        return true;
+    }
+
+    @Override
+    public void startTask(Player player) {
+        Random random = new Random();
+        Inventory gui = Bukkit.createInventory(player, 45, Component.text(INVENTORY_NAME));
+
+        int startingPos;
+        do {
+            startingPos = random.nextInt(45);
+        } while (startingPos == MIDDLE || startingPos == MIDDLE+1 || startingPos == MIDDLE-1 || startingPos == MIDDLE+9 || startingPos == MIDDLE-9);
+
+        gui.setItem(startingPos, currentBlockItemStack());
+        for (int d : dInv) {
+            int slot = startingPos + d;
+            if (slot >= 0 && slot < 45 && ImpostorUtil.checkOrthoInvSlots(startingPos, slot)) {
+                gui.setItem(slot, moveItemStack());
+            }
+        }
+        gui.setItem(MIDDLE, targetBlockItemStack());
+
+        player.openInventory(gui);
+    }
+
+    @EventHandler()
+    public void onInventoryClick(InventoryClickEvent event) {
+        if (!event.getView().getTitle().equals(INVENTORY_NAME)) return;
+        event.setCancelled(true);
+        Player player = (Player) event.getWhoClicked();
+
+        int clickedOn = event.getSlot();
+        int currentLocation = event.getInventory().first(Material.WHITE_WOOL);
+
+        if (!ImpostorUtil.checkOrthoInvSlots(currentLocation, clickedOn)) {
+            this.playFailSound(player);
+            return;
+        }
+
+        if (clickedOn == MIDDLE) {
+            this.playSuccessSound(player);
+            this.taskSuccessful(player);
+            player.closeInventory();
+            return;
+        }
+
+        // redraw the entire inventory, drawing the target last (to avoid overwriting)
+        Inventory gui = event.getInventory();
+        gui.clear();
+        gui.setItem(clickedOn, currentBlockItemStack());
+        for (int d : dInv) {
+            int slot = clickedOn + d;
+            if (slot >= 0 && slot < 45 && ImpostorUtil.checkOrthoInvSlots(clickedOn, slot)) {
+                gui.setItem(slot, moveItemStack());
+            }
+        }
+        gui.setItem(MIDDLE, targetBlockItemStack());
+    }
+
+    private ItemStack targetBlockItemStack() {
+        ItemStack stack = new ItemStack(Material.TARGET, 1);
+        ItemMeta im = stack.getItemMeta();
+        im.addEnchant(Enchantment.LUCK, 1, true);
+        im.displayName(Component.text("§eGet the target here."));
+        stack.setItemMeta(im);
+        return stack;
+    }
+
+    private ItemStack currentBlockItemStack() {
+        ItemStack stack = new ItemStack(Material.WHITE_WOOL, 1);
+        ItemMeta im = stack.getItemMeta();
+        im.addEnchant(Enchantment.LUCK, 1, true);
+        im.displayName(Component.text("§eThe ship is currently set here."));
+        stack.setItemMeta(im);
+        return stack;
+    }
+
+    private ItemStack moveItemStack() {
+        ItemStack stack = new ItemStack(Material.WHITE_STAINED_GLASS_PANE, 1);
+        ItemMeta im = stack.getItemMeta();
+        im.displayName(Component.text("§7Click"));
+        stack.setItemMeta(im);
+        return stack;
+    }
+
+}

@@ -58,6 +58,10 @@ public class ImpostorCommand implements CommandExecutor {
             plugin.taskStartReactor.startTask(player);
             return true;
         }
+        if (args[0].equals("taskStabilizeNavigation")) {
+            plugin.taskStabilizeNavigation.startTask(player);
+            return true;
+        }
 
         return false;
     }
