@@ -1,5 +1,6 @@
 package io.github.greatericontop.greatimpostor;
 
+import io.github.greatericontop.greatimpostor.task.TaskAcceptPower;
 import io.github.greatericontop.greatimpostor.task.TaskAdjustSteering;
 import io.github.greatericontop.greatimpostor.task.TaskEmptyTrash;
 import io.github.greatericontop.greatimpostor.task.TaskEnterPassword;
@@ -13,6 +14,7 @@ public class GreatImpostorMain extends JavaPlugin {
     public TaskEnterPassword taskEnterPassword;
     public TaskEmptyTrash taskEmptyTrash;
     public TaskAdjustSteering taskAdjustSteering;
+    public TaskAcceptPower taskAcceptPower;
 
     @Override
     public void onEnable() {
@@ -27,6 +29,8 @@ public class GreatImpostorMain extends JavaPlugin {
         this.getServer().getPluginManager().registerEvents(taskEmptyTrash, this);
         taskAdjustSteering = new TaskAdjustSteering(this);
         this.getServer().getPluginManager().registerEvents(taskAdjustSteering, this);
+        taskAcceptPower = new TaskAcceptPower();
+        this.getServer().getPluginManager().registerEvents(taskAcceptPower, this);
 
         this.getCommand("impostor").setExecutor(new ImpostorCommand(this));
 

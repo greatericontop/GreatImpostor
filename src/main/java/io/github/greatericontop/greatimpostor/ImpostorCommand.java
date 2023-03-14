@@ -42,6 +42,10 @@ public class ImpostorCommand implements CommandExecutor {
             plugin.taskAdjustSteering.startTask(player);
             return true;
         }
+        if (args[0].equals("taskAcceptPower")) {
+            plugin.taskAcceptPower.startTask(player);
+            return true;
+        }
 
         return false;
     }
