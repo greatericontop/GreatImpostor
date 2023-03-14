@@ -102,7 +102,6 @@ public class TaskAdjustSteering implements BaseTask {
         this.playSuccessSound(player);
 
         if (clickLocation % 9 == 8) {
-            player.closeInventory();
             this.taskSuccessful(player);
             player.closeInventory();
         }
