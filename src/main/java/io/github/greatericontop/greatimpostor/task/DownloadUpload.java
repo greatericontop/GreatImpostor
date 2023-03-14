@@ -5,6 +5,7 @@ import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.Sound;
+import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.Inventory;
@@ -28,6 +29,7 @@ public abstract class DownloadUpload implements BaseTask {
 
         ItemStack stack = new ItemStack(Material.MUSIC_DISC_PIGSTEP, 1);
         ItemMeta im = stack.getItemMeta();
+        im.addEnchant(Enchantment.LUCK, 1, true);
         im.displayName(Component.text(startingMessage));
         stack.setItemMeta(im);
         gui.setItem(MIDDLE, stack);
