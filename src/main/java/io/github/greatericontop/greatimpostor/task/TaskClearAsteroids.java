@@ -1,0 +1,63 @@
+package io.github.greatericontop.greatimpostor.task;
+
+import net.kyori.adventure.text.Component;
+import org.bukkit.Bukkit;
+import org.bukkit.Material;
+import org.bukkit.entity.Player;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.ItemStack;
+
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Random;
+import java.util.UUID;
+
+public class TaskClearAsteroids implements BaseTask {
+    public static final String INVENTORY_NAME = "§aAmong Us - Clear Asteroids";
+
+    private final Map<UUID, Integer> score = new HashMap<>();
+    private final Random random = new Random();
+
+    @Override
+    public boolean canExecute(Player player) {
+        return true;
+    }
+
+    @Override
+    public void startTask(Player player) {
+        Inventory gui = Bukkit.createInventory(player, 54, Component.text(INVENTORY_NAME));
+
+        for (int i = 0; i < 5; i++) {
+            int slot = random.nextInt(54); // repeats possible but we don't care
+            gui.setItem(slot, new ItemStack(Material.BEDROCK, 1));
+        }
+
+        score.put(player.getUniqueId(), 0);
+
+        player.openInventory(gui);
+    }
+
+    @EventHandler()
+    public void onInventoryClick(InventoryClickEvent event) {
+        if (!event.getView().getTitle().equals(INVENTORY_NAME)) return;
+        event.setCancelled(true);
+        Player player = (Player) event.getWhoClicked();
+
+        ItemStack clickedOn = event.getCurrentItem();
+        if (clickedOn != null && clickedOn.getType() == Material.BEDROCK) {
+            event.getInventory().setItem(event.getSlot(), null);
+            int newSlot = random.nextInt(54);
+            event.getInventory().setItem(newSlot, new ItemStack(Material.BEDROCK, 1));
+            score.put(player.getUniqueId(), score.get(player.getUniqueId()) + 1);
+            this.playSuccessSound(player);
+            if (score.get(player.getUniqueId()) >= 20) {
+                this.taskSuccessful(player);
+                player.closeInventory();
+            }
+        }
+
+    }
+
+}

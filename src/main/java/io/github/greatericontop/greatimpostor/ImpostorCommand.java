@@ -50,6 +50,10 @@ public class ImpostorCommand implements CommandExecutor {
             plugin.taskCleanOxygenFilter.startTask(player);
             return true;
         }
+        if (args[0].equals("taskClearAsteroids")) {
+            plugin.taskClearAsteroids.startTask(player);
+            return true;
+        }
 
         return false;
     }
