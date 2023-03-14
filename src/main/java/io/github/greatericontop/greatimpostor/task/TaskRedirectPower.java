@@ -62,7 +62,7 @@ public class TaskRedirectPower implements BaseTask {
         Material targetMaterial = MATERIALS[playerItemNumbers.get(player.getUniqueId())];
         if (clickedMaterial == targetMaterial) {
             this.playSuccessSound(player);
-            event.getInventory().setItem(event.getSlot(), new ItemStack(Material.AIR, 1));
+            event.getInventory().setItem(event.getSlot(), null);
             messWithInventory(event.getInventory(), new Random());
             if (containsNone(event.getInventory(), targetMaterial)) {
                 this.taskSuccessful(player);
