@@ -9,6 +9,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -34,7 +35,11 @@ public class TaskStartReactor implements BaseTask {
         Shuffler.shuffle(inventorySlots, random);
         for (int i = 0; i < 14; i++) {
             Material mat = inventorySlots[i] % 2 == 0 ? Material.BLUE_STAINED_GLASS_PANE : Material.LIGHT_BLUE_STAINED_GLASS_PANE;
-            gui.setItem(inventorySlots[i], new ItemStack(mat, i+1));
+            ItemStack stack = new ItemStack(mat, i+1);
+            ItemMeta im = stack.getItemMeta();
+            im.displayName(Component.text(String.format("§e%d", i+1)));
+            stack.setItemMeta(im);
+            gui.setItem(inventorySlots[i], stack);
         }
         currentNumber.put(player.getUniqueId(), 1);
 
