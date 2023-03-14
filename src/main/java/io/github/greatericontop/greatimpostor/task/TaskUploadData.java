@@ -5,11 +5,11 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.inventory.InventoryClickEvent;
 
-public class TaskDownloadData extends DownloadUpload {
-    public static final String INVENTORY_NAME = "§aAmong Us - Download Data";
+public class TaskUploadData extends DownloadUpload {
+    public static final String INVENTORY_NAME = "§aAmong Us - Upload Data";
 
     private final GreatImpostorMain plugin;
-    public TaskDownloadData(GreatImpostorMain plugin) {
+    public TaskUploadData(GreatImpostorMain plugin) {
         this.plugin = plugin;
     }
 
@@ -20,7 +20,7 @@ public class TaskDownloadData extends DownloadUpload {
 
     @Override
     public void startTask(Player player) {
-        super.startTask(player, INVENTORY_NAME, "§eClick to start downloading the data.");
+        super.startTask(player, INVENTORY_NAME, "§eClick to start uploading the data.");
     }
 
     @EventHandler()

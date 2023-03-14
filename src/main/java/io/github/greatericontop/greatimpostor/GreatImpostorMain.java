@@ -10,6 +10,7 @@ import io.github.greatericontop.greatimpostor.task.TaskEnterPassword;
 import io.github.greatericontop.greatimpostor.task.TaskRedirectPower;
 import io.github.greatericontop.greatimpostor.task.TaskStabilizeNavigation;
 import io.github.greatericontop.greatimpostor.task.TaskStartReactor;
+import io.github.greatericontop.greatimpostor.task.TaskUploadData;
 import io.github.greatericontop.greatimpostor.task.TaskWiring;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -25,6 +26,7 @@ public class GreatImpostorMain extends JavaPlugin {
     public TaskStartReactor taskStartReactor;
     public TaskStabilizeNavigation taskStabilizeNavigation;
     public TaskDownloadData taskDownloadData;
+    public TaskUploadData taskUploadData;
 
     @Override
     public void onEnable() {
@@ -51,6 +53,8 @@ public class GreatImpostorMain extends JavaPlugin {
         this.getServer().getPluginManager().registerEvents(taskStabilizeNavigation, this);
         taskDownloadData = new TaskDownloadData(this);
         this.getServer().getPluginManager().registerEvents(taskDownloadData, this);
+        taskUploadData = new TaskUploadData(this);
+        this.getServer().getPluginManager().registerEvents(taskUploadData, this);
 
         this.getCommand("impostor").setExecutor(new ImpostorCommand(this));
 
