@@ -4,8 +4,8 @@ public class TaskUtil {
 
     public static TaskType[] INITIAL_TASKS = {
             TaskType.WIRING,
-            TaskType.REDIRECT_POWER,
-            TaskType.UPLOAD_DATA,
+            TaskType.REDIRECT_ACCEPT_POWER,
+            TaskType.DOWNLOAD_UPLOAD_DATA,
     };
 
 }
