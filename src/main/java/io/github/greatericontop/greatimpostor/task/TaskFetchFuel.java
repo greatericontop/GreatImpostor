@@ -5,6 +5,7 @@ import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.Sound;
+import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.inventory.InventoryClickEvent;
@@ -42,6 +43,7 @@ public class TaskFetchFuel implements BaseTask {
         }
         ItemStack stack = new ItemStack(Material.CHARCOAL, 1);
         ItemMeta im = stack.getItemMeta();
+        im.addEnchant(Enchantment.LUCK, 1, true);
         im.displayName(Component.text("§eClick to fill up the fuel canister!"));
         stack.setItemMeta(im);
         gui.setItem(BUTTON_SLOT, stack);
