@@ -63,14 +63,14 @@ public class TaskEmptyTrash implements BaseTask {
         new BukkitRunnable() {
             int loopNum = 0;
             public void run() {
+                if (event.getViewers().isEmpty()) {
+                    TaskEmptyTrash.this.playFailSound(player);
+                    player.sendMessage("§cYou closed the inventory!");
+                    this.cancel();
+                    return;
+                }
                 int rowStart = loopNum * 9;
                 if (rowStart == 54) {
-                    if (event.getViewers().isEmpty()) {
-                        TaskEmptyTrash.this.playFailSound(player);
-                        player.sendMessage("§cYou closed the inventory!");
-                        this.cancel();
-                        return;
-                    }
                     TaskEmptyTrash.this.playSuccessSound(player);
                     TaskEmptyTrash.this.taskSuccessful(player);
                     player.closeInventory();
