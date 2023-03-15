@@ -78,6 +78,10 @@ public class ImpostorCommand implements CommandExecutor {
             plugin.taskFetchFuel.startTask(player);
             return true;
         }
+        if (args[0].equals("taskFuelEngines")) {
+            plugin.taskFuelEngines.startTask(player);
+            return true;
+        }
 
         return false;
     }
