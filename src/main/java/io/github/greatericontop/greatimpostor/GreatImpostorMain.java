@@ -8,6 +8,7 @@ import io.github.greatericontop.greatimpostor.task.TaskClearAsteroids;
 import io.github.greatericontop.greatimpostor.task.TaskDownloadData;
 import io.github.greatericontop.greatimpostor.task.TaskEmptyTrash;
 import io.github.greatericontop.greatimpostor.task.TaskEnterPassword;
+import io.github.greatericontop.greatimpostor.task.TaskFetchFuel;
 import io.github.greatericontop.greatimpostor.task.TaskRedirectPower;
 import io.github.greatericontop.greatimpostor.task.TaskStabilizeNavigation;
 import io.github.greatericontop.greatimpostor.task.TaskStartReactor;
@@ -31,6 +32,7 @@ public class GreatImpostorMain extends JavaPlugin {
     public TaskDownloadData taskDownloadData;
     public TaskUploadData taskUploadData;
     public SwipeCard taskSwipeCard;
+    public TaskFetchFuel taskFetchFuel;
 
     private int clock;
     public int getClock() {
@@ -66,6 +68,8 @@ public class GreatImpostorMain extends JavaPlugin {
         this.getServer().getPluginManager().registerEvents(taskUploadData, this);
         taskSwipeCard = new SwipeCard(this);
         this.getServer().getPluginManager().registerEvents(taskSwipeCard, this);
+        taskFetchFuel = new TaskFetchFuel(this);
+        this.getServer().getPluginManager().registerEvents(taskFetchFuel, this);
 
         this.getCommand("impostor").setExecutor(new ImpostorCommand(this));
 

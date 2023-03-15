@@ -74,6 +74,10 @@ public class ImpostorCommand implements CommandExecutor {
             plugin.taskSwipeCard.startTask(player);
             return true;
         }
+        if (args[0].equals("taskFetchFuel")) {
+            plugin.taskFetchFuel.startTask(player);
+            return true;
+        }
 
         return false;
     }
