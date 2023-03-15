@@ -81,16 +81,15 @@ public class SwipeCard implements BaseTask {
             // consistency: find total deviation for itself
             double mean = (deltas[0] + deltas[1] + deltas[2] + deltas[3] + deltas[4] + deltas[5]) / 6.0;
             double consistency = Math.sqrt(getVariance(deltas, mean));
-
             double score = accuracy + CONSISTENCY_FACTOR*consistency;
-
             player.sendMessage(String.format("§7accuracy §e%.2f §7consistency §e%.2f §7(mean %.2f)  §7|  SCORE: §c%.2f", accuracy, consistency, mean, score));
-
             if (score < 5.00) {
                 this.playSuccessSound(player);
                 this.taskSuccessful(player);
+                player.closeInventory();
             } else {
                 this.playFailSound(player);
+                player.closeInventory();
                 player.sendMessage("§cCouldn't read the card! Try again!");
                 if (mean >= 5.7) {
                     player.sendMessage("§cYou were too slow!");
