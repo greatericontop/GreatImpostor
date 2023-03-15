@@ -1,5 +1,6 @@
 package io.github.greatericontop.greatimpostor;
 
+import io.github.greatericontop.greatimpostor.task.SwipeCard;
 import io.github.greatericontop.greatimpostor.task.TaskAcceptPower;
 import io.github.greatericontop.greatimpostor.task.TaskAdjustSteering;
 import io.github.greatericontop.greatimpostor.task.TaskCleanOxygenFilter;
@@ -13,8 +14,10 @@ import io.github.greatericontop.greatimpostor.task.TaskStartReactor;
 import io.github.greatericontop.greatimpostor.task.TaskUploadData;
 import io.github.greatericontop.greatimpostor.task.TaskWiring;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.scheduler.BukkitRunnable;
 
 public class GreatImpostorMain extends JavaPlugin {
+
     public TaskWiring taskWiring;
     public TaskRedirectPower taskRedirectPower;
     public TaskEnterPassword taskEnterPassword;
@@ -27,6 +30,12 @@ public class GreatImpostorMain extends JavaPlugin {
     public TaskStabilizeNavigation taskStabilizeNavigation;
     public TaskDownloadData taskDownloadData;
     public TaskUploadData taskUploadData;
+    public SwipeCard taskSwipeCard;
+
+    private int clock;
+    public int getClock() {
+        return clock;
+    }
 
     @Override
     public void onEnable() {
@@ -55,8 +64,18 @@ public class GreatImpostorMain extends JavaPlugin {
         this.getServer().getPluginManager().registerEvents(taskDownloadData, this);
         taskUploadData = new TaskUploadData(this);
         this.getServer().getPluginManager().registerEvents(taskUploadData, this);
+        taskSwipeCard = new SwipeCard(this);
+        this.getServer().getPluginManager().registerEvents(taskSwipeCard, this);
 
         this.getCommand("impostor").setExecutor(new ImpostorCommand(this));
+
+        clock = 1;
+        new BukkitRunnable() {
+            @Override
+            public void run() {
+                clock++;
+            }
+        }.runTaskTimer(this, 1L, 1L);
 
         this.getLogger().info("GreatImpostor finished setting up!");
     }
