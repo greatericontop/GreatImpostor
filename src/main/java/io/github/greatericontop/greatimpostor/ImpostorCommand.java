@@ -1,5 +1,6 @@
 package io.github.greatericontop.greatimpostor;
 
+import io.github.greatericontop.greatimpostor.core.CrewmateProfile;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -80,6 +81,13 @@ public class ImpostorCommand implements CommandExecutor {
         }
         if (args[0].equals("taskFuelEngines")) {
             plugin.taskFuelEngines.startTask(player);
+            return true;
+        }
+
+        if (args[0].equals("testCrewmate1")) {
+            CrewmateProfile c = new CrewmateProfile(player);
+            c.setInitialTasks();
+            c.setInventory();
             return true;
         }
 
