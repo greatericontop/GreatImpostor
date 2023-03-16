@@ -1,6 +1,7 @@
 package io.github.greatericontop.greatimpostor;
 
 import io.github.greatericontop.greatimpostor.core.PlayerProfile;
+import io.github.greatericontop.greatimpostor.task.SignListener;
 import io.github.greatericontop.greatimpostor.task.SwipeCard;
 import io.github.greatericontop.greatimpostor.task.TaskAcceptPower;
 import io.github.greatericontop.greatimpostor.task.TaskAdjustSteering;
@@ -50,6 +51,8 @@ public class GreatImpostorMain extends JavaPlugin {
 
     @Override
     public void onEnable() {
+
+        this.getServer().getPluginManager().registerEvents(new SignListener(this), this);
 
         taskWiring = new TaskWiring();
         this.getServer().getPluginManager().registerEvents(taskWiring, this);

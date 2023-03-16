@@ -2,10 +2,15 @@ package io.github.greatericontop.greatimpostor;
 
 import io.github.greatericontop.greatimpostor.core.CrewmateProfile;
 import io.github.greatericontop.greatimpostor.core.ImpostorProfile;
+import io.github.greatericontop.greatimpostor.task.SignListener;
+import org.bukkit.Material;
+import org.bukkit.block.Block;
+import org.bukkit.block.Sign;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.bukkit.persistence.PersistentDataType;
 
 public class ImpostorCommand implements CommandExecutor {
 
@@ -105,6 +110,18 @@ public class ImpostorCommand implements CommandExecutor {
             imp.setInitialTasks();
             imp.setInventory();
             plugin.playerProfiles.put(player.getUniqueId(), imp);
+            return true;
+        }
+
+        if (args[0].equals("setSign")) {
+            Block lookingAt = player.getTargetBlock(10);
+            if (lookingAt == null || (lookingAt.getType() != Material.OAK_WALL_SIGN && lookingAt.getType() != Material.OAK_SIGN)) {
+                player.sendMessage("§cYou must be looking at a sign!");
+                return true;
+            }
+            Sign sign = (Sign) lookingAt.getState(false); // get real state as we're going to modify it
+            sign.getPersistentDataContainer().set(SignListener.TASK_SIGN_KEY, PersistentDataType.STRING, args[1]);
+            player.sendMessage("§aSet your sign to be: " + args[1]);
             return true;
         }
 
