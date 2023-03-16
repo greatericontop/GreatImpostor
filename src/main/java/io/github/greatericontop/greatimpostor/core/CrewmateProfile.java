@@ -9,6 +9,10 @@ public class CrewmateProfile extends PlayerProfile {
         super(player);
     }
 
+    public boolean isImpostor() {
+        return false;
+    }
+
     public void setInventory() {
         Inventory inv = this.getPlayer().getInventory();
         inv.clear();

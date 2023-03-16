@@ -68,6 +68,8 @@ public abstract class PlayerProfile {
         tasks.set(i, nextSubtask);
     }
 
+    public abstract boolean isImpostor();
+
     public abstract void setInventory();
 
 }

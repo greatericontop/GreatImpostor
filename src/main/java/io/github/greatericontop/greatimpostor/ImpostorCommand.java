@@ -1,6 +1,7 @@
 package io.github.greatericontop.greatimpostor;
 
 import io.github.greatericontop.greatimpostor.core.CrewmateProfile;
+import io.github.greatericontop.greatimpostor.core.ImpostorProfile;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -96,6 +97,14 @@ public class ImpostorCommand implements CommandExecutor {
             CrewmateProfile c = (CrewmateProfile) plugin.playerProfiles.get(player.getUniqueId());
             c.processSubtaskCompleted(Integer.parseInt(args[1]));
             c.setInventory();
+            return true;
+        }
+
+        if (args[0].equals("testImpostor1")) {
+            ImpostorProfile imp = new ImpostorProfile(player);
+            imp.setInitialTasks();
+            imp.setInventory();
+            plugin.playerProfiles.put(player.getUniqueId(), imp);
             return true;
         }
 
