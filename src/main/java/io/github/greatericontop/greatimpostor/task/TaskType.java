@@ -68,6 +68,31 @@ public enum TaskType {
         }
     },
 
+    FUEL_ENGINES(
+            4,
+            Subtask.FUEL_ENGINES_UPPER,
+            Subtask.FUEL_ENGINES_LOWER
+    ) {
+        @Override
+        public Subtask[] getPossibleNextSubtasks(int numberSubtasksAlreadyCompleted) {
+            if (numberSubtasksAlreadyCompleted == 0) {
+                return new Subtask[] {Subtask.FETCH_FUEL};
+            } else if (numberSubtasksAlreadyCompleted == 1) {
+                return new Subtask[] {Subtask.FUEL_ENGINES_LOWER};
+            } else if (numberSubtasksAlreadyCompleted == 2) {
+                return new Subtask[] {Subtask.FETCH_FUEL};
+            } else {
+                return new Subtask[] {Subtask.FUEL_ENGINES_UPPER};
+            }
+        }
+        @Override
+        public boolean doAlreadyCompletedCheck() {
+            return false;
+        }
+    }
+
+    // TODO: only a few added for now; add the rest of these
+
     ;
 
     private final int requiredSubtaskCount;
@@ -87,6 +112,10 @@ public enum TaskType {
 
     public Subtask[] getPossibleNextSubtasks(int numberSubtasksAlreadyCompleted) {
         return subtasks; // Default implementation - some tasks require specific subtasks
+    }
+
+    public boolean doAlreadyCompletedCheck() {
+        return true; // Default implementation - some tasks have repeating, pre-determined steps
     }
 
 }

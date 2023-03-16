@@ -35,6 +35,11 @@ public enum Subtask {
 
     UPLOAD_DATA("DOWNLOAD_UPLOAD_DATA", "§eAdmin: Upload Data"),
 
+    FETCH_FUEL("FUEL_ENGINES", "§eStorage: Fetch Fuel"),
+
+    FUEL_ENGINES_UPPER("FUEL_ENGINES", "§eUpper Engine: Fuel Engine"),
+    FUEL_ENGINES_LOWER("FUEL_ENGINES", "§eLower Engine: Fuel Engine"),
+
     ;
 
     private final String fullTask;

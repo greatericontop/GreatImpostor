@@ -7,6 +7,7 @@ public class TaskUtil {
             TaskType.WIRING,
             TaskType.REDIRECT_ACCEPT_POWER,
             TaskType.DOWNLOAD_UPLOAD_DATA,
+            TaskType.FUEL_ENGINES,
     };
 
 }

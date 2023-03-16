@@ -55,15 +55,16 @@ public abstract class PlayerProfile {
     public void processSubtaskCompleted(int i) {
         subtasksCompletedPerTask[i]++;
         tasksAlreadyCompleted.add(tasks.get(i));
-        if (subtasksCompletedPerTask[i] >= tasks.get(i).getFullTask().getRequiredSubtaskCount()) {
+        TaskType fullTask = tasks.get(i).getFullTask();
+        if (subtasksCompletedPerTask[i] >= fullTask.getRequiredSubtaskCount()) {
             // This will simply show a green piece of glass with the last task shown as completed.
             return;
         }
-        Subtask[] possibleNextSubtasks = tasks.get(i).getFullTask().getPossibleNextSubtasks(subtasksCompletedPerTask[i]);
+        Subtask[] possibleNextSubtasks = fullTask.getPossibleNextSubtasks(subtasksCompletedPerTask[i]);
         Subtask nextSubtask;
         do {
             nextSubtask = possibleNextSubtasks[random.nextInt(possibleNextSubtasks.length)];
-        } while (tasksAlreadyCompleted.contains(nextSubtask));
+        } while (fullTask.doAlreadyCompletedCheck() && tasksAlreadyCompleted.contains(nextSubtask));
         tasks.set(i, nextSubtask);
     }
 
