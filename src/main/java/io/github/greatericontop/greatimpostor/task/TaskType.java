@@ -70,18 +70,18 @@ public enum TaskType {
 
     ;
 
-    private final int totalSubtaskCount;
+    private final int requiredSubtaskCount;
     private final Subtask[] subtasks;
 
-    public int getTotalSubtaskCount() {
-        return totalSubtaskCount;
+    public int getRequiredSubtaskCount() {
+        return requiredSubtaskCount;
     }
     public Subtask[] getSubtasks() {
         return subtasks;
     }
 
-    TaskType(int totalSubtaskCount, Subtask... subtasks) {
-        this.totalSubtaskCount = totalSubtaskCount;
+    TaskType(int requiredSubtaskCount, Subtask... subtasks) {
+        this.requiredSubtaskCount = requiredSubtaskCount;
         this.subtasks = subtasks;
     }
 

@@ -1,5 +1,6 @@
 package io.github.greatericontop.greatimpostor;
 
+import io.github.greatericontop.greatimpostor.core.PlayerProfile;
 import io.github.greatericontop.greatimpostor.task.SwipeCard;
 import io.github.greatericontop.greatimpostor.task.TaskAcceptPower;
 import io.github.greatericontop.greatimpostor.task.TaskAdjustSteering;
@@ -18,6 +19,10 @@ import io.github.greatericontop.greatimpostor.task.TaskWiring;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitRunnable;
 
+import java.util.HashMap;
+import java.util.Map;
+import java.util.UUID;
+
 public class GreatImpostorMain extends JavaPlugin {
 
     public TaskWiring taskWiring;
@@ -35,6 +40,8 @@ public class GreatImpostorMain extends JavaPlugin {
     public SwipeCard taskSwipeCard;
     public TaskFetchFuel taskFetchFuel;
     public TaskFuelEngines taskFuelEngines;
+
+    public final Map<UUID, PlayerProfile> playerProfiles = new HashMap<>();
 
     private int clock;
     public int getClock() {

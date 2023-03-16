@@ -1,43 +1,63 @@
 package io.github.greatericontop.greatimpostor.task;
 
+import org.bukkit.Material;
+
 public enum Subtask {
 
-    WIRING_ELECTRICAL(TaskType.WIRING),
-    WIRING_STORAGE(TaskType.WIRING),
-    WIRING_ADMIN(TaskType.WIRING),
-    WIRING_NAVIGATION(TaskType.WIRING),
-    WIRING_CAFETERIA(TaskType.WIRING),
-    WIRING_SECURITY(TaskType.WIRING),
+    // To prevent a cyclic dependency between Subtask and Task this needs to be a string that gets put into a TaskType at runtime
 
-    REDIRECT_POWER(TaskType.REDIRECT_ACCEPT_POWER),
+    WIRING_ELECTRICAL("WIRING"),
+    WIRING_STORAGE("WIRING"),
+    WIRING_ADMIN("WIRING"),
+    WIRING_NAVIGATION("WIRING"),
+    WIRING_CAFETERIA("WIRING"),
+    WIRING_SECURITY("WIRING"),
 
-    ACCEPT_POWER_COMMUNICATIONS(TaskType.REDIRECT_ACCEPT_POWER),
-    ACCEPT_POWER_LOWER_ENGINE(TaskType.REDIRECT_ACCEPT_POWER),
-    ACCEPT_POWER_UPPER_ENGINE(TaskType.REDIRECT_ACCEPT_POWER),
-    ACCEPT_POWER_NAVIGATION(TaskType.REDIRECT_ACCEPT_POWER),
-    ACCEPT_POWER_OXYGEN(TaskType.REDIRECT_ACCEPT_POWER),
-    ACCEPT_POWER_SECURITY(TaskType.REDIRECT_ACCEPT_POWER),
-    ACCEPT_POWER_SHIELDS(TaskType.REDIRECT_ACCEPT_POWER),
-    ACCEPT_POWER_WEAPONS(TaskType.REDIRECT_ACCEPT_POWER),
+    REDIRECT_POWER("REDIRECT_ACCEPT_POWER"),
 
-    DOWNLOAD_DATA_CAFETERIA(TaskType.DOWNLOAD_UPLOAD_DATA),
-    DOWNLOAD_DATA_COMMUNICATIONS(TaskType.DOWNLOAD_UPLOAD_DATA),
-    DOWNLOAD_DATA_ELECTRICAL(TaskType.DOWNLOAD_UPLOAD_DATA),
-    DOWNLOAD_DATA_NAVIGATION(TaskType.DOWNLOAD_UPLOAD_DATA),
-    DOWNLOAD_DATA_WEAPONS(TaskType.DOWNLOAD_UPLOAD_DATA),
+    ACCEPT_POWER_COMMUNICATIONS("REDIRECT_ACCEPT_POWER"),
+    ACCEPT_POWER_LOWER_ENGINE("REDIRECT_ACCEPT_POWER"),
+    ACCEPT_POWER_UPPER_ENGINE("REDIRECT_ACCEPT_POWER"),
+    ACCEPT_POWER_NAVIGATION("REDIRECT_ACCEPT_POWER"),
+    ACCEPT_POWER_OXYGEN("REDIRECT_ACCEPT_POWER"),
+    ACCEPT_POWER_SECURITY("REDIRECT_ACCEPT_POWER"),
+    ACCEPT_POWER_SHIELDS("REDIRECT_ACCEPT_POWER"),
+    ACCEPT_POWER_WEAPONS("REDIRECT_ACCEPT_POWER"),
 
-    UPLOAD_DATA(TaskType.DOWNLOAD_UPLOAD_DATA),
+    DOWNLOAD_DATA_CAFETERIA("DOWNLOAD_UPLOAD_DATA"),
+    DOWNLOAD_DATA_COMMUNICATIONS("DOWNLOAD_UPLOAD_DATA"),
+    DOWNLOAD_DATA_ELECTRICAL("DOWNLOAD_UPLOAD_DATA"),
+    DOWNLOAD_DATA_NAVIGATION("DOWNLOAD_UPLOAD_DATA"),
+    DOWNLOAD_DATA_WEAPONS("DOWNLOAD_UPLOAD_DATA"),
+
+    UPLOAD_DATA("DOWNLOAD_UPLOAD_DATA"),
 
     ;
 
-    private final TaskType fullTask;
+    private final String fullTask;
+    private final String displayName;
 
-    Subtask(TaskType fullTask) {
+    public TaskType getFullTask() {
+        return TaskType.valueOf(fullTask);
+    }
+    public String getDisplayName() {
+        return displayName;
+    }
+
+    Subtask(String fullTask) {
+        this.displayName = this.name(); // TODO: actually get nice names
         this.fullTask = fullTask;
     }
 
-    public TaskType getFullTask() {
-        return fullTask;
+    public Material getDisplayMaterial(int numberCompleted) {
+        int total = getFullTask().getRequiredSubtaskCount();
+        if (numberCompleted == total) {
+            return Material.LIME_STAINED_GLASS;
+        } else if (numberCompleted == 0) {
+            return Material.RED_STAINED_GLASS;
+        } else {
+            return Material.YELLOW_STAINED_GLASS;
+        }
     }
 
 }
