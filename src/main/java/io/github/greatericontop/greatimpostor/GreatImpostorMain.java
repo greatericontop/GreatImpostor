@@ -1,6 +1,7 @@
 package io.github.greatericontop.greatimpostor;
 
 import io.github.greatericontop.greatimpostor.core.AntiVandalism;
+import io.github.greatericontop.greatimpostor.core.BodyReportingListener;
 import io.github.greatericontop.greatimpostor.core.PlayerProfile;
 import io.github.greatericontop.greatimpostor.impostor.ImpostorKillListener;
 import io.github.greatericontop.greatimpostor.task.SignListener;
@@ -55,6 +56,7 @@ public class GreatImpostorMain extends JavaPlugin {
     public void onEnable() {
 
         this.getServer().getPluginManager().registerEvents(new AntiVandalism(this), this);
+        this.getServer().getPluginManager().registerEvents(new BodyReportingListener(this), this);
         this.getServer().getPluginManager().registerEvents(new ImpostorKillListener(this), this);
 
         this.getServer().getPluginManager().registerEvents(new SignListener(this), this);

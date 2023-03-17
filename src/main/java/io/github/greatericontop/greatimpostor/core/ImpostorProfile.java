@@ -1,6 +1,7 @@
 package io.github.greatericontop.greatimpostor.core;
 
 import io.github.greatericontop.greatimpostor.GreatImpostorMain;
+import io.github.greatericontop.greatimpostor.utils.ImpostorUtil;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
@@ -63,6 +64,8 @@ public class ImpostorProfile extends PlayerProfile {
         im.setDisplayName("§4KILL");
         kill.setItemMeta(im);
         inv.setItem(4, kill);
+
+        inv.setItem(8, ImpostorUtil.reportItemStack());
 
     }
 

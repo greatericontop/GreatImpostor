@@ -3,10 +3,10 @@ package io.github.greatericontop.greatimpostor.impostor;
 import io.github.greatericontop.greatimpostor.GreatImpostorMain;
 import io.github.greatericontop.greatimpostor.core.ImpostorProfile;
 import io.github.greatericontop.greatimpostor.core.PlayerProfile;
+import io.github.greatericontop.greatimpostor.utils.ImpostorUtil;
 import org.bukkit.Color;
 import org.bukkit.Location;
 import org.bukkit.Material;
-import org.bukkit.NamespacedKey;
 import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.Damageable;
 import org.bukkit.entity.Player;
@@ -19,7 +19,6 @@ import org.bukkit.persistence.PersistentDataType;
 import org.bukkit.util.EulerAngle;
 
 public class ImpostorKillListener implements Listener {
-    public static final NamespacedKey DEAD_BODY_KEY = new NamespacedKey("greatimpostor", "dead_body");
 
     private final GreatImpostorMain plugin;
     public ImpostorKillListener(GreatImpostorMain plugin) {
@@ -59,7 +58,7 @@ public class ImpostorKillListener implements Listener {
         im.setColor(Color.fromRGB(0x990000));
         chestplate.setItemMeta(im);
         armorStand.getEquipment().setChestplate(chestplate);
-        armorStand.getPersistentDataContainer().set(DEAD_BODY_KEY, PersistentDataType.INTEGER, 1);
+        armorStand.getPersistentDataContainer().set(ImpostorUtil.DEAD_BODY_KEY, PersistentDataType.INTEGER, 1);
     }
 
     // TODO: will you need to stop sounds on players?
