@@ -1,6 +1,7 @@
 package io.github.greatericontop.greatimpostor.meeting;
 
 import io.github.greatericontop.greatimpostor.GreatImpostorMain;
+import io.github.greatericontop.greatimpostor.core.ImpostorProfile;
 import io.github.greatericontop.greatimpostor.core.PlayerProfile;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
@@ -12,7 +13,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class MeetingManager {
-    private static int MEETING_TIME_TICKS = 600; //2100; // 1m 45s
+    private static int MEETING_TIME_TICKS = 800; //2100; // 1m 45s
 
     private int startTime;
     private Map<PlayerProfile, PlayerProfile> votes = new HashMap<>();
@@ -45,6 +46,11 @@ public class MeetingManager {
 
     public void endMeeting() {
         // TODO check votes & eject person
+        for (PlayerProfile profile : plugin.playerProfiles.values()) {
+            if (profile.isImpostor()) {
+                ((ImpostorProfile) profile).resetCooldown(false);
+            }
+        }
         startTime = -2;
     }
 

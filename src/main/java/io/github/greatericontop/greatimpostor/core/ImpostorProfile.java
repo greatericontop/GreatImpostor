@@ -28,7 +28,7 @@ public class ImpostorProfile extends PlayerProfile {
     }
 
     public boolean getCanKill() {
-        return nextKillTime <= plugin.getClock();
+        return nextKillTime <= plugin.getClock() && (!plugin.meetingManager.isMeetingActive());
     }
 
     public void resetCooldown(boolean isShort) {
