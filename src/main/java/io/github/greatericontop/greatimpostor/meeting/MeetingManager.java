@@ -10,10 +10,13 @@ import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
+import java.util.SortedMap;
+import java.util.TreeMap;
 
 public class MeetingManager {
     private static int MEETING_TIME_TICKS = 800; //2100; // 1m 45s
@@ -52,11 +55,12 @@ public class MeetingManager {
     }
 
     public void endMeeting() {
-
-        PlayerProfile toEject = findHighestVoted();
+        PlayerProfile toEject = doHighestVoted();
+        Bukkit.broadcast(Component.text(""));
         if (toEject == null) {
             Bukkit.broadcast(Component.text("§bNobody was ejected!"));
         } else {
+            Bukkit.broadcast(Component.text("")); // see above
             Bukkit.broadcast(Component.text(String.format("§e%s §bwas ejected!", toEject.getPlayer().getName())));
             String impMessage;
             if (toEject.isImpostor()) {
@@ -67,6 +71,8 @@ public class MeetingManager {
             Bukkit.broadcast(Component.text(impMessage));
             toEject.getPlayer().setGameMode(GameMode.SPECTATOR);
         }
+        Bukkit.broadcast(Component.text(""));
+        Bukkit.broadcast(Component.text("§9--------------------------------------------------"));
 
         for (PlayerProfile profile : plugin.playerProfiles.values()) {
             if (profile.isImpostor()) {
@@ -111,9 +117,9 @@ public class MeetingManager {
     }
 
     /*
-     *
+     * Return the highest voted profile, or `null` if the majority is to skip or there's a tie.
      */
-    public PlayerProfile findHighestVoted() {
+    public PlayerProfile doHighestVoted() {
         Map<PlayerProfile, Integer> voteCount = new HashMap<>();
         for (PlayerProfile targetProfile : votes.values()) {
             voteCount.put(targetProfile, voteCount.getOrDefault(targetProfile, 0) + 1);
@@ -132,11 +138,33 @@ public class MeetingManager {
                 isTied = true;
             }
         }
+        doMessages(voteCount, skips.size());
 
         if (isTied) {
             return null;
         }
         return highestVoted;
+    }
+
+    private void doMessages(Map<PlayerProfile, Integer> voteCount, int skipCount) {
+        Bukkit.broadcast(Component.text("§9--------------------------------------------------"));
+        Bukkit.broadcast(Component.text(""));
+        Bukkit.broadcast(Component.text(String.format("§aSkip§7: §b%d", skipCount)));
+        Bukkit.broadcast(Component.text(""));
+
+        SortedMap<Integer, Set<PlayerProfile>> sortedVotes = new TreeMap<>(Comparator.reverseOrder());
+        for (Map.Entry<PlayerProfile, Integer> entry : voteCount.entrySet()) {
+            sortedVotes.putIfAbsent(entry.getValue(), new HashSet<>());
+            sortedVotes.get(entry.getValue()).add(entry.getKey());
+        }
+        for (Map.Entry<Integer, Set<PlayerProfile>> entry : sortedVotes.entrySet()) {
+            for (PlayerProfile profile : entry.getValue()) {
+                Bukkit.broadcast(Component.text(String.format("§e%s§7: §b%d", profile.getPlayer().getName(), entry.getKey())));
+            }
+        }
+
+        Bukkit.broadcast(Component.text(""));
+        Bukkit.broadcast(Component.text("§9--------------------------------------------------"));
     }
 
 }
