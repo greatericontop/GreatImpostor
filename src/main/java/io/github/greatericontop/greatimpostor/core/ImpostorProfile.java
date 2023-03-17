@@ -1,5 +1,7 @@
 package io.github.greatericontop.greatimpostor.core;
 
+import io.github.greatericontop.greatimpostor.GreatImpostorMain;
+import net.kyori.adventure.text.Component;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
@@ -8,13 +10,36 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
 public class ImpostorProfile extends PlayerProfile {
+    private static final int SHORT_COOLDOWN = 200;
+    private static final int LONG_COOLDOWN = 700;
 
-    public ImpostorProfile(Player player) {
-        super(player);
+    private int nextKillTime;
+
+    public ImpostorProfile(GreatImpostorMain plugin, Player player) {
+        super(plugin, player);
+        nextKillTime = plugin.getClock();
     }
+
 
     public boolean isImpostor() {
         return true;
+    }
+
+    public boolean getCanKill() {
+        return nextKillTime <= plugin.getClock();
+    }
+
+    public void resetCooldown(boolean isShort) {
+        nextKillTime = plugin.getClock() + (isShort ? SHORT_COOLDOWN : LONG_COOLDOWN);
+    }
+
+    public void setActionBar() {
+        if (getCanKill()) {
+            player.sendActionBar(Component.text(String.format("§e[§cKill §aAVAILABLE§e]")));
+        } else {
+            double seconds = 0.05 * (nextKillTime - plugin.getClock());
+            player.sendActionBar(Component.text(String.format("§e[§cKill §b%.1fs§e]", seconds)));
+        }
     }
 
     public void setInventory() {

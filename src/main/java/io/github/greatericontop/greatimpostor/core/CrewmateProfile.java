@@ -1,12 +1,13 @@
 package io.github.greatericontop.greatimpostor.core;
 
+import io.github.greatericontop.greatimpostor.GreatImpostorMain;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 
 public class CrewmateProfile extends PlayerProfile {
 
-    public CrewmateProfile(Player player) {
-        super(player);
+    public CrewmateProfile(GreatImpostorMain plugin, Player player) {
+        super(plugin, player);
     }
 
     public boolean isImpostor() {

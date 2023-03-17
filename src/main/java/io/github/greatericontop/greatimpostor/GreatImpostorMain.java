@@ -1,8 +1,9 @@
 package io.github.greatericontop.greatimpostor;
 
+import io.github.greatericontop.greatimpostor.core.ImpostorProfile;
 import io.github.greatericontop.greatimpostor.core.PlayerProfile;
+import io.github.greatericontop.greatimpostor.impostor.ImpostorKillListener;
 import io.github.greatericontop.greatimpostor.task.SignListener;
-import io.github.greatericontop.greatimpostor.task.taskexecutors.TaskSwipeCard;
 import io.github.greatericontop.greatimpostor.task.taskexecutors.TaskAcceptPower;
 import io.github.greatericontop.greatimpostor.task.taskexecutors.TaskAdjustSteering;
 import io.github.greatericontop.greatimpostor.task.taskexecutors.TaskCleanOxygenFilter;
@@ -15,6 +16,7 @@ import io.github.greatericontop.greatimpostor.task.taskexecutors.TaskFuelEngines
 import io.github.greatericontop.greatimpostor.task.taskexecutors.TaskRedirectPower;
 import io.github.greatericontop.greatimpostor.task.taskexecutors.TaskStabilizeNavigation;
 import io.github.greatericontop.greatimpostor.task.taskexecutors.TaskStartReactor;
+import io.github.greatericontop.greatimpostor.task.taskexecutors.TaskSwipeCard;
 import io.github.greatericontop.greatimpostor.task.taskexecutors.TaskUploadData;
 import io.github.greatericontop.greatimpostor.task.taskexecutors.TaskWiring;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -51,6 +53,8 @@ public class GreatImpostorMain extends JavaPlugin {
 
     @Override
     public void onEnable() {
+
+        this.getServer().getPluginManager().registerEvents(new ImpostorKillListener(this), this);
 
         this.getServer().getPluginManager().registerEvents(new SignListener(this), this);
 
@@ -89,9 +93,18 @@ public class GreatImpostorMain extends JavaPlugin {
 
         clock = 1;
         new BukkitRunnable() {
-            @Override
             public void run() {
                 clock++;
+            }
+        }.runTaskTimer(this, 1L, 1L);
+
+        new BukkitRunnable() {
+            public void run() {
+                for (PlayerProfile profile : playerProfiles.values()) {
+                    if (profile.isImpostor()) {
+                        ((ImpostorProfile) profile).setActionBar();
+                    }
+                }
             }
         }.runTaskTimer(this, 1L, 1L);
 

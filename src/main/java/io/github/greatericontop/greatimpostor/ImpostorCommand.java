@@ -91,7 +91,7 @@ public class ImpostorCommand implements CommandExecutor {
         }
 
         if (args[0].equals("testCrewmate1")) {
-            CrewmateProfile c = new CrewmateProfile(player);
+            CrewmateProfile c = new CrewmateProfile(plugin, player);
             c.setInitialTasks();
             player.sendMessage(String.valueOf(c.tasks));
             c.setInventory();
@@ -106,7 +106,7 @@ public class ImpostorCommand implements CommandExecutor {
         }
 
         if (args[0].equals("testImpostor1")) {
-            ImpostorProfile imp = new ImpostorProfile(player);
+            ImpostorProfile imp = new ImpostorProfile(plugin, player);
             imp.setInitialTasks();
             imp.setInventory();
             plugin.playerProfiles.put(player.getUniqueId(), imp);

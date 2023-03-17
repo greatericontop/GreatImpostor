@@ -1,5 +1,6 @@
 package io.github.greatericontop.greatimpostor.core;
 
+import io.github.greatericontop.greatimpostor.GreatImpostorMain;
 import io.github.greatericontop.greatimpostor.task.Subtask;
 import io.github.greatericontop.greatimpostor.task.TaskType;
 import io.github.greatericontop.greatimpostor.task.TaskUtil;
@@ -18,12 +19,14 @@ public abstract class PlayerProfile {
     protected int[] subtasksCompletedPerTask = null;
     protected final Set<Subtask> tasksAlreadyCompleted = new HashSet<>();
 
-    private final Player player;
+    protected GreatImpostorMain plugin;
+    protected final Player player;
     public Player getPlayer() {
         return player;
     }
 
-    public PlayerProfile(Player player) {
+    public PlayerProfile(GreatImpostorMain plugin, Player player) {
+        this.plugin = plugin;
         this.random = new Random();
         this.player = player;
     }
