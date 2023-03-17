@@ -38,10 +38,17 @@ public class SignListener implements Listener {
         }
 
         Subtask subtask = Subtask.valueOf(subtaskName);
+        // Check if it's in the list
         if (!profile.tasks.contains(subtask)) {
             player.sendMessage("§cYou don't have this task!");
             return;
         }
+        // Check if it's already completed
+        if (profile.isFullyCompleted(subtask.getFullTask())) {
+            player.sendMessage("§cYou already fully completed this task!");
+            return;
+        }
+
         player.sendMessage("§aTest: you just got task: " + subtask.getDisplayName());
         BaseTask baseTask = TaskUtil.getTaskClass(plugin, subtask);
         baseTask.startTask(player);

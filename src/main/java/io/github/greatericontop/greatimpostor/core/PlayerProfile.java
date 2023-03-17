@@ -44,6 +44,21 @@ public abstract class PlayerProfile {
         subtasksCompletedPerTask = new int[]{0, 0, 0};
     }
 
+    public boolean isFullyCompleted(TaskType taskType) {
+        // find the index
+        int taskIndex = -1;
+        for (int i = 0; i < tasks.size(); i++) { // TODO doing this search every time is a little messy, maybe have better data structure for this
+            if (tasks.get(i).getFullTask() == taskType) {
+                taskIndex = i;
+                break;
+            }
+        }
+        if (taskIndex == -1) {
+            return false; // not found
+        }
+        return subtasksCompletedPerTask[taskIndex] >= taskType.getRequiredSubtaskCount();
+    }
+
     public void processSubtaskCompleted(TaskType taskType) {
         for (int i = 0; i < tasks.size(); i++) {
             if (tasks.get(i).getFullTask() == taskType) {
