@@ -5,6 +5,7 @@ import io.github.greatericontop.greatimpostor.core.BodyReportingListener;
 import io.github.greatericontop.greatimpostor.core.PlayerProfile;
 import io.github.greatericontop.greatimpostor.impostor.ImpostorKillListener;
 import io.github.greatericontop.greatimpostor.meeting.MeetingManager;
+import io.github.greatericontop.greatimpostor.meeting.VotingCommand;
 import io.github.greatericontop.greatimpostor.task.SignListener;
 import io.github.greatericontop.greatimpostor.task.taskexecutors.TaskAcceptPower;
 import io.github.greatericontop.greatimpostor.task.taskexecutors.TaskAdjustSteering;
@@ -98,6 +99,7 @@ public class GreatImpostorMain extends JavaPlugin {
         this.getServer().getPluginManager().registerEvents(taskFuelEngines, this);
 
         this.getCommand("impostor").setExecutor(new ImpostorCommand(this));
+        this.getCommand("vote").setExecutor(new VotingCommand(this));
 
         clock = 1;
         new BukkitRunnable() {

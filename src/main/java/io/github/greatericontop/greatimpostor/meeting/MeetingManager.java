@@ -5,18 +5,22 @@ import io.github.greatericontop.greatimpostor.core.ImpostorProfile;
 import io.github.greatericontop.greatimpostor.core.PlayerProfile;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
+import org.bukkit.GameMode;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 
 public class MeetingManager {
     private static int MEETING_TIME_TICKS = 800; //2100; // 1m 45s
 
     private int startTime;
-    private Map<PlayerProfile, PlayerProfile> votes = new HashMap<>();
+    public final Map<PlayerProfile, PlayerProfile> votes = new HashMap<>();
+    public final Set<PlayerProfile> skips = new HashSet<>();
 
     private GreatImpostorMain plugin;
     public MeetingManager(GreatImpostorMain plugin) {
@@ -31,6 +35,7 @@ public class MeetingManager {
     public void startNewMeeting() {
         startTime = plugin.getClock();
         votes.clear();
+        skips.clear();
         // TODO teleport to some central location & freeze all players
         Bukkit.broadcast(Component.text("§9--------------------------------------------------"));
         Bukkit.broadcast(Component.text(""));
@@ -39,13 +44,30 @@ public class MeetingManager {
         Bukkit.broadcast(Component.text(""));
         Bukkit.broadcast(Component.text("§3Who is the Impostor?"));
         Bukkit.broadcast(Component.text("§3Use §b/vote §3to vote."));
+        Bukkit.broadcast(Component.text("§3You can vote for a player, e.g. §b/vote Notch"));
+        Bukkit.broadcast(Component.text("§3Or skip the vote, e.g. §b/vote skip"));
         Bukkit.broadcast(Component.text(""));
         Bukkit.broadcast(Component.text("§9--------------------------------------------------"));
         playMeetingSound();
     }
 
     public void endMeeting() {
-        // TODO check votes & eject person
+
+        PlayerProfile toEject = findHighestVoted();
+        if (toEject == null) {
+            Bukkit.broadcast(Component.text("§bNobody was ejected!"));
+        } else {
+            Bukkit.broadcast(Component.text(String.format("§e%s §bwas ejected!", toEject.getPlayer().getName())));
+            String impMessage;
+            if (toEject.isImpostor()) {
+                impMessage = String.format("§c%s §6was The Impostor.", toEject.getPlayer().getName());
+            } else {
+                impMessage = String.format("§c%s §6was not The Impostor.", toEject.getPlayer().getName());
+            }
+            Bukkit.broadcast(Component.text(impMessage));
+            toEject.getPlayer().setGameMode(GameMode.SPECTATOR);
+        }
+
         for (PlayerProfile profile : plugin.playerProfiles.values()) {
             if (profile.isImpostor()) {
                 ((ImpostorProfile) profile).resetCooldown(false);
@@ -86,6 +108,35 @@ public class MeetingManager {
                 // end meeting if enough votes were cast
             }
         }.runTaskTimer(plugin, 1L, 1L);
+    }
+
+    /*
+     *
+     */
+    public PlayerProfile findHighestVoted() {
+        Map<PlayerProfile, Integer> voteCount = new HashMap<>();
+        for (PlayerProfile targetProfile : votes.values()) {
+            voteCount.put(targetProfile, voteCount.getOrDefault(targetProfile, 0) + 1);
+        }
+        // initialize with stats of skip
+        int maxVotes = skips.size();
+        boolean isTied = false;
+        PlayerProfile highestVoted = null;
+        // go through the vote counts
+        for (Map.Entry<PlayerProfile, Integer> entry : voteCount.entrySet()) {
+            if (entry.getValue() > maxVotes) {
+                maxVotes = entry.getValue();
+                highestVoted = entry.getKey();
+                isTied = false;
+            } else if (entry.getValue() == maxVotes) {
+                isTied = true;
+            }
+        }
+
+        if (isTied) {
+            return null;
+        }
+        return highestVoted;
     }
 
 }

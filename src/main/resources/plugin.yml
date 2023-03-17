@@ -11,3 +11,7 @@ commands:
     description: GreatImpostor command
     usage: /impostor <...>
     permission: impostor.command
+  vote:
+    description: GreatImpostor Vote command
+    usage: "§eVote: §b/vote <player>  §7|  §eSkip vote: §b/vote skip"
+    permission: impostor.vote
