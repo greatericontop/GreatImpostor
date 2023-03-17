@@ -1,6 +1,5 @@
 package io.github.greatericontop.greatimpostor;
 
-import io.github.greatericontop.greatimpostor.core.ImpostorProfile;
 import io.github.greatericontop.greatimpostor.core.PlayerProfile;
 import io.github.greatericontop.greatimpostor.impostor.ImpostorKillListener;
 import io.github.greatericontop.greatimpostor.task.SignListener;
@@ -101,9 +100,7 @@ public class GreatImpostorMain extends JavaPlugin {
         new BukkitRunnable() {
             public void run() {
                 for (PlayerProfile profile : playerProfiles.values()) {
-                    if (profile.isImpostor()) {
-                        ((ImpostorProfile) profile).setActionBar();
-                    }
+                    profile.setActionBar();
                 }
             }
         }.runTaskTimer(this, 1L, 1L);

@@ -21,6 +21,7 @@ public class ImpostorProfile extends PlayerProfile {
     }
 
 
+    @Override
     public boolean isImpostor() {
         return true;
     }
@@ -33,15 +34,21 @@ public class ImpostorProfile extends PlayerProfile {
         nextKillTime = plugin.getClock() + (isShort ? SHORT_COOLDOWN : LONG_COOLDOWN);
     }
 
+    @Override
     public void setActionBar() {
+        int[] taskStatus = getTaskStatus(plugin.playerProfiles.values());
+        String tasks = String.format("§e[§6Tasks §d%d/%d§e]", taskStatus[0], taskStatus[1]);
+        String kill;
         if (getCanKill()) {
-            player.sendActionBar(Component.text(String.format("§e[§cKill §aAVAILABLE§e]")));
+            kill = String.format("§e[§cKill §aAVAILABLE§e]");
         } else {
             double seconds = 0.05 * (nextKillTime - plugin.getClock());
-            player.sendActionBar(Component.text(String.format("§e[§cKill §b%.1fs§e]", seconds)));
+            kill = String.format("§e[§cKill §3%.1fs§e]", seconds);
         }
+        player.sendActionBar(Component.text(String.format("%s %s", kill, tasks)));
     }
 
+    @Override
     public void setInventory() {
         Inventory inv = this.getPlayer().getInventory();
         inv.clear();

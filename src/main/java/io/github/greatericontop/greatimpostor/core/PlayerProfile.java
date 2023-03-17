@@ -8,6 +8,7 @@ import io.github.greatericontop.greatimpostor.utils.Shuffler;
 import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Random;
@@ -29,6 +30,26 @@ public abstract class PlayerProfile {
         this.plugin = plugin;
         this.random = new Random();
         this.player = player;
+    }
+
+    //
+
+    /*
+     * Get the number of tasks completed and the number that need to be completed
+     */
+    public static int[] getTaskStatus(Collection<PlayerProfile> profiles) {
+        int completed = 0;
+        int total = 0;
+        for (PlayerProfile p : profiles) {
+            if (p.isImpostor())  continue;
+            for (int i = 0; i < p.tasks.size(); i++) {
+                if (p.isFullyCompleted(i)) {
+                    completed++;
+                }
+                total++;
+            }
+        }
+        return new int[]{completed, total};
     }
 
     //
@@ -59,7 +80,10 @@ public abstract class PlayerProfile {
         if (taskIndex == -1) {
             return false; // not found
         }
-        return subtasksCompletedPerTask[taskIndex] >= taskType.getRequiredSubtaskCount();
+        return isFullyCompleted(taskIndex);
+    }
+    public boolean isFullyCompleted(int i) {
+        return subtasksCompletedPerTask[i] >= tasks.get(i).getFullTask().getRequiredSubtaskCount();
     }
 
     public void processSubtaskCompleted(TaskType taskType) {
@@ -91,6 +115,8 @@ public abstract class PlayerProfile {
     }
 
     public abstract boolean isImpostor();
+
+    public abstract void setActionBar();
 
     public abstract void setInventory();
 

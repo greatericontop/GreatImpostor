@@ -1,6 +1,7 @@
 package io.github.greatericontop.greatimpostor.core;
 
 import io.github.greatericontop.greatimpostor.GreatImpostorMain;
+import net.kyori.adventure.text.Component;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 
@@ -10,10 +11,19 @@ public class CrewmateProfile extends PlayerProfile {
         super(plugin, player);
     }
 
+    @Override
     public boolean isImpostor() {
         return false;
     }
 
+    @Override
+    public void setActionBar() {
+        int[] taskStatus = getTaskStatus(plugin.playerProfiles.values());
+        String tasks = String.format("§e[§6Tasks §d%d/%d§e]", taskStatus[0], taskStatus[1]);
+        player.sendActionBar(Component.text(tasks));
+    }
+
+    @Override
     public void setInventory() {
         Inventory inv = this.getPlayer().getInventory();
         inv.clear();
