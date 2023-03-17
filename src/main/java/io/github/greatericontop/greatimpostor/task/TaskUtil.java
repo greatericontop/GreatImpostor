@@ -11,6 +11,8 @@ public class TaskUtil {
             TaskType.REDIRECT_ACCEPT_POWER,
             TaskType.DOWNLOAD_UPLOAD_DATA,
             TaskType.FUEL_ENGINES,
+            TaskType.SWIPE_CARD,
+            TaskType.ADJUST_STEERING,
     };
 
     public static BaseTask getTaskClass(GreatImpostorMain plugin, Subtask subtask) {
@@ -38,6 +40,12 @@ public class TaskUtil {
                 } else {
                     return plugin.taskFuelEngines;
                 }
+            }
+            case SWIPE_CARD -> {
+                return plugin.taskSwipeCard;
+            }
+            case ADJUST_STEERING -> {
+                return plugin.taskAdjustSteering;
             }
             default -> throw new IllegalArgumentException("Unknown/unrecognized task type: " + subtask.getFullTask());
         }

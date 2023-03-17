@@ -40,6 +40,10 @@ public enum Subtask {
     FUEL_ENGINES_UPPER("FUEL_ENGINES", "§eUpper Engine: Fuel Engine"),
     FUEL_ENGINES_LOWER("FUEL_ENGINES", "§eLower Engine: Fuel Engine"),
 
+    SWIPE_CARD("SWIPE_CARD", "§eAdmin: Swipe Card"),
+
+    ADJUST_STEERING("ADJUST_STEERING", "§eNavigation: Adjust Steering"),
+
     ;
 
     private final String fullTask;

@@ -91,9 +91,18 @@ public enum TaskType {
         }
     },
 
+
+    SWIPE_CARD(
+            1,
+            Subtask.SWIPE_CARD
+    ),
+
+    ADJUST_STEERING(
+            1,
+            Subtask.ADJUST_STEERING
+    ),
+
     // placeholders - fully impl later
-    SWIPE_CARD(1),
-    ADJUST_STEERING(1),
     CLEAN_OXYGEN_FILTER(1),
     CLEAR_ASTEROIDS(1),
     EMPTY_TRASH(1),
