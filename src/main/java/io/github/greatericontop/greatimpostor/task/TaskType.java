@@ -89,7 +89,17 @@ public enum TaskType {
         public boolean doAlreadyCompletedCheck() {
             return false;
         }
-    }
+    },
+
+    // placeholders - fully impl later
+    SWIPE_CARD(1),
+    ADJUST_STEERING(1),
+    CLEAN_OXYGEN_FILTER(1),
+    CLEAR_ASTEROIDS(1),
+    EMPTY_TRASH(1),
+    ENTER_PASSWORD(1),
+    STABILIZE_NAVIGATION(1),
+    START_REACTOR(1),
 
     // TODO: only a few added for now; add the rest of these
 

@@ -1,5 +1,6 @@
 package io.github.greatericontop.greatimpostor.task;
 
+import io.github.greatericontop.greatimpostor.GreatImpostorMain;
 import io.github.greatericontop.greatimpostor.utils.ImpostorUtil;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
@@ -14,14 +15,18 @@ import org.bukkit.inventory.meta.ItemMeta;
 
 import java.util.Random;
 
-public class TaskStabilizeNavigation implements BaseTask {
+public class TaskStabilizeNavigation extends BaseTask {
     public static final String INVENTORY_NAME = "§aAmong Us - Stabilize Navigation";
     private static final int MIDDLE = 22;
     private static final int[] dInv = {-1, 1, -9, 9};
 
+    public TaskStabilizeNavigation(GreatImpostorMain plugin) {
+        super(plugin);
+    }
+
     @Override
-    public boolean canExecute(Player player) {
-        return true;
+    public TaskType getTaskType() {
+        return TaskType.STABILIZE_NAVIGATION;
     }
 
     @Override

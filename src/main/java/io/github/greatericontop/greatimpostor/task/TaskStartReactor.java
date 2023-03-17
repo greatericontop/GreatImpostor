@@ -1,5 +1,6 @@
 package io.github.greatericontop.greatimpostor.task;
 
+import io.github.greatericontop.greatimpostor.GreatImpostorMain;
 import io.github.greatericontop.greatimpostor.utils.Shuffler;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
@@ -16,14 +17,18 @@ import java.util.Map;
 import java.util.Random;
 import java.util.UUID;
 
-public class TaskStartReactor implements BaseTask {
+public class TaskStartReactor extends BaseTask {
     public static final String INVENTORY_NAME = "§aAmong Us - Start Reactor";
 
     private final Map<UUID, Integer> currentNumber = new HashMap<>();
 
+    public TaskStartReactor(GreatImpostorMain plugin) {
+        super(plugin);
+    }
+
     @Override
-    public boolean canExecute(Player player) {
-        return true;
+    public TaskType getTaskType() {
+        return TaskType.START_REACTOR;
     }
 
     @Override

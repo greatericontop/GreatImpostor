@@ -13,7 +13,7 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
-public class TaskFetchFuel implements BaseTask {
+public class TaskFetchFuel extends BaseTask {
     public static final String INVENTORY_NAME = "§aAmong Us - Fetch Fuel";
     // (9)  10  11  12 (13)
     // (18) 19  20  21 (22)
@@ -24,14 +24,13 @@ public class TaskFetchFuel implements BaseTask {
     private static final int[] CANISTER_FILL_UP = {37, 38, 28, 39, 29, 19, 30, 20, 10, 21, 11, 12};
     private static final int BUTTON_SLOT = 24;
 
-    private final GreatImpostorMain plugin;
     public TaskFetchFuel(GreatImpostorMain plugin) {
-        this.plugin = plugin;
+        super(plugin);
     }
 
     @Override
-    public boolean canExecute(Player player) {
-        return true;
+    public TaskType getTaskType() {
+        return TaskType.FUEL_ENGINES;
     }
 
     @Override

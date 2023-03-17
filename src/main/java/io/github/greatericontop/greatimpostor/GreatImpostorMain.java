@@ -54,9 +54,9 @@ public class GreatImpostorMain extends JavaPlugin {
 
         this.getServer().getPluginManager().registerEvents(new SignListener(this), this);
 
-        taskWiring = new TaskWiring();
+        taskWiring = new TaskWiring(this);
         this.getServer().getPluginManager().registerEvents(taskWiring, this);
-        taskRedirectPower = new TaskRedirectPower();
+        taskRedirectPower = new TaskRedirectPower(this);
         this.getServer().getPluginManager().registerEvents(taskRedirectPower, this);
         taskEnterPassword = new TaskEnterPassword(this);
         this.getServer().getPluginManager().registerEvents(taskEnterPassword, this);
@@ -64,15 +64,15 @@ public class GreatImpostorMain extends JavaPlugin {
         this.getServer().getPluginManager().registerEvents(taskEmptyTrash, this);
         taskAdjustSteering = new TaskAdjustSteering(this);
         this.getServer().getPluginManager().registerEvents(taskAdjustSteering, this);
-        taskAcceptPower = new TaskAcceptPower();
+        taskAcceptPower = new TaskAcceptPower(this);
         this.getServer().getPluginManager().registerEvents(taskAcceptPower, this);
-        taskCleanOxygenFilter = new TaskCleanOxygenFilter();
+        taskCleanOxygenFilter = new TaskCleanOxygenFilter(this);
         this.getServer().getPluginManager().registerEvents(taskCleanOxygenFilter, this);
-        taskClearAsteroids = new TaskClearAsteroids();
+        taskClearAsteroids = new TaskClearAsteroids(this);
         this.getServer().getPluginManager().registerEvents(taskClearAsteroids, this);
-        taskStartReactor = new TaskStartReactor();
+        taskStartReactor = new TaskStartReactor(this);
         this.getServer().getPluginManager().registerEvents(taskStartReactor, this);
-        taskStabilizeNavigation = new TaskStabilizeNavigation();
+        taskStabilizeNavigation = new TaskStabilizeNavigation(this);
         this.getServer().getPluginManager().registerEvents(taskStabilizeNavigation, this);
         taskDownloadData = new TaskDownloadData(this);
         this.getServer().getPluginManager().registerEvents(taskDownloadData, this);

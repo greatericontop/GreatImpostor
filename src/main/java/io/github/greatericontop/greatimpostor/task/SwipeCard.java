@@ -18,21 +18,20 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
-public class SwipeCard implements BaseTask {
+public class SwipeCard extends BaseTask {
     public static final String INVENTORY_NAME = "§aAmong Us - Swipe Card";
     private static final int OFFSET = 10;
     private static final double CONSISTENCY_FACTOR = 1.6;
 
     private final Map<UUID, List<Integer>> cardSwipeData = new HashMap<>();
 
-    private GreatImpostorMain plugin;
     public SwipeCard(GreatImpostorMain plugin) {
-        this.plugin = plugin;
+        super(plugin);
     }
 
     @Override
-    public boolean canExecute(Player player) {
-        return true;
+    public TaskType getTaskType() {
+        return TaskType.SWIPE_CARD;
     }
 
     @Override

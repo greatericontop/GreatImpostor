@@ -1,30 +1,42 @@
 package io.github.greatericontop.greatimpostor.task;
 
+import io.github.greatericontop.greatimpostor.GreatImpostorMain;
+import io.github.greatericontop.greatimpostor.core.PlayerProfile;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
 
-public interface BaseTask extends Listener {
+public abstract class BaseTask implements Listener {
+
+    protected GreatImpostorMain plugin;
+    public BaseTask(GreatImpostorMain plugin) {
+        this.plugin = plugin;
+    }
 
     /*
-     * A player is next to the task and wants to do it.
-     * Check to see if the specific task can be executed.
+     * Subtask
      */
-    boolean canExecute(Player player); // TODO
+    public abstract TaskType getTaskType();
 
     /*
      * Activate the task for the player.
      */
-    void startTask(Player player); // TODO
+    public abstract void startTask(Player player); // TODO
 
-    default void taskSuccessful(Player player) { // TODO
+    protected void taskSuccessful(Player player) {
+        PlayerProfile profile = plugin.playerProfiles.get(player.getUniqueId());
+        if (profile == null) {
+            player.sendMessage("§cNo profile, couldn't complete the task!");
+            return;
+        }
+        profile.processSubtaskCompleted(getTaskType());
         player.sendMessage("§aYou completed the task!");
     }
 
-    default void playSuccessSound(Player player) {
+    protected void playSuccessSound(Player player) {
         player.playSound(player.getLocation(), Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 1.0F, 1.0F);
     }
-    default void playFailSound(Player player) {
+    protected void playFailSound(Player player) {
         player.playSound(player.getLocation(), Sound.ENTITY_ENDERMAN_TELEPORT, 1.0F, 1.0F);
     }
 

@@ -15,20 +15,19 @@ import org.bukkit.inventory.meta.ItemMeta;
 
 import java.util.Random;
 
-public class TaskAdjustSteering implements BaseTask {
+public class TaskAdjustSteering extends BaseTask {
     public static final String INVENTORY_NAME = "§aAmong Us - Adjust Steering";
     private static final Material ROCK = Material.BEDROCK;
     private static final Material PREVIOUS_PATH = Material.WHITE_STAINED_GLASS_PANE;
     private static final Material CURRENT = Material.WHITE_WOOL;
 
-    private final GreatImpostorMain plugin;
     public TaskAdjustSteering(GreatImpostorMain plugin) {
-        this.plugin = plugin;
+        super(plugin);
     }
 
     @Override
-    public boolean canExecute(Player player) {
-        return true;
+    public TaskType getTaskType() {
+        return TaskType.ADJUST_STEERING;
     }
 
     @Override

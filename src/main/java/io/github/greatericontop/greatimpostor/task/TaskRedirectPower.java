@@ -1,5 +1,6 @@
 package io.github.greatericontop.greatimpostor.task;
 
+import io.github.greatericontop.greatimpostor.GreatImpostorMain;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
@@ -15,7 +16,7 @@ import java.util.Map;
 import java.util.Random;
 import java.util.UUID;
 
-public class TaskRedirectPower implements BaseTask {
+public class TaskRedirectPower extends BaseTask {
     public static final String INVENTORY_NAME = "§aAmong Us - Redirect Power";
     private static final Material[] MATERIALS = {
             Material.IRON_INGOT, Material.GOLD_INGOT, Material.EMERALD,
@@ -27,9 +28,13 @@ public class TaskRedirectPower implements BaseTask {
     };
     private final Map<UUID, Integer> playerItemNumbers = new HashMap<>();
 
+    public TaskRedirectPower(GreatImpostorMain plugin) {
+        super(plugin);
+    }
+
     @Override
-    public boolean canExecute(Player player) {
-        return true;
+    public TaskType getTaskType() {
+        return TaskType.REDIRECT_ACCEPT_POWER;
     }
 
     @Override

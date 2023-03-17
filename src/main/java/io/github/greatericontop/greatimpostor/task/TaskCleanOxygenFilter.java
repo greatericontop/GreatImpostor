@@ -1,5 +1,6 @@
 package io.github.greatericontop.greatimpostor.task;
 
+import io.github.greatericontop.greatimpostor.GreatImpostorMain;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
@@ -11,12 +12,16 @@ import org.bukkit.inventory.ItemStack;
 
 import java.util.Random;
 
-public class TaskCleanOxygenFilter implements BaseTask {
+public class TaskCleanOxygenFilter extends BaseTask {
     public static final String INVENTORY_NAME = "§aAmong Us - Clean Oxygen Filter";
 
+    public TaskCleanOxygenFilter(GreatImpostorMain plugin) {
+        super(plugin);
+    }
+
     @Override
-    public boolean canExecute(Player player) {
-        return true;
+    public TaskType getTaskType() {
+        return TaskType.CLEAN_OXYGEN_FILTER;
     }
 
     @Override

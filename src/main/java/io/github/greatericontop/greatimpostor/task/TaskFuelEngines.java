@@ -14,8 +14,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.scheduler.BukkitRunnable;
 
-public class TaskFuelEngines implements BaseTask {
-
+public class TaskFuelEngines extends BaseTask {
     public static final String INVENTORY_NAME = "§aAmong Us - Fuel Engines";
     // (11)(12)(13)(14)(15)(16)
     //  20  21  22  23  24 (25)
@@ -26,14 +25,13 @@ public class TaskFuelEngines implements BaseTask {
     private static final int[] CANISTER_EMPTY_ORDER = {20, 21, 29, 22, 23, 30, 24, 31, 38, 32, 39, 33, 40, 41, 42};
     private static final int BUTTON_SLOT = 0;
 
-    private final GreatImpostorMain plugin;
     public TaskFuelEngines(GreatImpostorMain plugin) {
-        this.plugin = plugin;
+        super(plugin);
     }
 
     @Override
-    public boolean canExecute(Player player) {
-        return true;
+    public TaskType getTaskType() {
+        return TaskType.FUEL_ENGINES;
     }
 
     @Override

@@ -1,5 +1,6 @@
 package io.github.greatericontop.greatimpostor.task;
 
+import io.github.greatericontop.greatimpostor.GreatImpostorMain;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
@@ -14,15 +15,19 @@ import java.util.Map;
 import java.util.Random;
 import java.util.UUID;
 
-public class TaskClearAsteroids implements BaseTask {
+public class TaskClearAsteroids extends BaseTask {
     public static final String INVENTORY_NAME = "§aAmong Us - Clear Asteroids";
 
     private final Map<UUID, Integer> score = new HashMap<>();
     private final Random random = new Random();
 
+    public TaskClearAsteroids(GreatImpostorMain plugin) {
+        super(plugin);
+    }
+
     @Override
-    public boolean canExecute(Player player) {
-        return true;
+    public TaskType getTaskType() {
+        return TaskType.CLEAR_ASTEROIDS;
     }
 
     @Override

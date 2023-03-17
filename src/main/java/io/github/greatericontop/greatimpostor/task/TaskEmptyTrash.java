@@ -14,7 +14,7 @@ import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.Random;
 
-public class TaskEmptyTrash implements BaseTask {
+public class TaskEmptyTrash extends BaseTask {
     public static final String INVENTORY_NAME = "§aAmong Us - Empty Trash";
     private static final Material[] TRASH_MATERIALS = {
             Material.COBBLESTONE, Material.STONE, Material.MOSSY_COBBLESTONE,
@@ -25,15 +25,15 @@ public class TaskEmptyTrash implements BaseTask {
             Material.KELP, Material.SEA_PICKLE, Material.SEAGRASS,
     };
 
-    private final GreatImpostorMain plugin;
     public TaskEmptyTrash(GreatImpostorMain plugin) {
-        this.plugin = plugin;
+        super(plugin);
     }
 
     @Override
-    public boolean canExecute(Player player) {
-        return true;
+    public TaskType getTaskType() {
+        return TaskType.EMPTY_TRASH;
     }
+
 
     @Override
     public void startTask(Player player) {

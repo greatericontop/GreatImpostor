@@ -44,10 +44,11 @@ public abstract class PlayerProfile {
         subtasksCompletedPerTask = new int[]{0, 0, 0};
     }
 
-    public void processSubtaskCompleted(Subtask subtask) {
+    public void processSubtaskCompleted(TaskType taskType) {
         for (int i = 0; i < tasks.size(); i++) {
-            if (tasks.get(i).equals(subtask)) {
+            if (tasks.get(i).getFullTask() == taskType) {
                 processSubtaskCompleted(i);
+                return;
             }
         }
         throw new IllegalArgumentException("The given subtask couldn't be found in the list for this profile");

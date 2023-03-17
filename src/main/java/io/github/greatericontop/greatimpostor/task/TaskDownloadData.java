@@ -8,14 +8,8 @@ import org.bukkit.event.inventory.InventoryClickEvent;
 public class TaskDownloadData extends DownloadUpload {
     public static final String INVENTORY_NAME = "§aAmong Us - Download Data";
 
-    private final GreatImpostorMain plugin;
     public TaskDownloadData(GreatImpostorMain plugin) {
-        this.plugin = plugin;
-    }
-
-    @Override
-    public boolean canExecute(Player player) {
-        return true;
+        super(plugin);
     }
 
     @Override

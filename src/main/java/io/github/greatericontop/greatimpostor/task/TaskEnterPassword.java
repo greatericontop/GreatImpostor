@@ -18,7 +18,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
 
-public class TaskEnterPassword implements BaseTask {
+public class TaskEnterPassword extends BaseTask {
     public static final String INVENTORY_NAME = "§aAmong Us - Enter Password";
     private static final float[] PITCHES = {0.707107F, 0.793701F, 0.890899F, 0.943874F, 1.059463F};
     private static final Material[] MATERIALS = {
@@ -34,14 +34,13 @@ public class TaskEnterPassword implements BaseTask {
     private final Map<Player, Integer> playerDigitCount = new HashMap<>();
     private final Map<Player, Boolean> cooldown = new HashMap<>();
 
-    private final GreatImpostorMain plugin;
     public TaskEnterPassword(GreatImpostorMain plugin) {
-        this.plugin = plugin;
+        super(plugin);
     }
 
     @Override
-    public boolean canExecute(Player player) {
-        return true;
+    public TaskType getTaskType() {
+        return TaskType.ENTER_PASSWORD;
     }
 
     @Override
