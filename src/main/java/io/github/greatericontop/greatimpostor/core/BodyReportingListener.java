@@ -54,6 +54,7 @@ public class BodyReportingListener implements Listener {
                                 Title.Times.times(Duration.ofMillis(1500L), Duration.ofMillis(5000L), Duration.ofMillis(1500L))
                         ));
                     }
+                    plugin.meetingManager.startNewMeeting();
                     noBodyFound = false;
                     break;
                 }
