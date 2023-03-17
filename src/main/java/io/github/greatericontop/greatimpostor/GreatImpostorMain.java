@@ -2,21 +2,21 @@ package io.github.greatericontop.greatimpostor;
 
 import io.github.greatericontop.greatimpostor.core.PlayerProfile;
 import io.github.greatericontop.greatimpostor.task.SignListener;
-import io.github.greatericontop.greatimpostor.task.SwipeCard;
-import io.github.greatericontop.greatimpostor.task.TaskAcceptPower;
-import io.github.greatericontop.greatimpostor.task.TaskAdjustSteering;
-import io.github.greatericontop.greatimpostor.task.TaskCleanOxygenFilter;
-import io.github.greatericontop.greatimpostor.task.TaskClearAsteroids;
-import io.github.greatericontop.greatimpostor.task.TaskDownloadData;
-import io.github.greatericontop.greatimpostor.task.TaskEmptyTrash;
-import io.github.greatericontop.greatimpostor.task.TaskEnterPassword;
-import io.github.greatericontop.greatimpostor.task.TaskFetchFuel;
-import io.github.greatericontop.greatimpostor.task.TaskFuelEngines;
-import io.github.greatericontop.greatimpostor.task.TaskRedirectPower;
-import io.github.greatericontop.greatimpostor.task.TaskStabilizeNavigation;
-import io.github.greatericontop.greatimpostor.task.TaskStartReactor;
-import io.github.greatericontop.greatimpostor.task.TaskUploadData;
-import io.github.greatericontop.greatimpostor.task.TaskWiring;
+import io.github.greatericontop.greatimpostor.task.taskexecutors.TaskSwipeCard;
+import io.github.greatericontop.greatimpostor.task.taskexecutors.TaskAcceptPower;
+import io.github.greatericontop.greatimpostor.task.taskexecutors.TaskAdjustSteering;
+import io.github.greatericontop.greatimpostor.task.taskexecutors.TaskCleanOxygenFilter;
+import io.github.greatericontop.greatimpostor.task.taskexecutors.TaskClearAsteroids;
+import io.github.greatericontop.greatimpostor.task.taskexecutors.TaskDownloadData;
+import io.github.greatericontop.greatimpostor.task.taskexecutors.TaskEmptyTrash;
+import io.github.greatericontop.greatimpostor.task.taskexecutors.TaskEnterPassword;
+import io.github.greatericontop.greatimpostor.task.taskexecutors.TaskFetchFuel;
+import io.github.greatericontop.greatimpostor.task.taskexecutors.TaskFuelEngines;
+import io.github.greatericontop.greatimpostor.task.taskexecutors.TaskRedirectPower;
+import io.github.greatericontop.greatimpostor.task.taskexecutors.TaskStabilizeNavigation;
+import io.github.greatericontop.greatimpostor.task.taskexecutors.TaskStartReactor;
+import io.github.greatericontop.greatimpostor.task.taskexecutors.TaskUploadData;
+import io.github.greatericontop.greatimpostor.task.taskexecutors.TaskWiring;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitRunnable;
 
@@ -38,7 +38,7 @@ public class GreatImpostorMain extends JavaPlugin {
     public TaskStabilizeNavigation taskStabilizeNavigation;
     public TaskDownloadData taskDownloadData;
     public TaskUploadData taskUploadData;
-    public SwipeCard taskSwipeCard;
+    public TaskSwipeCard taskSwipeCard;
     public TaskFetchFuel taskFetchFuel;
     public TaskFuelEngines taskFuelEngines;
 
@@ -78,7 +78,7 @@ public class GreatImpostorMain extends JavaPlugin {
         this.getServer().getPluginManager().registerEvents(taskDownloadData, this);
         taskUploadData = new TaskUploadData(this);
         this.getServer().getPluginManager().registerEvents(taskUploadData, this);
-        taskSwipeCard = new SwipeCard(this);
+        taskSwipeCard = new TaskSwipeCard(this);
         this.getServer().getPluginManager().registerEvents(taskSwipeCard, this);
         taskFetchFuel = new TaskFetchFuel(this);
         this.getServer().getPluginManager().registerEvents(taskFetchFuel, this);

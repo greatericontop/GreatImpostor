@@ -1,6 +1,8 @@
-package io.github.greatericontop.greatimpostor.task;
+package io.github.greatericontop.greatimpostor.task.taskexecutors;
 
 import io.github.greatericontop.greatimpostor.GreatImpostorMain;
+import io.github.greatericontop.greatimpostor.task.BaseTask;
+import io.github.greatericontop.greatimpostor.task.TaskType;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
@@ -18,14 +20,14 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
-public class SwipeCard extends BaseTask {
+public class TaskSwipeCard extends BaseTask {
     public static final String INVENTORY_NAME = "§aAmong Us - Swipe Card";
     private static final int OFFSET = 10;
     private static final double CONSISTENCY_FACTOR = 1.6;
 
     private final Map<UUID, List<Integer>> cardSwipeData = new HashMap<>();
 
-    public SwipeCard(GreatImpostorMain plugin) {
+    public TaskSwipeCard(GreatImpostorMain plugin) {
         super(plugin);
     }
 

@@ -1,4 +1,4 @@
-package io.github.greatericontop.greatimpostor.task;
+package io.github.greatericontop.greatimpostor.task.taskexecutors;
 
 import io.github.greatericontop.greatimpostor.GreatImpostorMain;
 import org.bukkit.entity.Player;

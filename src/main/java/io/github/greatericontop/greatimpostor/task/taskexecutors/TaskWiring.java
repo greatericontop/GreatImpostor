@@ -1,6 +1,8 @@
-package io.github.greatericontop.greatimpostor.task;
+package io.github.greatericontop.greatimpostor.task.taskexecutors;
 
 import io.github.greatericontop.greatimpostor.GreatImpostorMain;
+import io.github.greatericontop.greatimpostor.task.BaseTask;
+import io.github.greatericontop.greatimpostor.task.TaskType;
 import io.github.greatericontop.greatimpostor.utils.Shuffler;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
