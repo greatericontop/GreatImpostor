@@ -100,7 +100,7 @@ public class ImpostorCommand implements CommandExecutor {
         }
         if (args[0].equals("testCrewmateTaskComplete")) {
             CrewmateProfile c = (CrewmateProfile) plugin.playerProfiles.get(player.getUniqueId());
-            c.processSubtaskCompleted(Integer.parseInt(args[1]));
+            c.processSubtaskCompleted(Integer.parseInt(args[1]), false);
             c.setInventory();
             return true;
         }

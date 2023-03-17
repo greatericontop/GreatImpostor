@@ -6,6 +6,7 @@ public class TaskUtil {
 
     public static TaskType[] INITIAL_TASKS = {
             // TODO: isn't INITIAL_TASKS just all of them? is this even necessary?
+            //       use this for weights? but then you can't shuffle
             TaskType.WIRING,
             TaskType.REDIRECT_ACCEPT_POWER,
             TaskType.DOWNLOAD_UPLOAD_DATA,

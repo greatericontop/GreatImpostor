@@ -47,26 +47,29 @@ public abstract class PlayerProfile {
     public void processSubtaskCompleted(TaskType taskType) {
         for (int i = 0; i < tasks.size(); i++) {
             if (tasks.get(i).getFullTask() == taskType) {
-                processSubtaskCompleted(i);
+                processSubtaskCompleted(i, true);
                 return;
             }
         }
         throw new IllegalArgumentException("The given subtask couldn't be found in the list for this profile");
     }
-    public void processSubtaskCompleted(int i) {
+    public void processSubtaskCompleted(int i, boolean shouldUpdateInventory) {
         subtasksCompletedPerTask[i]++;
         tasksAlreadyCompleted.add(tasks.get(i));
         TaskType fullTask = tasks.get(i).getFullTask();
-        if (subtasksCompletedPerTask[i] >= fullTask.getRequiredSubtaskCount()) {
-            // This will simply show a green piece of glass with the last task shown as completed.
-            return;
+        if (subtasksCompletedPerTask[i] < fullTask.getRequiredSubtaskCount()) {
+            // (If you already have completed enough)
+            //     This will simply show a green piece of glass with the last task shown as completed.
+            Subtask[] possibleNextSubtasks = fullTask.getPossibleNextSubtasks(subtasksCompletedPerTask[i]);
+            Subtask nextSubtask;
+            do {
+                nextSubtask = possibleNextSubtasks[random.nextInt(possibleNextSubtasks.length)];
+            } while (fullTask.doAlreadyCompletedCheck() && tasksAlreadyCompleted.contains(nextSubtask));
+            tasks.set(i, nextSubtask);
         }
-        Subtask[] possibleNextSubtasks = fullTask.getPossibleNextSubtasks(subtasksCompletedPerTask[i]);
-        Subtask nextSubtask;
-        do {
-            nextSubtask = possibleNextSubtasks[random.nextInt(possibleNextSubtasks.length)];
-        } while (fullTask.doAlreadyCompletedCheck() && tasksAlreadyCompleted.contains(nextSubtask));
-        tasks.set(i, nextSubtask);
+        if (shouldUpdateInventory) {
+            setInventory();
+        }
     }
 
     public abstract boolean isImpostor();
