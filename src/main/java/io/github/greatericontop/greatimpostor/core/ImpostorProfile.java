@@ -38,15 +38,15 @@ public class ImpostorProfile extends PlayerProfile {
     @Override
     public void setActionBar() {
         int[] taskStatus = getTaskStatus(plugin.playerProfiles.values());
-        String tasks = String.format("§e[§6Tasks §d%d/%d§e]", taskStatus[0], taskStatus[1]);
+        String tasks = String.format("§6[Tasks §e%d/%d§6]", taskStatus[0], taskStatus[1]);
         String kill;
         if (getCanKill()) {
-            kill = String.format("§e[§cKill §aAVAILABLE§e]");
+            kill = String.format("§c[Kill §aAVAILABLE§c]");
         } else {
             double seconds = 0.05 * (nextKillTime - plugin.getClock());
-            kill = String.format("§e[§cKill §3%.1fs§e]", seconds);
+            kill = String.format("§c[Kill §3%.1fs§c]", seconds);
         }
-        player.sendActionBar(Component.text(String.format("%s %s", kill, tasks)));
+        player.sendActionBar(Component.text(String.format("%s   %s", kill, tasks)));
     }
 
     @Override

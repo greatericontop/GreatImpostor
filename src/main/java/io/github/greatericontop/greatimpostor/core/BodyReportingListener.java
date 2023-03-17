@@ -49,8 +49,8 @@ public class BodyReportingListener implements Listener {
                     player.sendMessage("§3Successfully reported!");
                     for (Player p : Bukkit.getOnlinePlayers()) {
                         p.showTitle(Title.title(
-                                Component.text("§6Dead Body Reported"),
-                                Component.text("§3" + player.getName() + " reported a body!"),
+                                Component.text("§cDead Body Reported"),
+                                Component.text("§6" + player.getName() + " reported a body!"),
                                 Title.Times.times(Duration.ofMillis(1500L), Duration.ofMillis(5000L), Duration.ofMillis(1500L))
                         ));
                     }

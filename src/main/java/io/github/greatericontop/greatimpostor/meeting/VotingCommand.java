@@ -36,7 +36,7 @@ public class VotingCommand implements CommandExecutor {
         if (args[0].equalsIgnoreCase("skip")) {
             plugin.meetingManager.votes.remove(playerProfile);
             plugin.meetingManager.skips.add(playerProfile);
-            player.sendMessage("§3You voted to skip!");
+            player.sendMessage("§dYou voted to skip!");
         } else {
             Player targetPlayer = plugin.getServer().getPlayer(args[0]);
             if (targetPlayer == null) {
@@ -50,7 +50,7 @@ public class VotingCommand implements CommandExecutor {
             }
             plugin.meetingManager.skips.remove(playerProfile);
             plugin.meetingManager.votes.put(playerProfile, targetPlayerProfile);
-            player.sendMessage(String.format("§3You voted to eject §e%s§3!", targetPlayer.getName()));
+            player.sendMessage(String.format("§dYou voted to eject §e%s§d!", targetPlayer.getName()));
         }
         return true;
     }

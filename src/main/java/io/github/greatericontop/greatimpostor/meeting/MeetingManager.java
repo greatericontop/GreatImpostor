@@ -60,7 +60,6 @@ public class MeetingManager {
         if (toEject == null) {
             Bukkit.broadcast(Component.text("§bNobody was ejected!"));
         } else {
-            Bukkit.broadcast(Component.text("")); // see above
             Bukkit.broadcast(Component.text(String.format("§e%s §bwas ejected!", toEject.getPlayer().getName())));
             String impMessage;
             if (toEject.isImpostor()) {
@@ -85,7 +84,7 @@ public class MeetingManager {
     public void setMeetingActionBar(Player player) {
         int secondsLeft = (startTime + MEETING_TIME_TICKS - plugin.getClock() + 19) / 20;
         String timeLeft = String.format("%d:%02d", secondsLeft / 60, secondsLeft % 60);
-        player.sendActionBar(Component.text(String.format("§6[Meeting] §3%s", timeLeft)));
+        player.sendActionBar(Component.text(String.format("§6Meeting - %s", timeLeft)));
     }
 
     private void playMeetingSound() {

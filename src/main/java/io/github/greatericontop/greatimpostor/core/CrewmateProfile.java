@@ -20,7 +20,7 @@ public class CrewmateProfile extends PlayerProfile {
     @Override
     public void setActionBar() {
         int[] taskStatus = getTaskStatus(plugin.playerProfiles.values());
-        String tasks = String.format("§e[§6Tasks §d%d/%d§e]", taskStatus[0], taskStatus[1]);
+        String tasks = String.format("§6[Tasks §e%d/%d§6]", taskStatus[0], taskStatus[1]);
         player.sendActionBar(Component.text(tasks));
     }
 
