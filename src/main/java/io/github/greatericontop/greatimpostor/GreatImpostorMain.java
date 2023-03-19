@@ -13,15 +13,17 @@ import io.github.greatericontop.greatimpostor.task.taskexecutors.TaskCleanOxygen
 import io.github.greatericontop.greatimpostor.task.taskexecutors.TaskClearAsteroids;
 import io.github.greatericontop.greatimpostor.task.taskexecutors.TaskDownloadData;
 import io.github.greatericontop.greatimpostor.task.taskexecutors.TaskEmptyTrash;
-import io.github.greatericontop.greatimpostor.task.taskexecutors.TaskStartReactor;
 import io.github.greatericontop.greatimpostor.task.taskexecutors.TaskFetchFuel;
 import io.github.greatericontop.greatimpostor.task.taskexecutors.TaskFuelEngines;
 import io.github.greatericontop.greatimpostor.task.taskexecutors.TaskRedirectPower;
 import io.github.greatericontop.greatimpostor.task.taskexecutors.TaskStabilizeNavigation;
-import io.github.greatericontop.greatimpostor.task.taskexecutors.TaskUnlockManifolds;
+import io.github.greatericontop.greatimpostor.task.taskexecutors.TaskStartReactor;
 import io.github.greatericontop.greatimpostor.task.taskexecutors.TaskSwipeCard;
+import io.github.greatericontop.greatimpostor.task.taskexecutors.TaskUnlockManifolds;
 import io.github.greatericontop.greatimpostor.task.taskexecutors.TaskUploadData;
 import io.github.greatericontop.greatimpostor.task.taskexecutors.TaskWiring;
+import org.bukkit.Location;
+import org.bukkit.World;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitRunnable;
 
@@ -58,6 +60,10 @@ public class GreatImpostorMain extends JavaPlugin {
 
     @Override
     public void onEnable() {
+
+        this.saveDefaultConfig();
+        this.getConfig().options().copyDefaults(true);
+        this.saveConfig();
 
         this.getServer().getPluginManager().registerEvents(new AntiVandalism(this), this);
         this.getServer().getPluginManager().registerEvents(new BodyReportingListener(this), this);
@@ -121,6 +127,20 @@ public class GreatImpostorMain extends JavaPlugin {
         }.runTaskTimer(this, 1L, 1L);
 
         this.getLogger().info("GreatImpostor finished setting up!");
+    }
+
+    public Location getStartingLocation() {
+        World world = this.getServer().getWorld(this.getConfig().getString("starting-location.world-name"));
+        if (world == null) {
+            this.getLogger().warning("The world specified in the config does not exist! Using the default world instead.");
+            world = this.getServer().getWorlds().get(0);
+        }
+        return new Location(
+                world,
+                this.getConfig().getDouble("starting-location.x"),
+                this.getConfig().getDouble("starting-location.y"),
+                this.getConfig().getDouble("starting-location.z")
+        );
     }
 
 }

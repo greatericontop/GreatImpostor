@@ -21,7 +21,7 @@ import java.util.SortedMap;
 import java.util.TreeMap;
 
 public class MeetingManager {
-    private static int MEETING_TIME_TICKS = 800; //2100; // 1m 45s
+    private static int MEETING_TIME_TICKS = 400; //2100; // 1m 45s
 
     private int startTime;
     public final Map<PlayerProfile, PlayerProfile> votes = new HashMap<>();
@@ -61,7 +61,6 @@ public class MeetingManager {
         startTime = plugin.getClock();
         votes.clear();
         skips.clear();
-        // TODO teleport to some central location & freeze all players
         Bukkit.broadcast(Component.text("§9--------------------------------------------------"));
         Bukkit.broadcast(Component.text(""));
         Bukkit.broadcast(Component.text("§4GreatImpostor"));
@@ -74,6 +73,9 @@ public class MeetingManager {
         Bukkit.broadcast(Component.text(""));
         Bukkit.broadcast(Component.text("§9--------------------------------------------------"));
         playMeetingSound();
+        for (Player player : Bukkit.getOnlinePlayers()) {
+            player.setGameMode(GameMode.SPECTATOR);
+        }
     }
 
     public void endMeeting() {
@@ -96,9 +98,14 @@ public class MeetingManager {
         Bukkit.broadcast(Component.text("§9--------------------------------------------------"));
 
         for (PlayerProfile profile : plugin.playerProfiles.values()) {
+            if (toEject != null && profile.getPlayer().getUniqueId().equals(toEject.getPlayer().getUniqueId())) {
+                continue;
+            }
             if (profile.isImpostor()) {
                 ((ImpostorProfile) profile).resetCooldown(false);
             }
+            profile.getPlayer().setGameMode(GameMode.ADVENTURE);
+            profile.getPlayer().teleport(plugin.getStartingLocation());
         }
         startTime = -2;
     }
@@ -131,8 +138,12 @@ public class MeetingManager {
                 if (!isMeetingActive())  return;
                 if (startTime + MEETING_TIME_TICKS <= plugin.getClock()) {
                     endMeeting();
+                    return;
                 }
-                // end meeting if enough votes were cast
+                for (Player player : Bukkit.getOnlinePlayers()) {
+                    player.teleport(plugin.getStartingLocation());
+                }
+                // TODO: end meeting if enough votes were cast
             }
         }.runTaskTimer(plugin, 1L, 1L);
     }

@@ -1,0 +1,12 @@
+#
+# GreatImpostor config
+#
+
+
+# This is the location everyone starts at during the beginning of a game or after the end of a meeting.
+# Also, this is the location where everyone is teleported to during a meeting.
+starting-location:
+  world-name: world
+  x: 0.0
+  y: 256.0
+  z: 0.0
