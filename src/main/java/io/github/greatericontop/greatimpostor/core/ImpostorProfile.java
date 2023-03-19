@@ -61,12 +61,12 @@ public class ImpostorProfile extends PlayerProfile {
         }
         String sabotage;
         if (plugin.sabotageManager.isSabotageActive()) {
-            sabotage = String.format("§c[Sabotage §d%s§c]", plugin.sabotageManager.getActiveSabotage().getDisplayName());
+            sabotage = String.format("§d[%s §eACTIVE§d]", plugin.sabotageManager.getActiveSabotage().getDisplayName());
         } else if (getCanSabotage()) {
-            sabotage = String.format("§c[Sabotage §7(§d%s§7) §aREADY§c]", selectedSabotage.getDisplayName());
+            sabotage = String.format("§d[%s §aREADY§d]", selectedSabotage.getDisplayName());
         } else {
             double seconds = 0.05 * (nextSabotageTime - plugin.getClock());
-            sabotage = String.format("§c[Sabotage §3%.1fs§c]", seconds);
+            sabotage = String.format("§d[%s §3%.1fs§d]", selectedSabotage.getDisplayName(), seconds);
         }
         player.sendActionBar(Component.text(String.format("%s   %s   %s", kill, tasks, sabotage)));
     }
