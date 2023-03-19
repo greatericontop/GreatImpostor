@@ -37,6 +37,11 @@ public class SignListener implements Listener {
             return;
         }
 
+        if (subtaskName.equalsIgnoreCase("@emergency")) {
+            plugin.meetingManager.haveEmergencyMeeting(player);
+            return;
+        }
+
         Subtask subtask = Subtask.valueOf(subtaskName);
         // Check if it's in the list
         if (!profile.tasks.contains(subtask)) {

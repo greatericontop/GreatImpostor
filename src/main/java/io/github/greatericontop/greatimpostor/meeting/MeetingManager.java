@@ -4,12 +4,14 @@ import io.github.greatericontop.greatimpostor.GreatImpostorMain;
 import io.github.greatericontop.greatimpostor.core.ImpostorProfile;
 import io.github.greatericontop.greatimpostor.core.PlayerProfile;
 import net.kyori.adventure.text.Component;
+import net.kyori.adventure.title.Title;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 
+import java.time.Duration;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -33,6 +35,26 @@ public class MeetingManager {
 
     public boolean isMeetingActive() {
         return startTime != -2;
+    }
+
+    public void haveEmergencyMeeting(Player callingPlayer) {
+        if (isMeetingActive()) {
+            callingPlayer.sendMessage("§cThere is already a meeting in progress!");
+            return;
+        }
+        PlayerProfile profile = plugin.playerProfiles.get(callingPlayer.getUniqueId());
+        if (profile == null) {
+            callingPlayer.sendMessage("§cCouldn't get your profile!");
+            return;
+        }
+        for (Player p : Bukkit.getOnlinePlayers()) {
+            p.showTitle(Title.title(
+                    Component.text("§cEmergency Meeting"),
+                    Component.text("§6" + callingPlayer.getName() + " called a meeting!"),
+                    Title.Times.times(Duration.ofMillis(1500L), Duration.ofMillis(5000L), Duration.ofMillis(1500L))
+            ));
+        }
+        startNewMeeting();
     }
 
     public void startNewMeeting() {
