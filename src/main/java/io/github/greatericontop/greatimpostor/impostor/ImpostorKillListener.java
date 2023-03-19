@@ -31,7 +31,11 @@ public class ImpostorKillListener implements Listener {
         // if (!(event.getEntity() instanceof Player victim))  return;
         PlayerProfile profile = plugin.playerProfiles.get(player.getUniqueId());
         if (profile == null)  return;
-        if (!profile.isImpostor())  return;
+        if (!profile.isImpostor()) {
+            event.setCancelled(true);
+            player.sendMessage("§cYou can't attack others!");
+            return;
+        }
         ImpostorProfile impostorProfile = (ImpostorProfile) profile;
 
         if (impostorProfile.getCanKill()) {
