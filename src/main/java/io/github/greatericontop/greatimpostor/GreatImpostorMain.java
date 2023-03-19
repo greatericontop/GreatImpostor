@@ -4,6 +4,7 @@ import io.github.greatericontop.greatimpostor.core.AntiVandalism;
 import io.github.greatericontop.greatimpostor.core.BodyReportingListener;
 import io.github.greatericontop.greatimpostor.core.PlayerProfile;
 import io.github.greatericontop.greatimpostor.impostor.ImpostorKillListener;
+import io.github.greatericontop.greatimpostor.impostor.SabotageManager;
 import io.github.greatericontop.greatimpostor.meeting.MeetingManager;
 import io.github.greatericontop.greatimpostor.meeting.VotingCommand;
 import io.github.greatericontop.greatimpostor.task.SignListener;
@@ -50,6 +51,7 @@ public class GreatImpostorMain extends JavaPlugin {
     public TaskFuelEngines taskFuelEngines;
 
     public MeetingManager meetingManager;
+    public SabotageManager sabotageManager;
 
     public final Map<UUID, PlayerProfile> playerProfiles = new HashMap<>();
 
@@ -68,6 +70,8 @@ public class GreatImpostorMain extends JavaPlugin {
         this.getServer().getPluginManager().registerEvents(new AntiVandalism(this), this);
         this.getServer().getPluginManager().registerEvents(new BodyReportingListener(this), this);
         this.getServer().getPluginManager().registerEvents(new ImpostorKillListener(this), this);
+        sabotageManager = new SabotageManager(this);
+        this.getServer().getPluginManager().registerEvents(sabotageManager, this);
 
         meetingManager = new MeetingManager(this);
         meetingManager.registerMeetingRunnable();

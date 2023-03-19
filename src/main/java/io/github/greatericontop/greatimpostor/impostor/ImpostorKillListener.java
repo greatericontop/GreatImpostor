@@ -40,7 +40,7 @@ public class ImpostorKillListener implements Listener {
 
         if (impostorProfile.getCanKill()) {
             event.setCancelled(true);
-            impostorProfile.resetCooldown(false);
+            impostorProfile.resetKillCooldown(false);
             ((Damageable) event.getEntity()).setHealth(0.0);
             generateDeadBody(event.getEntity().getLocation());
         } else {
