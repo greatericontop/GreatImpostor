@@ -16,6 +16,9 @@ public class TaskUtil {
             TaskType.CLEAN_OXYGEN_FILTER,
             TaskType.CLEAR_ASTEROIDS,
             TaskType.EMPTY_TRASH,
+            TaskType.STABILIZE_NAVIGATION,
+            TaskType.START_REACTOR,
+            TaskType.UNLOCK_MANIFOLDS
     };
 
     public static BaseTask getTaskClass(GreatImpostorMain plugin, Subtask subtask) {
@@ -61,6 +64,12 @@ public class TaskUtil {
             }
             case STABILIZE_NAVIGATION -> {
                 return plugin.taskStabilizeNavigation;
+            }
+            case START_REACTOR -> {
+                return plugin.taskStartReactor;
+            }
+            case UNLOCK_MANIFOLDS -> {
+                return plugin.taskUnlockManifolds;
             }
             default -> throw new IllegalArgumentException("Unknown/unrecognized task type: " + subtask.getFullTask());
         }

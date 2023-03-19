@@ -53,6 +53,10 @@ public enum Subtask {
 
     STABILIZE_NAVIGATION("STABILIZE_NAVIGATION", "§eNavigation: Stabilize Navigation"),
 
+    START_REACTOR("START_REACTOR", "§eReactor: Start Reactor"),
+
+    UNLOCK_MANIFOLDS("UNLOCK_MANIFOLDS", "§eReactor: Unlock Manifolds"),
+
     ;
 
     private final String fullTask;

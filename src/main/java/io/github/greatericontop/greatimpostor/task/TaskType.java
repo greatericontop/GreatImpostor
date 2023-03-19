@@ -123,9 +123,15 @@ public enum TaskType {
             Subtask.STABILIZE_NAVIGATION
     ),
 
-    // placeholders - fully impl later
-    START_REACTOR(1),
-    UNLOCK_MANIFOLDS(1),
+    START_REACTOR(
+            1,
+            Subtask.START_REACTOR
+    ),
+
+    UNLOCK_MANIFOLDS(
+            1,
+            Subtask.UNLOCK_MANIFOLDS
+    ),
 
     // TODO: only a few added for now; add the rest of these
 
