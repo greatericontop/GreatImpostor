@@ -120,6 +120,9 @@ public class GreatImpostorMain extends JavaPlugin {
 
         new BukkitRunnable() {
             public void run() {
+
+                sabotageManager.tickSabotages();
+
                 for (PlayerProfile profile : playerProfiles.values()) {
                     if (meetingManager.isMeetingActive()) {
                         meetingManager.setMeetingActionBar(profile.getPlayer());
@@ -127,6 +130,7 @@ public class GreatImpostorMain extends JavaPlugin {
                         profile.setActionBar();
                     }
                 }
+
             }
         }.runTaskTimer(this, 1L, 1L);
 
