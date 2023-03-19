@@ -44,6 +44,15 @@ public enum Subtask {
 
     ADJUST_STEERING("ADJUST_STEERING", "§eNavigation: Adjust Steering"),
 
+    CLEAN_OXYGEN_FILTER("CLEAN_OXYGEN_FILTER", "§eOxygen: Clean Oxygen Filter"),
+
+    CLEAR_ASTEROIDS("CLEAR_ASTEROIDS", "§eWeapons: Clear Asteroids"),
+
+    EMPTY_TRASH_CAFETERIA("EMPTY_TRASH", "§eCafeteria: Empty Trash"),
+    EMPTY_TRASH_STORAGE("EMPTY_TRASH", "§eStorage: Empty Trash"),
+
+    STABILIZE_NAVIGATION("STABILIZE_NAVIGATION", "§eNavigation: Stabilize Navigation"),
+
     ;
 
     private final String fullTask;

@@ -13,6 +13,9 @@ public class TaskUtil {
             TaskType.FUEL_ENGINES,
             TaskType.SWIPE_CARD,
             TaskType.ADJUST_STEERING,
+            TaskType.CLEAN_OXYGEN_FILTER,
+            TaskType.CLEAR_ASTEROIDS,
+            TaskType.EMPTY_TRASH,
     };
 
     public static BaseTask getTaskClass(GreatImpostorMain plugin, Subtask subtask) {
@@ -46,6 +49,18 @@ public class TaskUtil {
             }
             case ADJUST_STEERING -> {
                 return plugin.taskAdjustSteering;
+            }
+            case CLEAN_OXYGEN_FILTER -> {
+                return plugin.taskCleanOxygenFilter;
+            }
+            case CLEAR_ASTEROIDS -> {
+                return plugin.taskClearAsteroids;
+            }
+            case EMPTY_TRASH -> {
+                return plugin.taskEmptyTrash;
+            }
+            case STABILIZE_NAVIGATION -> {
+                return plugin.taskStabilizeNavigation;
             }
             default -> throw new IllegalArgumentException("Unknown/unrecognized task type: " + subtask.getFullTask());
         }

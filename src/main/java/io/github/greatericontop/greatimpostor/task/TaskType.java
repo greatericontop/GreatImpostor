@@ -102,12 +102,29 @@ public enum TaskType {
             Subtask.ADJUST_STEERING
     ),
 
+    CLEAN_OXYGEN_FILTER(
+            1,
+            Subtask.CLEAN_OXYGEN_FILTER
+    ),
+
+    CLEAR_ASTEROIDS(
+            1,
+            Subtask.CLEAR_ASTEROIDS
+    ),
+
+    EMPTY_TRASH(
+            2,
+            Subtask.EMPTY_TRASH_CAFETERIA,
+            Subtask.EMPTY_TRASH_STORAGE
+    ),
+
+    STABILIZE_NAVIGATION(
+            1,
+            Subtask.STABILIZE_NAVIGATION
+    ),
+
     // placeholders - fully impl later
-    CLEAN_OXYGEN_FILTER(1),
-    CLEAR_ASTEROIDS(1),
-    EMPTY_TRASH(1),
     ENTER_PASSWORD(1),
-    STABILIZE_NAVIGATION(1),
     START_REACTOR(1),
 
     // TODO: only a few added for now; add the rest of these
