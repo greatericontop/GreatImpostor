@@ -37,8 +37,8 @@ public class ImpostorCommand implements CommandExecutor {
             plugin.taskRedirectPower.startTask(player);
             return true;
         }
-        if (args[0].equals("taskEnterPassword")) {
-            plugin.taskEnterPassword.startTask(player);
+        if (args[0].equals("taskStartReactor")) {
+            plugin.taskStartReactor.startTask(player);
             return true;
         }
         if (args[0].equals("taskEmptyTrash")) {
@@ -61,8 +61,8 @@ public class ImpostorCommand implements CommandExecutor {
             plugin.taskClearAsteroids.startTask(player);
             return true;
         }
-        if (args[0].equals("taskStartReactor")) {
-            plugin.taskStartReactor.startTask(player);
+        if (args[0].equals("taskUnlockManifolds")) {
+            plugin.taskUnlockManifolds.startTask(player);
             return true;
         }
         if (args[0].equals("taskStabilizeNavigation")) {

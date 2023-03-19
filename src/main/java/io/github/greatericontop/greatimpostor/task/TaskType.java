@@ -124,8 +124,8 @@ public enum TaskType {
     ),
 
     // placeholders - fully impl later
-    ENTER_PASSWORD(1),
     START_REACTOR(1),
+    UNLOCK_MANIFOLDS(1),
 
     // TODO: only a few added for now; add the rest of these
 

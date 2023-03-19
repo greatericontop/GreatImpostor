@@ -13,12 +13,12 @@ import io.github.greatericontop.greatimpostor.task.taskexecutors.TaskCleanOxygen
 import io.github.greatericontop.greatimpostor.task.taskexecutors.TaskClearAsteroids;
 import io.github.greatericontop.greatimpostor.task.taskexecutors.TaskDownloadData;
 import io.github.greatericontop.greatimpostor.task.taskexecutors.TaskEmptyTrash;
-import io.github.greatericontop.greatimpostor.task.taskexecutors.TaskEnterPassword;
+import io.github.greatericontop.greatimpostor.task.taskexecutors.TaskStartReactor;
 import io.github.greatericontop.greatimpostor.task.taskexecutors.TaskFetchFuel;
 import io.github.greatericontop.greatimpostor.task.taskexecutors.TaskFuelEngines;
 import io.github.greatericontop.greatimpostor.task.taskexecutors.TaskRedirectPower;
 import io.github.greatericontop.greatimpostor.task.taskexecutors.TaskStabilizeNavigation;
-import io.github.greatericontop.greatimpostor.task.taskexecutors.TaskStartReactor;
+import io.github.greatericontop.greatimpostor.task.taskexecutors.TaskUnlockManifolds;
 import io.github.greatericontop.greatimpostor.task.taskexecutors.TaskSwipeCard;
 import io.github.greatericontop.greatimpostor.task.taskexecutors.TaskUploadData;
 import io.github.greatericontop.greatimpostor.task.taskexecutors.TaskWiring;
@@ -33,13 +33,13 @@ public class GreatImpostorMain extends JavaPlugin {
 
     public TaskWiring taskWiring;
     public TaskRedirectPower taskRedirectPower;
-    public TaskEnterPassword taskEnterPassword;
+    public TaskStartReactor taskStartReactor;
     public TaskEmptyTrash taskEmptyTrash;
     public TaskAdjustSteering taskAdjustSteering;
     public TaskAcceptPower taskAcceptPower;
     public TaskCleanOxygenFilter taskCleanOxygenFilter;
     public TaskClearAsteroids taskClearAsteroids;
-    public TaskStartReactor taskStartReactor;
+    public TaskUnlockManifolds taskUnlockManifolds;
     public TaskStabilizeNavigation taskStabilizeNavigation;
     public TaskDownloadData taskDownloadData;
     public TaskUploadData taskUploadData;
@@ -71,8 +71,8 @@ public class GreatImpostorMain extends JavaPlugin {
         this.getServer().getPluginManager().registerEvents(taskWiring, this);
         taskRedirectPower = new TaskRedirectPower(this);
         this.getServer().getPluginManager().registerEvents(taskRedirectPower, this);
-        taskEnterPassword = new TaskEnterPassword(this);
-        this.getServer().getPluginManager().registerEvents(taskEnterPassword, this);
+        taskStartReactor = new TaskStartReactor(this);
+        this.getServer().getPluginManager().registerEvents(taskStartReactor, this);
         taskEmptyTrash = new TaskEmptyTrash(this);
         this.getServer().getPluginManager().registerEvents(taskEmptyTrash, this);
         taskAdjustSteering = new TaskAdjustSteering(this);
@@ -83,8 +83,8 @@ public class GreatImpostorMain extends JavaPlugin {
         this.getServer().getPluginManager().registerEvents(taskCleanOxygenFilter, this);
         taskClearAsteroids = new TaskClearAsteroids(this);
         this.getServer().getPluginManager().registerEvents(taskClearAsteroids, this);
-        taskStartReactor = new TaskStartReactor(this);
-        this.getServer().getPluginManager().registerEvents(taskStartReactor, this);
+        taskUnlockManifolds = new TaskUnlockManifolds(this);
+        this.getServer().getPluginManager().registerEvents(taskUnlockManifolds, this);
         taskStabilizeNavigation = new TaskStabilizeNavigation(this);
         this.getServer().getPluginManager().registerEvents(taskStabilizeNavigation, this);
         taskDownloadData = new TaskDownloadData(this);
