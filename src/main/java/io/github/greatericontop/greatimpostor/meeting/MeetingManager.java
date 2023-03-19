@@ -113,7 +113,7 @@ public class MeetingManager {
         new BukkitRunnable() {
             int i = 0;
             public void run() {
-                if (i >= 20) {
+                if (i >= 35) {
                     cancel();
                     return;
                 }
@@ -122,7 +122,7 @@ public class MeetingManager {
                 }
                 i++;
             }
-        }.runTaskTimer(plugin, 1L, 3L);
+        }.runTaskTimer(plugin, 1L, 2L);
     }
 
     public void registerMeetingRunnable() {
