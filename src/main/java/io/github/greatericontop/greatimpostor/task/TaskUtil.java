@@ -79,7 +79,7 @@ public class TaskUtil {
     public static BaseSabotageTask getSabotageTaskClass(GreatImpostorMain plugin, Sabotage sabotage) {
         switch (sabotage) {
             case REACTOR -> {
-                return plugin.sabotageFixLights; // TODO
+                return plugin.sabotageReactor;
             }
             case OXYGEN -> {
                 return plugin.sabotageFixLights; // TODO
