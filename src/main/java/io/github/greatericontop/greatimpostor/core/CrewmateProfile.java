@@ -21,7 +21,11 @@ public class CrewmateProfile extends PlayerProfile {
     public void setActionBar() {
         int[] taskStatus = getTaskStatus(plugin.playerProfiles.values());
         String tasks = String.format("§6[Tasks §e%d/%d§6]", taskStatus[0], taskStatus[1]);
-        player.sendActionBar(Component.text(tasks));
+        String sabotage = "";
+        if (plugin.sabotageManager.isSabotageActive()) {
+            sabotage = String.format("   §d[%s]", plugin.sabotageManager.getActiveSabotage().getDisplayName());
+        }
+        player.sendActionBar(Component.text(String.format("%s%s", tasks, sabotage)));
     }
 
     @Override
