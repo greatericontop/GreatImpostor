@@ -1,4 +1,4 @@
-package io.github.greatericontop.greatimpostor.task.taskexecutors;
+package io.github.greatericontop.greatimpostor.task.maintaskexecutors;
 
 import io.github.greatericontop.greatimpostor.GreatImpostorMain;
 import io.github.greatericontop.greatimpostor.task.BaseTask;

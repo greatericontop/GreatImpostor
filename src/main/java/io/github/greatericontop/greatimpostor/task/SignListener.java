@@ -2,6 +2,7 @@ package io.github.greatericontop.greatimpostor.task;
 
 import io.github.greatericontop.greatimpostor.GreatImpostorMain;
 import io.github.greatericontop.greatimpostor.core.PlayerProfile;
+import io.github.greatericontop.greatimpostor.impostor.Sabotage;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.block.Sign;
@@ -41,7 +42,27 @@ public class SignListener implements Listener {
             plugin.meetingManager.haveEmergencyMeeting(player);
             return;
         }
+        if (subtaskName.startsWith("@sabotage=")) {
+            executeSabotageTask(player, subtaskName.replaceFirst("@sabotage=", "")); // note: the regex "@sabotage=" just matches the literal
+            return;
+        }
+        executeMainTask(profile, player, subtaskName);
+    }
 
+    private void executeSabotageTask(Player player, String sabotageName) {
+        Sabotage sabotage = Sabotage.valueOf(sabotageName);
+        // Check if it's activated
+        if (plugin.sabotageManager.getActiveSabotage() != sabotage) {
+            player.sendMessage("§cThis sabotage does not need to be fixed!");
+            return;
+        }
+
+        player.sendMessage("§7Test: sabotage " + sabotage.getDisplayName());
+        BaseSabotageTask baseSabotageTask = TaskUtil.getSabotageTaskClass(plugin, sabotage);
+        baseSabotageTask.startTask(player);
+    }
+
+    private void executeMainTask(PlayerProfile profile, Player player, String subtaskName) {
         Subtask subtask = Subtask.valueOf(subtaskName);
         // Check if it's in the list
         if (!profile.tasks.contains(subtask)) {
@@ -54,7 +75,7 @@ public class SignListener implements Listener {
             return;
         }
 
-        player.sendMessage("§aTest: you just got task: " + subtask.getDisplayName());
+        player.sendMessage("§7Test: you just got task: " + subtask.getDisplayName());
         BaseTask baseTask = TaskUtil.getTaskClass(plugin, subtask);
         baseTask.startTask(player);
     }

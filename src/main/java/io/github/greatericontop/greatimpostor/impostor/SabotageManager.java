@@ -75,7 +75,12 @@ public class SabotageManager implements Listener {
         player.sendMessage(String.format("§6You activated §c%s§6.", activeSabotage.getDisplayName()));
     }
 
-    public void deactivateSabotage() {
+    public void endSabotage(Sabotage sabotageType) {
+        if (activeSabotage == sabotageType) {
+            forceEndSabotage();
+        }
+    }
+    public void forceEndSabotage() {
         activeSabotage = null;
         responsibleImpostor.resetSabotageCooldown(false);
     }

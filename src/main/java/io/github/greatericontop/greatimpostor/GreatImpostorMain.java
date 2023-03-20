@@ -8,21 +8,22 @@ import io.github.greatericontop.greatimpostor.impostor.SabotageManager;
 import io.github.greatericontop.greatimpostor.meeting.MeetingManager;
 import io.github.greatericontop.greatimpostor.meeting.VotingCommand;
 import io.github.greatericontop.greatimpostor.task.SignListener;
-import io.github.greatericontop.greatimpostor.task.taskexecutors.TaskAcceptPower;
-import io.github.greatericontop.greatimpostor.task.taskexecutors.TaskAdjustSteering;
-import io.github.greatericontop.greatimpostor.task.taskexecutors.TaskCleanOxygenFilter;
-import io.github.greatericontop.greatimpostor.task.taskexecutors.TaskClearAsteroids;
-import io.github.greatericontop.greatimpostor.task.taskexecutors.TaskDownloadData;
-import io.github.greatericontop.greatimpostor.task.taskexecutors.TaskEmptyTrash;
-import io.github.greatericontop.greatimpostor.task.taskexecutors.TaskFetchFuel;
-import io.github.greatericontop.greatimpostor.task.taskexecutors.TaskFuelEngines;
-import io.github.greatericontop.greatimpostor.task.taskexecutors.TaskRedirectPower;
-import io.github.greatericontop.greatimpostor.task.taskexecutors.TaskStabilizeNavigation;
-import io.github.greatericontop.greatimpostor.task.taskexecutors.TaskStartReactor;
-import io.github.greatericontop.greatimpostor.task.taskexecutors.TaskSwipeCard;
-import io.github.greatericontop.greatimpostor.task.taskexecutors.TaskUnlockManifolds;
-import io.github.greatericontop.greatimpostor.task.taskexecutors.TaskUploadData;
-import io.github.greatericontop.greatimpostor.task.taskexecutors.TaskWiring;
+import io.github.greatericontop.greatimpostor.task.maintaskexecutors.TaskAcceptPower;
+import io.github.greatericontop.greatimpostor.task.maintaskexecutors.TaskAdjustSteering;
+import io.github.greatericontop.greatimpostor.task.maintaskexecutors.TaskCleanOxygenFilter;
+import io.github.greatericontop.greatimpostor.task.maintaskexecutors.TaskClearAsteroids;
+import io.github.greatericontop.greatimpostor.task.maintaskexecutors.TaskDownloadData;
+import io.github.greatericontop.greatimpostor.task.maintaskexecutors.TaskEmptyTrash;
+import io.github.greatericontop.greatimpostor.task.maintaskexecutors.TaskFetchFuel;
+import io.github.greatericontop.greatimpostor.task.maintaskexecutors.TaskFuelEngines;
+import io.github.greatericontop.greatimpostor.task.maintaskexecutors.TaskRedirectPower;
+import io.github.greatericontop.greatimpostor.task.maintaskexecutors.TaskStabilizeNavigation;
+import io.github.greatericontop.greatimpostor.task.maintaskexecutors.TaskStartReactor;
+import io.github.greatericontop.greatimpostor.task.maintaskexecutors.TaskSwipeCard;
+import io.github.greatericontop.greatimpostor.task.maintaskexecutors.TaskUnlockManifolds;
+import io.github.greatericontop.greatimpostor.task.maintaskexecutors.TaskUploadData;
+import io.github.greatericontop.greatimpostor.task.maintaskexecutors.TaskWiring;
+import io.github.greatericontop.greatimpostor.task.sabotagetaskexecutors.SabotageFixLights;
 import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -50,6 +51,8 @@ public class GreatImpostorMain extends JavaPlugin {
     public TaskFetchFuel taskFetchFuel;
     public TaskFuelEngines taskFuelEngines;
 
+    public SabotageFixLights sabotageFixLights;
+
     public MeetingManager meetingManager;
     public SabotageManager sabotageManager;
 
@@ -76,6 +79,11 @@ public class GreatImpostorMain extends JavaPlugin {
         meetingManager = new MeetingManager(this);
         meetingManager.registerMeetingRunnable();
 
+        //
+        //
+        //
+
+        // main tasks
         this.getServer().getPluginManager().registerEvents(new SignListener(this), this);
         taskWiring = new TaskWiring(this);
         this.getServer().getPluginManager().registerEvents(taskWiring, this);
@@ -107,6 +115,13 @@ public class GreatImpostorMain extends JavaPlugin {
         this.getServer().getPluginManager().registerEvents(taskFetchFuel, this);
         taskFuelEngines = new TaskFuelEngines(this);
         this.getServer().getPluginManager().registerEvents(taskFuelEngines, this);
+        // sabotage tasks
+        sabotageFixLights = new SabotageFixLights(this);
+        this.getServer().getPluginManager().registerEvents(sabotageFixLights, this);
+
+        //
+        //
+        //
 
         this.getCommand("impostor").setExecutor(new ImpostorCommand(this));
         this.getCommand("vote").setExecutor(new VotingCommand(this));

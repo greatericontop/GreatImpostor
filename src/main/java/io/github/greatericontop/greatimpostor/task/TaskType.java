@@ -133,8 +133,6 @@ public enum TaskType {
             Subtask.UNLOCK_MANIFOLDS
     ),
 
-    // TODO: only a few added for now; add the rest of these
-
     ;
 
     private final int requiredSubtaskCount;

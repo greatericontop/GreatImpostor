@@ -1,20 +1,20 @@
-package io.github.greatericontop.greatimpostor.task.taskexecutors;
+package io.github.greatericontop.greatimpostor.task.maintaskexecutors;
 
 import io.github.greatericontop.greatimpostor.GreatImpostorMain;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.inventory.InventoryClickEvent;
 
-public class TaskUploadData extends DownloadUpload {
-    public static final String INVENTORY_NAME = "§aAmong Us - Upload Data";
+public class TaskDownloadData extends DownloadUpload {
+    public static final String INVENTORY_NAME = "§aAmong Us - Download Data";
 
-    public TaskUploadData(GreatImpostorMain plugin) {
+    public TaskDownloadData(GreatImpostorMain plugin) {
         super(plugin);
     }
 
     @Override
     public void startTask(Player player) {
-        super.startTask(player, INVENTORY_NAME, "§eClick to start uploading the data.");
+        super.startTask(player, INVENTORY_NAME, "§eClick to start downloading the data.");
     }
 
     @EventHandler()

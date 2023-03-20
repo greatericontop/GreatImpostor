@@ -1,6 +1,7 @@
 package io.github.greatericontop.greatimpostor.task;
 
 import io.github.greatericontop.greatimpostor.GreatImpostorMain;
+import io.github.greatericontop.greatimpostor.impostor.Sabotage;
 
 public class TaskUtil {
 
@@ -72,6 +73,24 @@ public class TaskUtil {
                 return plugin.taskUnlockManifolds;
             }
             default -> throw new IllegalArgumentException("Unknown/unrecognized task type: " + subtask.getFullTask());
+        }
+    }
+
+    public static BaseSabotageTask getSabotageTaskClass(GreatImpostorMain plugin, Sabotage sabotage) {
+        switch (sabotage) {
+            case REACTOR -> {
+                return plugin.sabotageFixLights; // TODO
+            }
+            case OXYGEN -> {
+                return plugin.sabotageFixLights; // TODO
+            }
+            case LIGHTS -> {
+                return plugin.sabotageFixLights;
+            }
+            case COMMUNICATIONS -> {
+                return plugin.sabotageFixLights; // TODO
+            }
+            default -> throw new IllegalArgumentException("Unknown/unrecognized sabotage task type: " + sabotage);
         }
     }
 

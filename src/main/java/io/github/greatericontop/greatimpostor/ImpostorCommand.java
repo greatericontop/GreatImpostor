@@ -126,7 +126,7 @@ public class ImpostorCommand implements CommandExecutor {
         }
 
         if (args[0].equals("fixSabotage")) {
-            plugin.sabotageManager.deactivateSabotage();
+            plugin.sabotageManager.forceEndSabotage();
             return true;
         }
 
