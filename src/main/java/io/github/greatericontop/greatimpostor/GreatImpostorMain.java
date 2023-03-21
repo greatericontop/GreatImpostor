@@ -24,6 +24,7 @@ import io.github.greatericontop.greatimpostor.task.maintaskexecutors.TaskUnlockM
 import io.github.greatericontop.greatimpostor.task.maintaskexecutors.TaskUploadData;
 import io.github.greatericontop.greatimpostor.task.maintaskexecutors.TaskWiring;
 import io.github.greatericontop.greatimpostor.task.sabotagetaskexecutors.SabotageFixLights;
+import io.github.greatericontop.greatimpostor.task.sabotagetaskexecutors.SabotageOxygen;
 import io.github.greatericontop.greatimpostor.task.sabotagetaskexecutors.SabotageReactor;
 import org.bukkit.Location;
 import org.bukkit.World;
@@ -54,6 +55,7 @@ public class GreatImpostorMain extends JavaPlugin {
 
     public SabotageFixLights sabotageFixLights;
     public SabotageReactor sabotageReactor;
+    public SabotageOxygen sabotageOxygen;
 
     public MeetingManager meetingManager;
     public SabotageManager sabotageManager;
@@ -122,6 +124,8 @@ public class GreatImpostorMain extends JavaPlugin {
         this.getServer().getPluginManager().registerEvents(sabotageFixLights, this);
         sabotageReactor = new SabotageReactor(this);
         this.getServer().getPluginManager().registerEvents(sabotageReactor, this);
+        sabotageOxygen = new SabotageOxygen(this);
+        this.getServer().getPluginManager().registerEvents(sabotageOxygen, this);
 
         //
         //

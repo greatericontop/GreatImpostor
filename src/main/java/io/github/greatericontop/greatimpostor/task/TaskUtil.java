@@ -82,7 +82,7 @@ public class TaskUtil {
                 return plugin.sabotageReactor;
             }
             case OXYGEN -> {
-                return plugin.sabotageFixLights; // TODO
+                return plugin.sabotageOxygen;
             }
             case LIGHTS -> {
                 return plugin.sabotageFixLights;
