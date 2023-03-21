@@ -2,6 +2,7 @@ package io.github.greatericontop.greatimpostor.task.sabotagetaskexecutors;
 
 import io.github.greatericontop.greatimpostor.GreatImpostorMain;
 import io.github.greatericontop.greatimpostor.impostor.Sabotage;
+import io.github.greatericontop.greatimpostor.impostor.SabotageSubtask;
 import io.github.greatericontop.greatimpostor.task.BaseSabotageTask;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
@@ -16,6 +17,7 @@ import org.bukkit.inventory.meta.ItemMeta;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Random;
 import java.util.UUID;
 
 public class SabotageOxygen extends BaseSabotageTask {
@@ -25,7 +27,9 @@ public class SabotageOxygen extends BaseSabotageTask {
     private static final int DIGIT_COUNT = 5;
 
     private Map<UUID, Integer> playerCurrentDigits = new HashMap<>();
-    private int code = -1;
+    private Map<UUID, Integer> playerSubtaskNumber = new HashMap<>();
+    private int[] codes = null;
+    private int totalCompletionState = 0;
 
     public SabotageOxygen(GreatImpostorMain plugin) {
         super(plugin);
@@ -38,12 +42,13 @@ public class SabotageOxygen extends BaseSabotageTask {
 
     @Override
     public void prepareSabotageTask() {
-        code = 10;
-        //code = new Random().nextInt(100000);
+        codes = new int[]{new Random().nextInt(100000), new Random().nextInt(100000)};
+        totalCompletionState = 0;
     }
 
     @Override
-    public void startTask(Player player) {
+    public void startTask(Player player, SabotageSubtask sabotageSubtask) {
+        int sabotageNumber = sabotageSubtask.getMagicNumber();
         Inventory gui = Bukkit.createInventory(player, 54, Component.text(INVENTORY_NAME));
 
         for (int i = 0; i < 10; i++) {
@@ -58,11 +63,12 @@ public class SabotageOxygen extends BaseSabotageTask {
         ItemStack displayCode = new ItemStack(Material.PAPER, 1);
         ItemMeta im = displayCode.getItemMeta();
         im.addEnchant(Enchantment.LUCK, 1, true);
-        im.displayName(Component.text(String.format("§aToday's Code: §b%05d", code)));
+        im.displayName(Component.text(String.format("§aToday's Code: §b%05d", codes[sabotageNumber])));
         displayCode.setItemMeta(im);
         gui.setItem(DISPLAY_CODE_SLOT, displayCode);
 
         playerCurrentDigits.put(player.getUniqueId(), DIGIT_COUNT-1);
+        playerSubtaskNumber.put(player.getUniqueId(), sabotageNumber);
         player.openInventory(gui);
     }
 
@@ -82,14 +88,19 @@ public class SabotageOxygen extends BaseSabotageTask {
         }
         if (clickedNumber == -2)  return;
 
+        int currentSabotageNumber = playerSubtaskNumber.get(player.getUniqueId());
         int currentDigitIndex = playerCurrentDigits.get(player.getUniqueId());
-        int correctDigit = ((int) (code / Math.pow(10, currentDigitIndex))) % 10;
+        int correctDigit = ((int) (codes[currentSabotageNumber] / Math.pow(10, currentDigitIndex))) % 10;
         if (clickedNumber == correctDigit) {
             this.playSuccessSound(player);
             playerCurrentDigits.put(player.getUniqueId(), currentDigitIndex - 1);
             if (currentDigitIndex == 0) {
                 player.closeInventory();
-                this.taskSuccessful(player);
+                player.sendMessage("§aYou fixed this panel!");
+                totalCompletionState |= 1 << playerSubtaskNumber.get(player.getUniqueId());
+                if (totalCompletionState == 0b11) {
+                    this.taskSuccessful(player);
+                }
             }
         } else {
             this.playFailSound(player);

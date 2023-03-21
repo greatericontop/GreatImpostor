@@ -2,7 +2,7 @@ package io.github.greatericontop.greatimpostor.task;
 
 import io.github.greatericontop.greatimpostor.GreatImpostorMain;
 import io.github.greatericontop.greatimpostor.core.PlayerProfile;
-import io.github.greatericontop.greatimpostor.impostor.Sabotage;
+import io.github.greatericontop.greatimpostor.impostor.SabotageSubtask;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.block.Sign;
@@ -50,16 +50,16 @@ public class SignListener implements Listener {
     }
 
     private void executeSabotageTask(Player player, String sabotageName) {
-        Sabotage sabotage = Sabotage.valueOf(sabotageName);
+        SabotageSubtask sabotage = SabotageSubtask.valueOf(sabotageName);
         // Check if it's activated
-        if (plugin.sabotageManager.getActiveSabotage() != sabotage) {
+        if (plugin.sabotageManager.getActiveSabotage() != sabotage.getFullSabotage()) {
             player.sendMessage("§cThis sabotage does not need to be fixed!");
             return;
         }
 
-        player.sendMessage("§7Test: sabotage " + sabotage.getDisplayName());
-        BaseSabotageTask baseSabotageTask = TaskUtil.getSabotageTaskClass(plugin, sabotage);
-        baseSabotageTask.startTask(player);
+        player.sendMessage(String.format("§7Test: sabotage %s (%s)", sabotage.getFullSabotage().getDisplayName(), sabotage));
+        BaseSabotageTask baseSabotageTask = TaskUtil.getSabotageTaskClass(plugin, sabotage.getFullSabotage());
+        baseSabotageTask.startTask(player, sabotage);
     }
 
     private void executeMainTask(PlayerProfile profile, Player player, String subtaskName) {

@@ -3,18 +3,18 @@ package io.github.greatericontop.greatimpostor.task;
 import io.github.greatericontop.greatimpostor.GreatImpostorMain;
 import io.github.greatericontop.greatimpostor.core.PlayerProfile;
 import io.github.greatericontop.greatimpostor.impostor.Sabotage;
+import io.github.greatericontop.greatimpostor.impostor.SabotageSubtask;
+import org.bukkit.Sound;
 import org.bukkit.entity.Player;
+import org.bukkit.event.Listener;
 
-public abstract class BaseSabotageTask extends BaseTask {
+public abstract class BaseSabotageTask implements Listener {
 
+    protected GreatImpostorMain plugin;
     public BaseSabotageTask(GreatImpostorMain plugin) {
-        super(plugin);
+        this.plugin = plugin;
     }
 
-    @Override
-    public TaskType getTaskType() {
-        throw new RuntimeException("getTaskType should not be called on a BaseSabotageTask");
-    }
 
     /*
      * Get the sabotage that this task repairs
@@ -26,6 +26,11 @@ public abstract class BaseSabotageTask extends BaseTask {
      */
     public abstract void prepareSabotageTask();
 
+    /*
+     * Starts the sabotage fix. Requires passing the :SabotageSubtask:.
+     */
+    public abstract void startTask(Player player, SabotageSubtask sabotageSubtask);
+
     protected void taskSuccessful(Player player) {
         PlayerProfile profile = plugin.playerProfiles.get(player.getUniqueId());
         if (profile == null) {
@@ -34,6 +39,15 @@ public abstract class BaseSabotageTask extends BaseTask {
         }
         plugin.sabotageManager.endSabotage(getSabotage());
         player.sendMessage("§aYou completed the task!");
+    }
+
+    // Everything below is the same as :BaseTask:
+
+    protected void playSuccessSound(Player player) {
+        player.playSound(player.getLocation(), Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 1.0F, 1.0F);
+    }
+    protected void playFailSound(Player player) {
+        player.playSound(player.getLocation(), Sound.ENTITY_ENDERMAN_TELEPORT, 1.0F, 1.0F);
     }
 
 }

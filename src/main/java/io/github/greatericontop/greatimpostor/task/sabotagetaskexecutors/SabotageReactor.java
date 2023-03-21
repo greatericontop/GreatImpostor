@@ -2,6 +2,7 @@ package io.github.greatericontop.greatimpostor.task.sabotagetaskexecutors;
 
 import io.github.greatericontop.greatimpostor.GreatImpostorMain;
 import io.github.greatericontop.greatimpostor.impostor.Sabotage;
+import io.github.greatericontop.greatimpostor.impostor.SabotageSubtask;
 import io.github.greatericontop.greatimpostor.task.BaseSabotageTask;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
@@ -33,7 +34,7 @@ public class SabotageReactor extends BaseSabotageTask {
     }
 
     @Override
-    public void startTask(Player player) {
+    public void startTask(Player player, SabotageSubtask sabotageSubtask) {
         Inventory gui = Bukkit.createInventory(player, 45, Component.text(INVENTORY_NAME));
 
         ItemStack stack = new ItemStack(Material.LIGHT_BLUE_STAINED_GLASS, 1);
