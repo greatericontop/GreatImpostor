@@ -16,7 +16,6 @@ import org.bukkit.inventory.meta.ItemMeta;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Random;
 import java.util.UUID;
 
 public class SabotageOxygen extends BaseSabotageTask {
@@ -39,7 +38,8 @@ public class SabotageOxygen extends BaseSabotageTask {
 
     @Override
     public void prepareSabotageTask() {
-        code = new Random().nextInt(100000);
+        code = 10;
+        //code = new Random().nextInt(100000);
     }
 
     @Override
@@ -58,7 +58,7 @@ public class SabotageOxygen extends BaseSabotageTask {
         ItemStack displayCode = new ItemStack(Material.PAPER, 1);
         ItemMeta im = displayCode.getItemMeta();
         im.addEnchant(Enchantment.LUCK, 1, true);
-        im.displayName(Component.text(String.format("§aToday's Code: §b%d", code)));
+        im.displayName(Component.text(String.format("§aToday's Code: §b%05d", code)));
         displayCode.setItemMeta(im);
         gui.setItem(DISPLAY_CODE_SLOT, displayCode);
 
@@ -84,9 +84,6 @@ public class SabotageOxygen extends BaseSabotageTask {
 
         int currentDigitIndex = playerCurrentDigits.get(player.getUniqueId());
         int correctDigit = ((int) (code / Math.pow(10, currentDigitIndex))) % 10;
-        player.sendMessage(
-                String.format("§7[D] currentDigitIndex=%d correctDigit=%d clickedNumber=%d", currentDigitIndex, correctDigit, clickedNumber)
-        );
         if (clickedNumber == correctDigit) {
             this.playSuccessSound(player);
             playerCurrentDigits.put(player.getUniqueId(), currentDigitIndex - 1);
@@ -96,6 +93,7 @@ public class SabotageOxygen extends BaseSabotageTask {
             }
         } else {
             this.playFailSound(player);
+            player.closeInventory();
             player.sendMessage("§cTry again!");
         }
     }
