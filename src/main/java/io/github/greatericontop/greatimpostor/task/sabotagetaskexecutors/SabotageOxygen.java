@@ -16,6 +16,7 @@ import org.bukkit.inventory.meta.ItemMeta;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Random;
 import java.util.UUID;
 
 public class SabotageOxygen extends BaseSabotageTask {
@@ -25,16 +26,20 @@ public class SabotageOxygen extends BaseSabotageTask {
     private static final int DIGIT_COUNT = 5;
 
     private Map<UUID, Integer> playerCurrentDigits = new HashMap<>();
-    private int code;
+    private int code = -1;
 
     public SabotageOxygen(GreatImpostorMain plugin) {
         super(plugin);
-        code = 67890; // TODO: you definitely need some init() function called for every sabotage-begin
     }
 
     @Override
     public Sabotage getSabotage() {
         return Sabotage.OXYGEN; // TODO: you need two separate OXYGEN_1 and OXYGEN_2 in different locations
+    }
+
+    @Override
+    public void prepareSabotageTask() {
+        code = new Random().nextInt(100000);
     }
 
     @Override

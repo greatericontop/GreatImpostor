@@ -3,6 +3,7 @@ package io.github.greatericontop.greatimpostor.impostor;
 import io.github.greatericontop.greatimpostor.GreatImpostorMain;
 import io.github.greatericontop.greatimpostor.core.ImpostorProfile;
 import io.github.greatericontop.greatimpostor.core.PlayerProfile;
+import io.github.greatericontop.greatimpostor.task.TaskUtil;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.title.Title;
 import org.bukkit.Bukkit;
@@ -72,6 +73,7 @@ public class SabotageManager implements Listener {
         activeSabotage = playerProfile.selectedSabotage;
         responsibleImpostor = playerProfile;
         criticalCountdown = 600;
+        TaskUtil.getSabotageTaskClass(plugin, activeSabotage).prepareSabotageTask();
         player.sendMessage(String.format("§6You activated §c%s§6.", activeSabotage.getDisplayName()));
     }
 

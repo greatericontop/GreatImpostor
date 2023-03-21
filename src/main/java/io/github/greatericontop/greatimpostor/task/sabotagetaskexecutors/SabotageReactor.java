@@ -20,12 +20,16 @@ public class SabotageReactor extends BaseSabotageTask {
 
     public SabotageReactor(GreatImpostorMain plugin) {
         super(plugin);
-        otherPlayer = null;
     }
 
     @Override
     public Sabotage getSabotage() {
         return Sabotage.REACTOR;
+    }
+
+    @Override
+    public void prepareSabotageTask() {
+        otherPlayer = null;
     }
 
     @Override
@@ -57,7 +61,6 @@ public class SabotageReactor extends BaseSabotageTask {
             otherPlayer.closeInventory();
             this.taskSuccessful(player);
             this.taskSuccessful(otherPlayer); // no harm in calling this twice
-            otherPlayer = null;
         } else {
             otherPlayer = player;
         }

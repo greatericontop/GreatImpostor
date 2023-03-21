@@ -21,6 +21,11 @@ public abstract class BaseSabotageTask extends BaseTask {
      */
     public abstract Sabotage getSabotage();
 
+    /*
+     * Called when the sabotage is first created to prepare for it being fixed
+     */
+    public abstract void prepareSabotageTask();
+
     protected void taskSuccessful(Player player) {
         PlayerProfile profile = plugin.playerProfiles.get(player.getUniqueId());
         if (profile == null) {

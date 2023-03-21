@@ -27,6 +27,11 @@ public class SabotageFixLights extends BaseSabotageTask {
     }
 
     @Override
+    public void prepareSabotageTask() {
+        // nothing to do
+    }
+
+    @Override
     public void startTask(Player player) {
         Inventory gui = Bukkit.createInventory(player, 54, Component.text(INVENTORY_NAME));
 
