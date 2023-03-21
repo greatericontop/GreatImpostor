@@ -97,7 +97,7 @@ public class SabotageManager implements Listener {
                     player.showTitle(Title.title(
                             Component.text("§cReactor Meltdown"),
                             Component.text(String.format("§7%s", seconds)),
-                            Title.Times.times(Duration.ofMillis(0L), Duration.ofMillis(1000L), Duration.ofMillis(1000L))
+                            Title.Times.times(Duration.ofMillis(0L), Duration.ofMillis(200L), Duration.ofMillis(1000L))
                     ));
                     if (criticalCountdown <= 0) {
                         player.setHealth(0.0);
@@ -111,7 +111,7 @@ public class SabotageManager implements Listener {
                     player.showTitle(Title.title(
                             Component.text("§cOxygen Depleted"),
                             Component.text(String.format("§7%s", seconds)),
-                            Title.Times.times(Duration.ofMillis(0L), Duration.ofMillis(1000L), Duration.ofMillis(1000L))
+                            Title.Times.times(Duration.ofMillis(0L), Duration.ofMillis(200L), Duration.ofMillis(1000L))
                     ));
                     if (criticalCountdown <= 0) {
                         player.setHealth(0.0);
@@ -121,9 +121,9 @@ public class SabotageManager implements Listener {
             case LIGHTS -> {
                 for (Player player : Bukkit.getOnlinePlayers()) {
                     // TODO: impostors get their hunger set down to prevent them from sprinting, but don't have blindness
-                    player.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, 40, 0));
+                    player.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, 30, 0));
                     // speed counters the no-sprint of the blindness, but you're still much slower than before
-                    player.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 40, 0));
+                    player.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 30, 0));
                 }
             }
             case COMMUNICATIONS -> {}
