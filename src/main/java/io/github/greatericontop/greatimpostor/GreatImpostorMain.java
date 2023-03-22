@@ -23,6 +23,7 @@ import io.github.greatericontop.greatimpostor.task.maintaskexecutors.TaskSwipeCa
 import io.github.greatericontop.greatimpostor.task.maintaskexecutors.TaskUnlockManifolds;
 import io.github.greatericontop.greatimpostor.task.maintaskexecutors.TaskUploadData;
 import io.github.greatericontop.greatimpostor.task.maintaskexecutors.TaskWiring;
+import io.github.greatericontop.greatimpostor.task.sabotagetaskexecutors.SabotageCommunications;
 import io.github.greatericontop.greatimpostor.task.sabotagetaskexecutors.SabotageFixLights;
 import io.github.greatericontop.greatimpostor.task.sabotagetaskexecutors.SabotageOxygen;
 import io.github.greatericontop.greatimpostor.task.sabotagetaskexecutors.SabotageReactor;
@@ -56,6 +57,7 @@ public class GreatImpostorMain extends JavaPlugin {
     public SabotageFixLights sabotageFixLights;
     public SabotageReactor sabotageReactor;
     public SabotageOxygen sabotageOxygen;
+    public SabotageCommunications sabotageCommunications;
 
     public MeetingManager meetingManager;
     public SabotageManager sabotageManager;
@@ -126,6 +128,8 @@ public class GreatImpostorMain extends JavaPlugin {
         this.getServer().getPluginManager().registerEvents(sabotageReactor, this);
         sabotageOxygen = new SabotageOxygen(this);
         this.getServer().getPluginManager().registerEvents(sabotageOxygen, this);
+        sabotageCommunications = new SabotageCommunications(this);
+        this.getServer().getPluginManager().registerEvents(sabotageCommunications, this);
 
         //
         //

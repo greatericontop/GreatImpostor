@@ -88,7 +88,7 @@ public class TaskUtil {
                 return plugin.sabotageFixLights;
             }
             case COMMUNICATIONS -> {
-                return plugin.sabotageFixLights; // TODO
+                return plugin.sabotageCommunications;
             }
             default -> throw new IllegalArgumentException("Unknown/unrecognized sabotage task type: " + sabotage);
         }
