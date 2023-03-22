@@ -49,6 +49,10 @@ public class SabotageOxygen extends BaseSabotageTask {
     @Override
     public void startTask(Player player, SabotageSubtask sabotageSubtask) {
         int sabotageNumber = sabotageSubtask.getMagicNumber();
+        if ((totalCompletionState & (1 << sabotageNumber)) != 0) {
+            player.sendMessage("§cThis panel has already been fixed! Go fix the other one!");
+            return;
+        }
         Inventory gui = Bukkit.createInventory(player, 54, Component.text(INVENTORY_NAME));
 
         for (int i = 0; i < 10; i++) {
