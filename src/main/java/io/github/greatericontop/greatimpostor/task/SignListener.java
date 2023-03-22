@@ -56,8 +56,6 @@ public class SignListener implements Listener {
             player.sendMessage("§cThis sabotage does not need to be fixed!");
             return;
         }
-
-        player.sendMessage(String.format("§7Test: sabotage %s (%s)", sabotage.getFullSabotage().getDisplayName(), sabotage));
         BaseSabotageTask baseSabotageTask = TaskUtil.getSabotageTaskClass(plugin, sabotage.getFullSabotage());
         baseSabotageTask.startTask(player, sabotage);
     }
@@ -74,8 +72,6 @@ public class SignListener implements Listener {
             player.sendMessage("§cYou already fully completed this task!");
             return;
         }
-
-        player.sendMessage("§7Test: you just got task: " + subtask.getDisplayName());
         BaseTask baseTask = TaskUtil.getTaskClass(plugin, subtask);
         baseTask.startTask(player);
     }

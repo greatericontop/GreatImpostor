@@ -37,7 +37,7 @@ public class SabotageOxygen extends BaseSabotageTask {
 
     @Override
     public Sabotage getSabotage() {
-        return Sabotage.OXYGEN; // TODO: you need two separate OXYGEN_1 and OXYGEN_2 in different locations
+        return Sabotage.OXYGEN;
     }
 
     @Override
