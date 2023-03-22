@@ -47,6 +47,10 @@ public class MeetingManager {
             callingPlayer.sendMessage("§cCouldn't get your profile!");
             return;
         }
+        if (plugin.sabotageManager.isDisruptiveSabotageActive()) {
+            callingPlayer.sendMessage("§cSabotage! You call a meeting right now!");
+            return;
+        }
         for (Player p : Bukkit.getOnlinePlayers()) {
             p.showTitle(Title.title(
                     Component.text("§cEmergency Meeting"),

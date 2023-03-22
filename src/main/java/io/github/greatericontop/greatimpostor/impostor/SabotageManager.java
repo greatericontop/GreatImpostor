@@ -33,11 +33,8 @@ public class SabotageManager implements Listener {
     public boolean isSabotageActive() {
         return activeSabotage != null;
     }
-    public int getCriticalCountdown() {
-        return criticalCountdown;
-    }
-    public boolean isCriticalSabotageActive() {
-        return isSabotageActive() && activeSabotage.isCritical();
+    public boolean isDisruptiveSabotageActive() {
+        return isSabotageActive() && activeSabotage.disruptsGame();
     }
 
     @EventHandler()

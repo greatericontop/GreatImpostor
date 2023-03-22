@@ -1,19 +1,21 @@
 package io.github.greatericontop.greatimpostor.impostor;
 
 public enum Sabotage {
-    REACTOR("Reactor Meltdown", true),
-    OXYGEN("Oxygen Depleted", true),
-    LIGHTS("Fix Lights", false),
-    COMMUNICATIONS("Fix Communications", false),
+    REACTOR("Reactor Meltdown", true, true),
+    OXYGEN("Oxygen Depleted", true, true),
+    LIGHTS("Fix Lights", false, false),
+    COMMUNICATIONS("Fix Communications", false, true),
 
     ;
 
-    private String displayName;
-    private boolean isCritical;
+    private final String displayName;
+    private final boolean isCritical;
+    private final boolean disruptsGame;
 
-    Sabotage(String displayName, boolean isCritical) {
+    Sabotage(String displayName, boolean isCritical, boolean disruptsGame) {
         this.displayName = displayName;
         this.isCritical = isCritical;
+        this.disruptsGame = disruptsGame;
     }
 
     public String getDisplayName() {
@@ -22,6 +24,10 @@ public enum Sabotage {
 
     public boolean isCritical() {
         return isCritical;
+    }
+
+    public boolean disruptsGame() {
+        return disruptsGame;
     }
 
 }

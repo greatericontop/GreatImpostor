@@ -41,6 +41,10 @@ public class BodyReportingListener implements Listener {
                 player.sendMessage("§cCouldn't get your profile!");
                 return;
             }
+            if (plugin.sabotageManager.isDisruptiveSabotageActive()) {
+                player.sendMessage("§cSabotage! You can't report a body right now!");
+                return;
+            }
             boolean noBodyFound = true; // no for-else :(
             for (Entity entity : player.getNearbyEntities(REPORT_DIST, REPORT_DIST, REPORT_DIST)) {
                 if (!(entity instanceof ArmorStand armorStand))  continue;
