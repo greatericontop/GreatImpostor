@@ -7,6 +7,7 @@ import io.github.greatericontop.greatimpostor.task.TaskUtil;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.title.Title;
 import org.bukkit.Bukkit;
+import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -86,35 +87,28 @@ public class SabotageManager implements Listener {
 
     public void tickSabotages() {
         if (!isSabotageActive())  return;
+
+        if (activeSabotage.isCritical()) {
+            criticalCountdown--;
+            int seconds = criticalCountdown / 20;
+            for (Player player : Bukkit.getOnlinePlayers()) {
+                player.showTitle(Title.title(
+                        Component.text(String.format("§c%s", activeSabotage.getDisplayName())),
+                        Component.text(String.format("§7%s", seconds)),
+                        Title.Times.times(Duration.ofMillis(0L), Duration.ofMillis(200L), Duration.ofMillis(1000L))
+                ));
+                if (criticalCountdown % 12 == 0) {
+                    player.playSound(player.getLocation(), Sound.BLOCK_NOTE_BLOCK_PLING, 1.0F, 0.5F);
+                }
+            }
+            if (criticalCountdown <= 0) {
+                Bukkit.broadcast(Component.text("§cThe critical sabotage was not fixed in time! The game is over!"));
+                forceEndSabotage();
+            }
+        }
+
         switch (activeSabotage) {
-            case REACTOR -> {
-                criticalCountdown--;
-                int seconds = criticalCountdown / 20;
-                for (Player player : Bukkit.getOnlinePlayers()) {
-                    player.showTitle(Title.title(
-                            Component.text("§cReactor Meltdown"),
-                            Component.text(String.format("§7%s", seconds)),
-                            Title.Times.times(Duration.ofMillis(0L), Duration.ofMillis(200L), Duration.ofMillis(1000L))
-                    ));
-                    if (criticalCountdown <= 0) {
-                        player.setHealth(0.0);
-                    }
-                }
-            }
-            case OXYGEN -> {
-                criticalCountdown--;
-                int seconds = criticalCountdown / 20;
-                for (Player player : Bukkit.getOnlinePlayers()) {
-                    player.showTitle(Title.title(
-                            Component.text("§cOxygen Depleted"),
-                            Component.text(String.format("§7%s", seconds)),
-                            Title.Times.times(Duration.ofMillis(0L), Duration.ofMillis(200L), Duration.ofMillis(1000L))
-                    ));
-                    if (criticalCountdown <= 0) {
-                        player.setHealth(0.0);
-                    }
-                }
-            }
+            case REACTOR, OXYGEN -> {}
             case LIGHTS -> {
                 for (Player player : Bukkit.getOnlinePlayers()) {
                     // TODO: impostors get their hunger set down to prevent them from sprinting, but don't have blindness
