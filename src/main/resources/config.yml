@@ -10,3 +10,18 @@ starting-location:
   x: 0.0
   y: 256.0
   z: 0.0
+
+
+# This is a vent system.
+
+# Example:
+
+#vents:
+#  - - [-10.0, 25.0, 0.5]  # one vent system, and the coordinates of the vent
+#    - [0.5, 25.0, 0.5]  # coordinates of a second vent in the first system
+#    - [10.5, 25.0, 0.5]  # coordinates of a third vent in the first system
+#
+#  - - [0.5, 25.0, -10.5]  # a second vent system
+#    - [0.5, 25.0, 10.5]  # coordinates of a second vent in the second system
+
+vents: []

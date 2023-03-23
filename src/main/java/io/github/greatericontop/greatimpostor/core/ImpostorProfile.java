@@ -18,12 +18,16 @@ public class ImpostorProfile extends PlayerProfile {
     private static final int KILL_COOLDOWN = 700;
     private static final int SABOTAGE_COOLDOWN = 600;
 
+    public boolean isInVent;
+    public int ventSystem = -1;
+    public int ventNumber = -1;
     private int nextKillTime;
     private int nextSabotageTime;
     public Sabotage selectedSabotage;
 
     public ImpostorProfile(GreatImpostorMain plugin, Player player) {
         super(plugin, player);
+        isInVent = false;
         nextKillTime = plugin.getClock();
         nextSabotageTime = plugin.getClock();
         selectedSabotage = Sabotage.REACTOR;
