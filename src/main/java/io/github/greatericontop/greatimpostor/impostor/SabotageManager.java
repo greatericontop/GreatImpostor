@@ -97,13 +97,14 @@ public class SabotageManager implements Listener {
                         Component.text(String.format("§7%s", seconds)),
                         Title.Times.times(Duration.ofMillis(0L), Duration.ofMillis(200L), Duration.ofMillis(1000L))
                 ));
-                if (criticalCountdown % 12 == 0) {
-                    player.playSound(player.getLocation(), Sound.BLOCK_NOTE_BLOCK_PLING, 1.0F, 0.5F);
+                if (criticalCountdown % 40 == 0) {
+                    player.playSound(player.getLocation(), Sound.BLOCK_NOTE_BLOCK_PLING, 0.8F, 0.5F);
                 }
             }
             if (criticalCountdown <= 0) {
                 Bukkit.broadcast(Component.text("§cThe critical sabotage was not fixed in time! The game is over!"));
                 forceEndSabotage();
+                return;
             }
         }
 
