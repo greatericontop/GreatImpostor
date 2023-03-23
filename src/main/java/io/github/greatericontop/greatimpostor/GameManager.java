@@ -5,17 +5,29 @@ import org.bukkit.scheduler.BukkitRunnable;
 
 public class GameManager {
 
+    private boolean inventoryChangeRequested;
+
     private final GreatImpostorMain plugin;
     public GameManager(GreatImpostorMain plugin) {
         this.plugin = plugin;
     }
 
-    public void registerGameRunnable() {
+    public void requestInventoryChange() {
+        inventoryChangeRequested = true;
+    }
 
+    public void registerGameRunnable() {
         new BukkitRunnable() {
             public void run() {
 
                 plugin.sabotageManager.tickSabotages();
+
+                if (inventoryChangeRequested) {
+                    for (PlayerProfile profile : plugin.playerProfiles.values()) {
+                        profile.setInventory();
+                    }
+                    inventoryChangeRequested = false;
+                }
 
                 for (PlayerProfile profile : plugin.playerProfiles.values()) {
                     if (plugin.meetingManager.isMeetingActive()) {

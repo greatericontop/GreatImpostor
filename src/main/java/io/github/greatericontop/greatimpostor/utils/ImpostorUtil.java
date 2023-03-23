@@ -26,4 +26,12 @@ public class ImpostorUtil {
         return report;
     }
 
+    public static ItemStack commsSabotageTaskDisplayItemStack() {
+        ItemStack stack = new ItemStack(Material.REDSTONE, 1);
+        ItemMeta im = stack.getItemMeta();
+        im.setDisplayName("§c*");
+        stack.setItemMeta(im);
+        return stack;
+    }
+
 }

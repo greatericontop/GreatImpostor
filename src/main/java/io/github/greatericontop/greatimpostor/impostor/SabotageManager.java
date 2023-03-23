@@ -73,6 +73,9 @@ public class SabotageManager implements Listener {
         criticalCountdown = 600;
         TaskUtil.getSabotageTaskClass(plugin, activeSabotage).prepareSabotageTask();
         player.sendMessage(String.format("§6You activated §c%s§6.", activeSabotage.getDisplayName()));
+        if (activeSabotage == Sabotage.COMMUNICATIONS) { // update inventory for communications sabotage
+            plugin.gameManager.requestInventoryChange();
+        }
     }
 
     public void endSabotage(Sabotage sabotageType) {
@@ -81,6 +84,9 @@ public class SabotageManager implements Listener {
         }
     }
     public void forceEndSabotage() {
+        if (activeSabotage == Sabotage.COMMUNICATIONS) { // update inventory for communications sabotage
+            plugin.gameManager.requestInventoryChange();
+        }
         activeSabotage = null;
         responsibleImpostor.resetSabotageCooldown(false);
     }

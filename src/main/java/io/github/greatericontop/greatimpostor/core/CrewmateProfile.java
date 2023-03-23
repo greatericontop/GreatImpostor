@@ -1,6 +1,7 @@
 package io.github.greatericontop.greatimpostor.core;
 
 import io.github.greatericontop.greatimpostor.GreatImpostorMain;
+import io.github.greatericontop.greatimpostor.impostor.Sabotage;
 import io.github.greatericontop.greatimpostor.utils.ImpostorUtil;
 import net.kyori.adventure.text.Component;
 import org.bukkit.entity.Player;
@@ -19,6 +20,11 @@ public class CrewmateProfile extends PlayerProfile {
 
     @Override
     public void setActionBar() {
+        if (plugin.sabotageManager.getActiveSabotage() == Sabotage.COMMUNICATIONS) {
+            player.sendActionBar(Component.text(String.format("§c[!] §d[%s]", Sabotage.COMMUNICATIONS.getDisplayName())));
+            return;
+        }
+
         int[] taskStatus = getTaskStatus(plugin.playerProfiles.values());
         String tasks = String.format("§6[Tasks §e%d/%d§6]", taskStatus[0], taskStatus[1]);
         String sabotage = "";
@@ -33,9 +39,16 @@ public class CrewmateProfile extends PlayerProfile {
         Inventory inv = this.getPlayer().getInventory();
         inv.clear();
 
-        inv.setItem(0, tasks.get(0).getDisplayItemStack(subtasksCompletedPerTask[0], "§7A - "));
-        inv.setItem(1, tasks.get(1).getDisplayItemStack(subtasksCompletedPerTask[1], "§7B - "));
-        inv.setItem(2, tasks.get(2).getDisplayItemStack(subtasksCompletedPerTask[2], "§7C - "));
+        if (plugin.sabotageManager.getActiveSabotage() == Sabotage.COMMUNICATIONS) {
+            for (int i = 0; i < 3; i++) {
+                inv.setItem(i, ImpostorUtil.commsSabotageTaskDisplayItemStack());
+            }
+        } else {
+            inv.setItem(0, tasks.get(0).getDisplayItemStack(subtasksCompletedPerTask[0], "§7A - "));
+            inv.setItem(1, tasks.get(1).getDisplayItemStack(subtasksCompletedPerTask[1], "§7B - "));
+            inv.setItem(2, tasks.get(2).getDisplayItemStack(subtasksCompletedPerTask[2], "§7C - "));
+        }
+
         inv.setItem(8, ImpostorUtil.reportItemStack());
 
     }

@@ -76,9 +76,15 @@ public class ImpostorProfile extends PlayerProfile {
         Inventory inv = this.getPlayer().getInventory();
         inv.clear();
 
-        inv.setItem(0, tasks.get(0).getDisplayItemStack(subtasksCompletedPerTask[0], "§7Fake A - "));
-        inv.setItem(1, tasks.get(1).getDisplayItemStack(subtasksCompletedPerTask[1], "§7Fake B - "));
-        inv.setItem(2, tasks.get(2).getDisplayItemStack(subtasksCompletedPerTask[2], "§7Fake C - "));
+        if (plugin.sabotageManager.getActiveSabotage() == Sabotage.COMMUNICATIONS) {
+            for (int i = 0; i < 3; i++) {
+                inv.setItem(i, ImpostorUtil.commsSabotageTaskDisplayItemStack());
+            }
+        } else {
+            inv.setItem(0, tasks.get(0).getDisplayItemStack(subtasksCompletedPerTask[0], "§7Fake A - "));
+            inv.setItem(1, tasks.get(1).getDisplayItemStack(subtasksCompletedPerTask[1], "§7Fake B - "));
+            inv.setItem(2, tasks.get(2).getDisplayItemStack(subtasksCompletedPerTask[2], "§7Fake C - "));
+        }
 
         ItemStack kill = new ItemStack(Material.NETHERITE_SWORD, 1);
         ItemMeta im = kill.getItemMeta();
