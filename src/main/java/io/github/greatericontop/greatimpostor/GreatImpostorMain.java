@@ -62,6 +62,8 @@ public class GreatImpostorMain extends JavaPlugin {
     public MeetingManager meetingManager;
     public SabotageManager sabotageManager;
 
+    public GameManager gameManager;
+
     public final Map<UUID, PlayerProfile> playerProfiles = new HashMap<>();
 
     private int clock;
@@ -84,10 +86,6 @@ public class GreatImpostorMain extends JavaPlugin {
 
         meetingManager = new MeetingManager(this);
         meetingManager.registerMeetingRunnable();
-
-        //
-        //
-        //
 
         // main tasks
         this.getServer().getPluginManager().registerEvents(new SignListener(this), this);
@@ -135,6 +133,9 @@ public class GreatImpostorMain extends JavaPlugin {
         //
         //
 
+        gameManager = new GameManager(this);
+        gameManager.registerGameRunnable();
+
         this.getCommand("impostor").setExecutor(new ImpostorCommand(this));
         this.getCommand("vote").setExecutor(new VotingCommand(this));
 
@@ -142,22 +143,6 @@ public class GreatImpostorMain extends JavaPlugin {
         new BukkitRunnable() {
             public void run() {
                 clock++;
-            }
-        }.runTaskTimer(this, 1L, 1L);
-
-        new BukkitRunnable() {
-            public void run() {
-
-                sabotageManager.tickSabotages();
-
-                for (PlayerProfile profile : playerProfiles.values()) {
-                    if (meetingManager.isMeetingActive()) {
-                        meetingManager.setMeetingActionBar(profile.getPlayer());
-                    } else {
-                        profile.setActionBar();
-                    }
-                }
-
             }
         }.runTaskTimer(this, 1L, 1L);
 
