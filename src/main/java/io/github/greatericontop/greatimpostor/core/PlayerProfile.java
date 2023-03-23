@@ -15,6 +15,8 @@ import java.util.Random;
 import java.util.Set;
 
 public abstract class PlayerProfile {
+    public static final int TASKS_PER = 4;
+
     protected final Random random;
     public final List<Subtask> tasks = new ArrayList<>(); // TODO change back to protected
     protected int[] subtasksCompletedPerTask = null;
@@ -59,13 +61,13 @@ public abstract class PlayerProfile {
         tasksAlreadyCompleted.clear();
         TaskType[] initialTasks = TaskUtil.INITIAL_TASKS.clone();
         Shuffler.shuffle(initialTasks, random);
-        Subtask[] possible0 = initialTasks[0].getPossibleNextSubtasks(0);
-        tasks.add(possible0[random.nextInt(possible0.length)]);
-        Subtask[] possible1 = initialTasks[1].getPossibleNextSubtasks(0);
-        tasks.add(possible1[random.nextInt(possible1.length)]);
-        Subtask[] possible2 = initialTasks[2].getPossibleNextSubtasks(0);
-        tasks.add(possible2[random.nextInt(possible2.length)]);
-        subtasksCompletedPerTask = new int[]{0, 0, 0};
+
+        for (int i = 0; i < TASKS_PER; i++) {
+            Subtask[] possible = initialTasks[i].getPossibleNextSubtasks(0);
+            tasks.add(possible[random.nextInt(possible.length)]);
+        }
+
+        subtasksCompletedPerTask = new int[]{0, 0, 0, 0};
     }
 
     public boolean isFullyCompleted(TaskType taskType) {

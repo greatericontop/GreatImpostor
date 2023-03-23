@@ -40,13 +40,14 @@ public class CrewmateProfile extends PlayerProfile {
         inv.clear();
 
         if (plugin.sabotageManager.getActiveSabotage() == Sabotage.COMMUNICATIONS) {
-            for (int i = 0; i < 3; i++) {
+            for (int i = 0; i < 4; i++) {
                 inv.setItem(i, ImpostorUtil.commsSabotageTaskDisplayItemStack());
             }
         } else {
             inv.setItem(0, tasks.get(0).getDisplayItemStack(subtasksCompletedPerTask[0], "§7A - "));
             inv.setItem(1, tasks.get(1).getDisplayItemStack(subtasksCompletedPerTask[1], "§7B - "));
             inv.setItem(2, tasks.get(2).getDisplayItemStack(subtasksCompletedPerTask[2], "§7C - "));
+            inv.setItem(3, tasks.get(3).getDisplayItemStack(subtasksCompletedPerTask[3], "§7D - "));
         }
 
         inv.setItem(8, ImpostorUtil.reportItemStack());
