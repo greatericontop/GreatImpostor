@@ -54,6 +54,11 @@ public class ImpostorProfile extends PlayerProfile {
 
     @Override
     public void setActionBar() {
+        if (isInVent) {
+            String vent = "§aYou're in a vent!  §7|  §eJUMP §bto cycle  §7|  §eSNEAK §bto exit";
+            player.sendActionBar(Component.text(vent));
+        }
+
         int[] taskStatus = getTaskStatus(plugin.playerProfiles.values());
         String tasks = String.format("§6[Tasks §e%d/%d§6]", taskStatus[0], taskStatus[1]);
         String kill;
