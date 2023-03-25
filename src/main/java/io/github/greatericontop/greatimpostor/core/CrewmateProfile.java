@@ -16,9 +16,11 @@ public class CrewmateProfile extends PlayerProfile {
 
     @Override
     public void die() {
+        player.sendMessage("§6------------------------------");
         player.sendMessage("§bOops! Looks like you §cdied§b!");
         player.sendMessage("§eHelp the crew by finishing your tasks!");
         player.sendMessage("§7You may not report bodies, call meetings, vote, or fix sabotages.");
+        player.sendMessage("§6------------------------------");
         dieGeneric();
     }
 
