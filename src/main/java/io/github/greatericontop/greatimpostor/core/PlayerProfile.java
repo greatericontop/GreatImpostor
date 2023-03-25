@@ -21,17 +21,23 @@ public abstract class PlayerProfile {
     public final List<Subtask> tasks = new ArrayList<>(); // TODO change back to protected
     protected int[] subtasksCompletedPerTask = null;
     protected final Set<Subtask> tasksAlreadyCompleted = new HashSet<>();
+    protected boolean alive;
 
     protected GreatImpostorMain plugin;
     protected final Player player;
+
     public Player getPlayer() {
         return player;
+    }
+    public boolean isAlive() {
+        return alive;
     }
 
     public PlayerProfile(GreatImpostorMain plugin, Player player) {
         this.plugin = plugin;
         this.random = new Random();
         this.player = player;
+        this.alive = true;
     }
 
     //
@@ -115,6 +121,16 @@ public abstract class PlayerProfile {
             setInventory();
         }
     }
+
+    protected void dieGeneric() {
+        alive = false;
+        for (Player p : plugin.getServer().getOnlinePlayers()) {
+            p.hidePlayer(plugin, player);
+        }
+
+    }
+
+    public abstract void die();
 
     public abstract boolean isImpostor();
 

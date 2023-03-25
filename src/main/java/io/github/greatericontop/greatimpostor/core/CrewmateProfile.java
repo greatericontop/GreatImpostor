@@ -13,6 +13,14 @@ public class CrewmateProfile extends PlayerProfile {
         super(plugin, player);
     }
 
+
+    @Override
+    public void die() {
+        player.sendMessage("§eOops! Looks like you §cdied§e!");
+        player.sendMessage("§eHelp the crew by finishing your tasks!");
+        dieGeneric();
+    }
+
     @Override
     public boolean isImpostor() {
         return false;

@@ -2,6 +2,7 @@ package io.github.greatericontop.greatimpostor;
 
 import io.github.greatericontop.greatimpostor.core.CrewmateProfile;
 import io.github.greatericontop.greatimpostor.core.ImpostorProfile;
+import io.github.greatericontop.greatimpostor.core.PlayerProfile;
 import io.github.greatericontop.greatimpostor.task.SignListener;
 import io.github.greatericontop.greatimpostor.utils.StartGame;
 import org.bukkit.Material;
@@ -105,7 +106,6 @@ public class ImpostorCommand implements CommandExecutor {
             c.setInventory();
             return true;
         }
-
         if (args[0].equals("testImpostor1")) {
             ImpostorProfile imp = new ImpostorProfile(plugin, player);
             imp.setInitialTasks();
@@ -128,6 +128,12 @@ public class ImpostorCommand implements CommandExecutor {
 
         if (args[0].equals("fixSabotage")) {
             plugin.sabotageManager.forceEndSabotage();
+            return true;
+        }
+
+        if (args[0].equals("die")) {
+            PlayerProfile profile = plugin.playerProfiles.get(player.getUniqueId());
+            profile.die();
             return true;
         }
 

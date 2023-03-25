@@ -6,6 +6,8 @@ import io.github.greatericontop.greatimpostor.utils.PartialCoordinates;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
+import org.bukkit.potion.PotionEffect;
+import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.ArrayList;
@@ -52,6 +54,12 @@ public class GameManager {
                     // if lights sabotage, disallow sprinting (takes effect immediately), otherwise refill hunger
                     player.setFoodLevel((plugin.sabotageManager.getActiveSabotage() == Sabotage.LIGHTS) ? 6 : 20);
 
+                    // dead players
+                    if (!profile.isAlive()) {
+                        player.addPotionEffect(new PotionEffect(PotionEffectType.INVISIBILITY, 5, 0, false, false, false));
+                        player.addPotionEffect(new PotionEffect(PotionEffectType.NIGHT_VISION, 5, 0, false, false, false));
+                    }
+
                     if (plugin.meetingManager.isMeetingActive()) {
                         plugin.meetingManager.setMeetingActionBar(profile.getPlayer());
                     } else {
@@ -84,7 +92,7 @@ public class GameManager {
         }
 
         // impostors can't be voted out anymore
-        if (getAliveImpostorCount() * 2 >= plugin.playerProfiles.size()) {
+        if (getAliveImpostorCount() * 2 >= plugin.playerProfiles.size() + 2) { // TODO: remove this (debug feature)
             endGame("§cImpostors win! §aToo many crewmates died!");
             return;
         }

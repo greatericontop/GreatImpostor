@@ -35,6 +35,13 @@ public class ImpostorProfile extends PlayerProfile {
 
 
     @Override
+    public void die() {
+        player.sendMessage("§eOops! Looks like you §cdied§e!");
+        player.sendMessage("§e(You can still kill and sabotage, you shouldn't be able to. And what about shared cooldowns?)");
+        dieGeneric();
+    }
+
+    @Override
     public boolean isImpostor() {
         return true;
     }
