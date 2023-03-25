@@ -2,7 +2,11 @@ package io.github.greatericontop.greatimpostor;
 
 import io.github.greatericontop.greatimpostor.core.ImpostorProfile;
 import io.github.greatericontop.greatimpostor.core.PlayerProfile;
+import io.github.greatericontop.greatimpostor.impostor.Sabotage;
 import io.github.greatericontop.greatimpostor.utils.PartialCoordinates;
+import org.bukkit.entity.Player;
+import org.bukkit.potion.PotionEffect;
+import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.ArrayList;
@@ -36,11 +40,18 @@ public class GameManager {
                 }
 
                 for (PlayerProfile profile : plugin.playerProfiles.values()) {
+                    Player player = profile.getPlayer();
+
                     if (profile.isImpostor()) {
                         ImpostorProfile impostorProfile = (ImpostorProfile) profile;
                         impostorProfile.tickCooldowns();
                         plugin.ventManager.setBackVentedImpostor(impostorProfile);
                     }
+
+                    // darkness effect for everyone (no particles or icon)
+                    player.addPotionEffect(new PotionEffect(PotionEffectType.DARKNESS, 19, 0, false, false, false));
+                    // if lights sabotage, disallow sprinting (takes effect immediately), otherwise refill hunger
+                    player.setFoodLevel((plugin.sabotageManager.getActiveSabotage() == Sabotage.LIGHTS) ? 6 : 20);
 
                     if (plugin.meetingManager.isMeetingActive()) {
                         plugin.meetingManager.setMeetingActionBar(profile.getPlayer());

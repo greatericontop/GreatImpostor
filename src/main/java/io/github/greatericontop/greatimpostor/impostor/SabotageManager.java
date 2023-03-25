@@ -118,9 +118,13 @@ public class SabotageManager implements Listener {
             case REACTOR, OXYGEN -> {}
             case LIGHTS -> {
                 for (Player player : Bukkit.getOnlinePlayers()) {
-                    // TODO: impostors get their hunger set down to prevent them from sprinting, but don't have blindness
-                    player.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, 30, 0));
-                    // speed counters the no-sprint of the blindness, but you're still much slower than before
+                    // note: hunger will be handled later in GameManager
+                    PlayerProfile profile = plugin.playerProfiles.get(player.getUniqueId());
+                    if (profile == null)  continue;
+                    if (!profile.isImpostor()) {
+                        player.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, 30, 0));
+                    }
+                    // this counters the effect only somewhat
                     player.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 30, 0));
                 }
             }
