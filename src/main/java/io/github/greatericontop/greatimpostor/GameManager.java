@@ -1,5 +1,6 @@
 package io.github.greatericontop.greatimpostor;
 
+import io.github.greatericontop.greatimpostor.core.ImpostorProfile;
 import io.github.greatericontop.greatimpostor.core.PlayerProfile;
 import io.github.greatericontop.greatimpostor.utils.PartialCoordinates;
 import org.bukkit.scheduler.BukkitRunnable;
@@ -35,6 +36,11 @@ public class GameManager {
                 }
 
                 for (PlayerProfile profile : plugin.playerProfiles.values()) {
+                    if (profile.isImpostor()) {
+                        ImpostorProfile impostorProfile = (ImpostorProfile) profile;
+                        plugin.ventManager.setBackVentedImpostor(impostorProfile);
+                    }
+
                     if (plugin.meetingManager.isMeetingActive()) {
                         plugin.meetingManager.setMeetingActionBar(profile.getPlayer());
                     } else {

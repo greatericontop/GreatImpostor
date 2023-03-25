@@ -5,7 +5,7 @@ import io.github.greatericontop.greatimpostor.core.BodyReportingListener;
 import io.github.greatericontop.greatimpostor.core.PlayerProfile;
 import io.github.greatericontop.greatimpostor.impostor.ImpostorKillListener;
 import io.github.greatericontop.greatimpostor.impostor.SabotageManager;
-import io.github.greatericontop.greatimpostor.impostor.VentListener;
+import io.github.greatericontop.greatimpostor.impostor.VentManager;
 import io.github.greatericontop.greatimpostor.meeting.MeetingManager;
 import io.github.greatericontop.greatimpostor.meeting.VotingCommand;
 import io.github.greatericontop.greatimpostor.task.SignListener;
@@ -62,6 +62,7 @@ public class GreatImpostorMain extends JavaPlugin {
 
     public MeetingManager meetingManager;
     public SabotageManager sabotageManager;
+    public VentManager ventManager;
 
     public GameManager gameManager;
 
@@ -82,7 +83,8 @@ public class GreatImpostorMain extends JavaPlugin {
         this.getServer().getPluginManager().registerEvents(new AntiVandalism(this), this);
         this.getServer().getPluginManager().registerEvents(new BodyReportingListener(this), this);
         this.getServer().getPluginManager().registerEvents(new ImpostorKillListener(this), this);
-        this.getServer().getPluginManager().registerEvents(new VentListener(this), this);
+        ventManager = new VentManager(this);
+        this.getServer().getPluginManager().registerEvents(ventManager, this);
         sabotageManager = new SabotageManager(this);
         this.getServer().getPluginManager().registerEvents(sabotageManager, this);
 

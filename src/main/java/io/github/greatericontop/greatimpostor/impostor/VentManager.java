@@ -5,16 +5,19 @@ import io.github.greatericontop.greatimpostor.GreatImpostorMain;
 import io.github.greatericontop.greatimpostor.core.ImpostorProfile;
 import io.github.greatericontop.greatimpostor.core.PlayerProfile;
 import io.github.greatericontop.greatimpostor.utils.PartialCoordinates;
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerToggleSneakEvent;
+import org.bukkit.potion.PotionEffect;
+import org.bukkit.potion.PotionEffectType;
 
-public class VentListener implements Listener {
+public class VentManager implements Listener {
 
     private final GreatImpostorMain plugin;
-    public VentListener(GreatImpostorMain plugin) {
+    public VentManager(GreatImpostorMain plugin) {
         this.plugin = plugin;
     }
 
@@ -54,6 +57,12 @@ public class VentListener implements Listener {
         PartialCoordinates coordinates = plugin.gameManager.getVent(profile.ventSystem, profile.ventNumber);
         player.teleport(coordinates.teleportLocation(player.getWorld()));
 
+        // un-vanish
+        player.removePotionEffect(PotionEffectType.INVISIBILITY);
+        for (Player p1 : Bukkit.getOnlinePlayers()) {
+            p1.showPlayer(plugin, player);
+        }
+
         player.sendMessage("§7[D] exiting vent");
     }
 
@@ -69,6 +78,12 @@ public class VentListener implements Listener {
         profile.ventSystem = ventSystem;
         profile.ventNumber = ventNumber;
 
+        // vanish
+        player.addPotionEffect(new PotionEffect(PotionEffectType.INVISIBILITY, 1200, 0));
+        for (Player p1 : Bukkit.getOnlinePlayers()) {
+            p1.hidePlayer(plugin, player);
+        }
+
         player.sendMessage(String.format("[D] entering §7ventSystem=%d ventIndex=%d", ventSystem, ventNumber));
     }
 
@@ -80,6 +95,14 @@ public class VentListener implements Listener {
         PartialCoordinates coordinates = plugin.gameManager.getVent(ventSystem, nextVentNumber);
         player.teleport(coordinates.teleportLocation(player.getWorld()));
         player.sendMessage(String.format("[D] §eCYCLE §7ventSystem=%d ventIndex=%d", ventSystem, nextVentNumber));
+    }
+
+    public void setBackVentedImpostor(ImpostorProfile profile) {
+        if (!profile.isInVent)  return;
+        PartialCoordinates coordinates = plugin.gameManager.getVent(profile.ventSystem, profile.ventNumber);
+        Player player = profile.getPlayer();
+        if (coordinates.isClose(PartialCoordinates.ofLocation(player.getLocation())))  return;
+        player.teleport(coordinates.teleportLocation(player.getWorld()));
     }
 
 }
