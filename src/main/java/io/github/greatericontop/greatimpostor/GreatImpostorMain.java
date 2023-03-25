@@ -2,6 +2,7 @@ package io.github.greatericontop.greatimpostor;
 
 import io.github.greatericontop.greatimpostor.core.AntiVandalism;
 import io.github.greatericontop.greatimpostor.core.BodyReportingListener;
+import io.github.greatericontop.greatimpostor.core.GameManager;
 import io.github.greatericontop.greatimpostor.core.PlayerProfile;
 import io.github.greatericontop.greatimpostor.impostor.ImpostorKillListener;
 import io.github.greatericontop.greatimpostor.impostor.SabotageManager;

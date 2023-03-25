@@ -1,5 +1,6 @@
-package io.github.greatericontop.greatimpostor;
+package io.github.greatericontop.greatimpostor.core;
 
+import io.github.greatericontop.greatimpostor.GreatImpostorMain;
 import io.github.greatericontop.greatimpostor.core.ImpostorProfile;
 import io.github.greatericontop.greatimpostor.core.PlayerProfile;
 import io.github.greatericontop.greatimpostor.impostor.Sabotage;
