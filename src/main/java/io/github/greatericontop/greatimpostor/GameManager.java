@@ -38,6 +38,7 @@ public class GameManager {
                 for (PlayerProfile profile : plugin.playerProfiles.values()) {
                     if (profile.isImpostor()) {
                         ImpostorProfile impostorProfile = (ImpostorProfile) profile;
+                        impostorProfile.tickCooldowns();
                         plugin.ventManager.setBackVentedImpostor(impostorProfile);
                     }
 

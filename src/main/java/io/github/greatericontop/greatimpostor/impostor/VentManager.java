@@ -77,6 +77,7 @@ public class VentManager implements Listener {
         profile.isInVent = true;
         profile.ventSystem = ventSystem;
         profile.ventNumber = ventNumber;
+        profile.applyVentEntrancePenalty();
 
         // vanish
         player.addPotionEffect(new PotionEffect(PotionEffectType.INVISIBILITY, 1200, 0));

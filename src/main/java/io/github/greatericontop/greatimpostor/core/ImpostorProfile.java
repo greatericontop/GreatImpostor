@@ -14,22 +14,22 @@ import org.bukkit.inventory.meta.ItemMeta;
 import java.util.List;
 
 public class ImpostorProfile extends PlayerProfile {
-    private static final int SHORT_COOLDOWN = 200;
-    private static final int KILL_COOLDOWN = 700;
-    private static final int SABOTAGE_COOLDOWN = 600;
+    private static final int SHORT_COOLDOWN_LEN = 200;
+    private static final int KILL_COOLDOWN_LEN = 700;
+    private static final int SABOTAGE_COOLDOWN_LEN = 600;
 
     public boolean isInVent;
     public int ventSystem = -1;
     public int ventNumber = -1;
-    private int nextKillTime;
-    private int nextSabotageTime;
+    private int killCooldownTicks;
+    private int sabotageCooldownTicks;
     public Sabotage selectedSabotage;
 
     public ImpostorProfile(GreatImpostorMain plugin, Player player) {
         super(plugin, player);
         isInVent = false;
-        nextKillTime = plugin.getClock();
-        nextSabotageTime = plugin.getClock();
+        killCooldownTicks = 0;
+        sabotageCooldownTicks = 0;
         selectedSabotage = Sabotage.REACTOR;
     }
 
@@ -40,16 +40,31 @@ public class ImpostorProfile extends PlayerProfile {
     }
 
     public boolean getCanKill() {
-        return nextKillTime <= plugin.getClock() && (!plugin.meetingManager.isMeetingActive());
+        return killCooldownTicks <= 0 && (!plugin.meetingManager.isMeetingActive());
     }
     public void resetKillCooldown(boolean isShort) {
-        nextKillTime = plugin.getClock() + (isShort ? SHORT_COOLDOWN : KILL_COOLDOWN);
+        killCooldownTicks = (isShort ? SHORT_COOLDOWN_LEN : KILL_COOLDOWN_LEN);
     }
     public boolean getCanSabotage() {
-        return nextSabotageTime <= plugin.getClock() && (!plugin.meetingManager.isMeetingActive());
+        return sabotageCooldownTicks <= 0 && (!plugin.meetingManager.isMeetingActive());
     }
     public void resetSabotageCooldown(boolean isShort) {
-        nextSabotageTime = plugin.getClock() + (isShort ? SHORT_COOLDOWN : SABOTAGE_COOLDOWN);
+        sabotageCooldownTicks = (isShort ? SHORT_COOLDOWN_LEN : SABOTAGE_COOLDOWN_LEN);
+    }
+    public void applyVentEntrancePenalty() {
+        // increased by 3 seconds each time you enter a vent (no penalty if ability is ready)
+        if (killCooldownTicks > 0) {
+            killCooldownTicks = Math.min(killCooldownTicks + 60, KILL_COOLDOWN_LEN);
+        }
+        if (sabotageCooldownTicks > 0) {
+            sabotageCooldownTicks = Math.min(sabotageCooldownTicks + 60, SABOTAGE_COOLDOWN_LEN);
+        }
+    }
+    public void tickCooldowns() {
+        if (!isInVent) {
+            killCooldownTicks--;
+            sabotageCooldownTicks--;
+        }
     }
 
     @Override
@@ -64,9 +79,9 @@ public class ImpostorProfile extends PlayerProfile {
         String tasks = String.format("§6[Tasks §e%d/%d§6]", taskStatus[0], taskStatus[1]);
         String kill;
         if (getCanKill()) {
-            kill = String.format("§c[Kill §aAVAILABLE§c]");
+            kill = "§c[Kill §aAVAILABLE§c]";
         } else {
-            double seconds = 0.05 * (nextKillTime - plugin.getClock());
+            double seconds = 0.05 * killCooldownTicks;
             kill = String.format("§c[Kill §3%.1fs§c]", seconds);
         }
         String sabotage;
@@ -75,7 +90,7 @@ public class ImpostorProfile extends PlayerProfile {
         } else if (getCanSabotage()) {
             sabotage = String.format("§d[%s §aREADY§d]", selectedSabotage.getDisplayName());
         } else {
-            double seconds = 0.05 * (nextSabotageTime - plugin.getClock());
+            double seconds = 0.05 * sabotageCooldownTicks;
             sabotage = String.format("§d[%s §3%.1fs§d]", selectedSabotage.getDisplayName(), seconds);
         }
         player.sendActionBar(Component.text(String.format("%s   %s   %s", kill, tasks, sabotage)));
