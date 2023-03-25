@@ -108,8 +108,8 @@ public class SabotageManager implements Listener {
                 }
             }
             if (criticalCountdown <= 0) {
-                Bukkit.broadcast(Component.text("§cThe critical sabotage was not fixed in time! The game is over!"));
                 forceEndSabotage();
+                plugin.gameManager.endGame("§cImpostors win! §aThe sabotage caused the crew to die!");
                 return;
             }
         }
