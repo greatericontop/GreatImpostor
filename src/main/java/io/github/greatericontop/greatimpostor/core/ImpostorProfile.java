@@ -57,6 +57,7 @@ public class ImpostorProfile extends PlayerProfile {
         if (isInVent) {
             String vent = "§aYou're in a vent!  §7|  §eJUMP §bto cycle  §7|  §eSNEAK §bto exit";
             player.sendActionBar(Component.text(vent));
+            return;
         }
 
         int[] taskStatus = getTaskStatus(plugin.playerProfiles.values());
