@@ -74,6 +74,11 @@ public class VentManager implements Listener {
         int ventSystem = ventData[0];
         int ventNumber = ventData[1];
 
+        if (!profile.isAlive()) {
+            player.sendMessage("§cYou're dead! You can't use vents!");
+            return;
+        }
+
         profile.isInVent = true;
         profile.ventSystem = ventSystem;
         profile.ventNumber = ventNumber;

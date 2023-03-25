@@ -38,6 +38,11 @@ public class ImpostorKillListener implements Listener {
         }
         ImpostorProfile impostorProfile = (ImpostorProfile) profile;
 
+        if (!impostorProfile.isAlive()) {
+            event.setCancelled(true);
+            player.sendMessage("§cYou can't kill while dead!");
+            return;
+        }
         if (impostorProfile.getCanKill()) {
             event.setCancelled(true);
             impostorProfile.resetKillCooldown(false);

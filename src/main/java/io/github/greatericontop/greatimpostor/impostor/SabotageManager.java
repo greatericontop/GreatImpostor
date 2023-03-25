@@ -60,6 +60,10 @@ public class SabotageManager implements Listener {
 
     public void activateSabotage(ImpostorProfile playerProfile) {
         Player player = playerProfile.getPlayer();
+        if (!playerProfile.isAlive()) {
+            player.sendMessage("§cYou can't sabotage while dead!"); // TODO: shared cooldown for impostors (remove responsibleImpostor, or just have a global cooldown in GameManager) and allow dead to sabotage
+            return;
+        }
         if (isSabotageActive()) {
             player.sendMessage("§cThere is already a sabotage active!");
             return;
