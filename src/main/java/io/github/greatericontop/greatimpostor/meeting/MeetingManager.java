@@ -106,7 +106,9 @@ public class MeetingManager {
                 continue;
             }
             if (profile.isImpostor()) {
-                ((ImpostorProfile) profile).resetKillCooldown(false);
+                ImpostorProfile impostorProfile = (ImpostorProfile) profile;
+                impostorProfile.resetKillCooldown(false);
+                impostorProfile.resetSabotageCooldown(false);
             }
             profile.getPlayer().setGameMode(GameMode.ADVENTURE);
             profile.getPlayer().teleport(plugin.getStartingLocation());
