@@ -5,8 +5,6 @@ import io.github.greatericontop.greatimpostor.core.PlayerProfile;
 import io.github.greatericontop.greatimpostor.impostor.Sabotage;
 import io.github.greatericontop.greatimpostor.utils.PartialCoordinates;
 import org.bukkit.entity.Player;
-import org.bukkit.potion.PotionEffect;
-import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.ArrayList;
@@ -49,7 +47,7 @@ public class GameManager {
                     }
 
                     // darkness effect for everyone (no particles or icon)
-                    player.addPotionEffect(new PotionEffect(PotionEffectType.DARKNESS, 19, 0, false, false, false));
+                    //player.addPotionEffect(new PotionEffect(PotionEffectType.DARKNESS, 19, 0, false, false, false));
                     // if lights sabotage, disallow sprinting (takes effect immediately), otherwise refill hunger
                     player.setFoodLevel((plugin.sabotageManager.getActiveSabotage() == Sabotage.LIGHTS) ? 6 : 20);
 
