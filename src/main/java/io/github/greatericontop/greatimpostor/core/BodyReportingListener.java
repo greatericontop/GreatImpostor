@@ -41,6 +41,10 @@ public class BodyReportingListener implements Listener {
                 player.sendMessage("§cCouldn't get your profile!");
                 return;
             }
+            if (!profile.isAlive()) {
+                player.sendMessage("§cYou're dead! You can't report a body!");
+                return;
+            }
             if (plugin.sabotageManager.isDisruptiveSabotageActive()) {
                 player.sendMessage("§cSabotage! You can't report a body right now!");
                 return;

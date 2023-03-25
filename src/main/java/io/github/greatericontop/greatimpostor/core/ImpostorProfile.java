@@ -36,8 +36,10 @@ public class ImpostorProfile extends PlayerProfile {
 
     @Override
     public void die() {
-        player.sendMessage("§eOops! Looks like you §cdied§e!");
+        player.sendMessage("§bOops! Looks like you §cdied§b!");
         player.sendMessage("§e(You can still kill and sabotage, you shouldn't be able to. And what about shared cooldowns?)");
+        player.sendMessage("§7You may not report bodies, call meetings, vote, or fix sabotages.");
+        player.sendMessage("§7You may not §c(unfinished§7) kill, sabotage, or vent.");
         dieGeneric();
     }
 

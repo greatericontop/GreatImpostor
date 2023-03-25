@@ -39,10 +39,18 @@ public class SignListener implements Listener {
         }
 
         if (subtaskName.equalsIgnoreCase("@emergency")) {
+            if (!profile.isAlive()) {
+                player.sendMessage("§cYou can't call meetings while dead!");
+                return;
+            }
             plugin.meetingManager.haveEmergencyMeeting(player);
             return;
         }
         if (subtaskName.startsWith("@sabotage=")) {
+            if (!profile.isAlive()) {
+                player.sendMessage("§cYou can't fix sabotages while dead!");
+                return;
+            }
             executeSabotageTask(player, subtaskName.replaceFirst("@sabotage=", "")); // note: the regex "@sabotage=" just matches the literal
             return;
         }

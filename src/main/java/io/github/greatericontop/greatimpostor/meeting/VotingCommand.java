@@ -32,6 +32,10 @@ public class VotingCommand implements CommandExecutor {
             sender.sendMessage("§cCouldn't get your profile!");
             return true;
         }
+        if (!playerProfile.isAlive()) {
+            sender.sendMessage("§cYou're dead! You can't vote!");
+            return true;
+        }
 
         if (args[0].equalsIgnoreCase("skip")) {
             plugin.meetingManager.votes.remove(playerProfile);
@@ -46,6 +50,10 @@ public class VotingCommand implements CommandExecutor {
             PlayerProfile targetPlayerProfile = plugin.playerProfiles.get(targetPlayer.getUniqueId());
             if (targetPlayerProfile == null) {
                 sender.sendMessage("§cCouldn't get that player's profile!");
+                return true;
+            }
+            if (!targetPlayerProfile.isAlive()) {
+                sender.sendMessage("§cThat player is dead! You can't vote for them!");
                 return true;
             }
             plugin.meetingManager.skips.remove(playerProfile);

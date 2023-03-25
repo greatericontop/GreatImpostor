@@ -86,10 +86,11 @@ public class GameManager {
         }
 
         // all impostors dead
-        if (getAliveImpostorCount() == 0) {
-            endGame("§bCrewmates win! §aNo impostors left!");
-            return;
-        }
+        // TODO: same as below
+//        if (getAliveImpostorCount() == 0) {
+//            endGame("§bCrewmates win! §aNo impostors left!");
+//            return;
+//        }
 
         // impostors can't be voted out anymore
         if (getAliveImpostorCount() * 2 >= plugin.playerProfiles.size() + 2) { // TODO: remove this (debug feature)
