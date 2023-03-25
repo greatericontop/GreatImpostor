@@ -43,7 +43,6 @@ public class StartGame {
             plugin.playerProfiles.put(currentPlayer.getUniqueId(), newProfile);
 
             currentPlayer.setGameMode(GameMode.ADVENTURE);
-            currentPlayer.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 160, 99));
             currentPlayer.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, 160, 0));
             currentPlayer.teleport(plugin.getStartingLocation());
             currentPlayer.showTitle(Title.title(
@@ -53,6 +52,23 @@ public class StartGame {
             ));
             currentPlayer.playSound(currentPlayer.getLocation(), Sound.ENTITY_WITHER_DEATH, 1.0F, 1.0F);
         }
+
+        new BukkitRunnable() {
+            int i = 8;
+            public void run() {
+                if (i <= 0) {
+                    cancel();
+                    return;
+                }
+                if (i > 1) {
+                    Bukkit.broadcast(Component.text(String.format("§eGame will begin in §b%d §eseconds!", i-1)));
+                }
+                for (Player p : Bukkit.getOnlinePlayers()) {
+                    p.teleport(plugin.getStartingLocation()); // tp back because we can't exactly stop them from moving
+                }
+                i--;
+            }
+        }.runTaskTimer(plugin, 20L, 20L);
 
         new BukkitRunnable() {
             public void run() {
