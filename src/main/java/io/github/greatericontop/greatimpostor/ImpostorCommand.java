@@ -3,6 +3,7 @@ package io.github.greatericontop.greatimpostor;
 import io.github.greatericontop.greatimpostor.core.CrewmateProfile;
 import io.github.greatericontop.greatimpostor.core.ImpostorProfile;
 import io.github.greatericontop.greatimpostor.task.SignListener;
+import io.github.greatericontop.greatimpostor.utils.StartGame;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.block.Sign;
@@ -127,6 +128,11 @@ public class ImpostorCommand implements CommandExecutor {
 
         if (args[0].equals("fixSabotage")) {
             plugin.sabotageManager.forceEndSabotage();
+            return true;
+        }
+
+        if (args[0].equals("start")) {
+            StartGame.startGame(plugin, 1);
             return true;
         }
 

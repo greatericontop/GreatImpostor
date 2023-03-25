@@ -1,0 +1,73 @@
+package io.github.greatericontop.greatimpostor.utils;
+
+import io.github.greatericontop.greatimpostor.GreatImpostorMain;
+import io.github.greatericontop.greatimpostor.core.CrewmateProfile;
+import io.github.greatericontop.greatimpostor.core.ImpostorProfile;
+import io.github.greatericontop.greatimpostor.core.PlayerProfile;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.title.Title;
+import org.bukkit.Bukkit;
+import org.bukkit.GameMode;
+import org.bukkit.Sound;
+import org.bukkit.entity.Player;
+import org.bukkit.potion.PotionEffect;
+import org.bukkit.potion.PotionEffectType;
+import org.bukkit.scheduler.BukkitRunnable;
+
+import java.time.Duration;
+import java.util.Collection;
+import java.util.Random;
+
+public class StartGame {
+
+    public static void startGame(GreatImpostorMain plugin, int numberImpostors) {
+        Random random = new Random();
+        Collection<Player> playersRaw = (Collection<Player>) Bukkit.getOnlinePlayers();
+        Player[] players = playersRaw.toArray(new Player[0]);
+        Shuffler.shuffle(players, random);
+
+        for (int i = 0; i < players.length; i++) {
+            Player currentPlayer = players[i];
+            PlayerProfile newProfile;
+            String title;
+            String subtitle;
+            if (i < numberImpostors) {
+                newProfile = new ImpostorProfile(plugin, currentPlayer);
+                title = "§cIMPOSTOR";
+                subtitle = "§eKill off the crew!";
+            } else {
+                newProfile = new CrewmateProfile(plugin, currentPlayer);
+                title = "§bCREWMATE";
+                subtitle = "§eDo your tasks and find the impostor!";
+            }
+            plugin.playerProfiles.put(currentPlayer.getUniqueId(), newProfile);
+
+            currentPlayer.setGameMode(GameMode.ADVENTURE);
+            currentPlayer.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 160, 99));
+            currentPlayer.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, 160, 0));
+            currentPlayer.teleport(plugin.getStartingLocation());
+            currentPlayer.showTitle(Title.title(
+                    Component.text(title),
+                    Component.text(subtitle),
+                    Title.Times.times(Duration.ofMillis(1000L), Duration.ofMillis(7000L), Duration.ofMillis(2000L))
+            ));
+            currentPlayer.playSound(currentPlayer.getLocation(), Sound.ENTITY_WITHER_DEATH, 1.0F, 1.0F);
+        }
+
+        new BukkitRunnable() {
+            public void run() {
+                for (PlayerProfile profile : plugin.playerProfiles.values()) {
+                    profile.setInitialTasks();
+                    profile.setInventory();
+                    if (profile.isImpostor()) {
+                        ImpostorProfile impostorProfile = (ImpostorProfile) profile;
+                        impostorProfile.resetKillCooldown(true);
+                        impostorProfile.resetSabotageCooldown(true);
+                    }
+                }
+            }
+        }.runTaskLater(plugin, 160L);
+
+    }
+
+}

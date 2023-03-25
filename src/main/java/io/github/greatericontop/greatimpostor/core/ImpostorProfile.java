@@ -28,8 +28,8 @@ public class ImpostorProfile extends PlayerProfile {
     public ImpostorProfile(GreatImpostorMain plugin, Player player) {
         super(plugin, player);
         isInVent = false;
-        killCooldownTicks = 0;
-        sabotageCooldownTicks = 0;
+        killCooldownTicks = Integer.MAX_VALUE;
+        sabotageCooldownTicks = Integer.MAX_VALUE;
         selectedSabotage = Sabotage.REACTOR;
     }
 
