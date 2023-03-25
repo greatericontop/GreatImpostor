@@ -122,10 +122,10 @@ public class SabotageManager implements Listener {
                     PlayerProfile profile = plugin.playerProfiles.get(player.getUniqueId());
                     if (profile == null)  continue;
                     if (!profile.isImpostor()) {
-                        player.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, 30, 0));
+                        player.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, 5, 0));
                     }
                     // this counters the effect only somewhat
-                    player.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 30, 0));
+                    player.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 5, 0));
                 }
             }
             case COMMUNICATIONS -> {}
