@@ -1,18 +1,12 @@
 package io.github.greatericontop.greatimpostor;
 
-import io.github.greatericontop.greatimpostor.core.CrewmateProfile;
-import io.github.greatericontop.greatimpostor.core.ImpostorProfile;
-import io.github.greatericontop.greatimpostor.core.PlayerProfile;
-import io.github.greatericontop.greatimpostor.task.SignListener;
 import io.github.greatericontop.greatimpostor.utils.StartGame;
-import org.bukkit.Material;
-import org.bukkit.block.Block;
-import org.bukkit.block.Sign;
+import net.kyori.adventure.inventory.Book;
+import net.kyori.adventure.text.Component;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import org.bukkit.persistence.PersistentDataType;
 
 public class ImpostorCommand implements CommandExecutor {
 
@@ -31,109 +25,26 @@ public class ImpostorCommand implements CommandExecutor {
         }
         Player player = (Player) sender;
 
-        if (args[0].equals("taskWiring")) {
-            plugin.taskWiring.startTask(player);
-            return true;
-        }
-        if (args[0].equals("taskRedirectPower")) {
-            plugin.taskRedirectPower.startTask(player);
-            return true;
-        }
-        if (args[0].equals("taskStartReactor")) {
-            plugin.taskStartReactor.startTask(player);
-            return true;
-        }
-        if (args[0].equals("taskEmptyTrash")) {
-            plugin.taskEmptyTrash.startTask(player);
-            return true;
-        }
-        if (args[0].equals("taskAdjustSteering")) {
-            plugin.taskAdjustSteering.startTask(player);
-            return true;
-        }
-        if (args[0].equals("taskAcceptPower")) {
-            plugin.taskAcceptPower.startTask(player);
-            return true;
-        }
-        if (args[0].equals("taskCleanOxygenFilter")) {
-            plugin.taskCleanOxygenFilter.startTask(player);
-            return true;
-        }
-        if (args[0].equals("taskClearAsteroids")) {
-            plugin.taskClearAsteroids.startTask(player);
-            return true;
-        }
-        if (args[0].equals("taskUnlockManifolds")) {
-            plugin.taskUnlockManifolds.startTask(player);
-            return true;
-        }
-        if (args[0].equals("taskStabilizeNavigation")) {
-            plugin.taskStabilizeNavigation.startTask(player);
-            return true;
-        }
-        if (args[0].equals("taskDownloadData")) {
-            plugin.taskDownloadData.startTask(player);
-            return true;
-        }
-        if (args[0].equals("taskUploadData")) {
-            plugin.taskUploadData.startTask(player);
-            return true;
-        }
-        if (args[0].equals("taskSwipeCard")) {
-            plugin.taskSwipeCard.startTask(player);
-            return true;
-        }
-        if (args[0].equals("taskFetchFuel")) {
-            plugin.taskFetchFuel.startTask(player);
-            return true;
-        }
-        if (args[0].equals("taskFuelEngines")) {
-            plugin.taskFuelEngines.startTask(player);
-            return true;
+        if (args[0].equals("debug")) {
+            String[] newArgs = new String[args.length - 1];
+            System.arraycopy(args, 1, newArgs, 0, args.length - 1);
+            new DebugImpostorCommand(plugin).onCommand(sender, command, label, newArgs);
         }
 
-        if (args[0].equals("testCrewmate1")) {
-            CrewmateProfile c = new CrewmateProfile(plugin, player);
-            c.setInitialTasks();
-            player.sendMessage(String.valueOf(c.tasks));
-            c.setInventory();
-            plugin.playerProfiles.put(player.getUniqueId(), c);
-            return true;
-        }
-        if (args[0].equals("testCrewmateTaskComplete")) {
-            CrewmateProfile c = (CrewmateProfile) plugin.playerProfiles.get(player.getUniqueId());
-            c.processSubtaskCompleted(Integer.parseInt(args[1]), false);
-            c.setInventory();
-            return true;
-        }
-        if (args[0].equals("testImpostor1")) {
-            ImpostorProfile imp = new ImpostorProfile(plugin, player);
-            imp.setInitialTasks();
-            imp.setInventory();
-            plugin.playerProfiles.put(player.getUniqueId(), imp);
-            return true;
-        }
-
-        if (args[0].equals("setSign")) {
-            Block lookingAt = player.getTargetBlock(10);
-            if (lookingAt == null || (lookingAt.getType() != Material.OAK_WALL_SIGN && lookingAt.getType() != Material.OAK_SIGN)) {
-                player.sendMessage("§cYou must be looking at a sign!");
-                return true;
-            }
-            Sign sign = (Sign) lookingAt.getState(false); // get real state as we're going to modify it
-            sign.getPersistentDataContainer().set(SignListener.TASK_SIGN_KEY, PersistentDataType.STRING, args[1]);
-            player.sendMessage("§aSet your sign to be: " + args[1]);
-            return true;
-        }
-
-        if (args[0].equals("fixSabotage")) {
-            plugin.sabotageManager.forceEndSabotage();
-            return true;
-        }
-
-        if (args[0].equals("die")) {
-            PlayerProfile profile = plugin.playerProfiles.get(player.getUniqueId());
-            profile.die();
+        if (args[0].equals("tutorial")) {
+            player.openBook(Book.book(
+                    Component.text("Tutorial"),
+                    Component.text("GreatImpostor"),
+                    Component.text("§dWelcome to GreatImpostor!\n\n\n§0This is a tutorial to help you start."),
+                    // crew
+                    Component.text("§3§lCREWMATE\n\n\n§0Do your tasks!\n\nYou'll have 4 pieces of glass indicating what tasks to do. They'll change color as you complete them."),
+                    Component.text("§0Right click signs to interact with them.\n\n§0You can vote during meetings using §6/vote§0."),
+                    Component.text("§0Right click the horn to report a body.\n\nYou'll win if everyone finishes their tasks, or if the impostors are found and ejected."),
+                    // impostor
+                    Component.text("§c§lIMPOSTOR\n\n\n§0Kill everyone!\n\nAttack a crewmate with the sword to kill them."),
+                    Component.text("§6HOTKEY §0to the TNT to choose a sabotage, and §6HOTKEY §0to the redstone to activate it.\n\n§6SNEAK §0over a vent to use it. Then §6SPACE §0to move around or §6SNEAK §0again to exit."),
+                    Component.text("§0You'll win if you kill enough crewmates, or if the crew fails to repair a sabotage.")
+            ));
             return true;
         }
 
