@@ -51,13 +51,13 @@ public class ImpostorProfile extends PlayerProfile {
     }
 
     public boolean getCanKill() {
-        return killCooldownTicks <= 0 && (!plugin.meetingManager.isMeetingActive());
+        return killCooldownTicks <= 0 && (!plugin.meetingManager.isMeetingActive()) && (!isInVent);
     }
     public void resetKillCooldown(boolean isShort) {
         killCooldownTicks = (isShort ? SHORT_COOLDOWN_LEN : KILL_COOLDOWN_LEN);
     }
     public boolean getCanSabotage() {
-        return sabotageCooldownTicks <= 0 && (!plugin.meetingManager.isMeetingActive());
+        return sabotageCooldownTicks <= 0 && (!plugin.meetingManager.isMeetingActive()) && (!isInVent);
     }
     public void resetSabotageCooldown(boolean isShort) {
         sabotageCooldownTicks = (isShort ? SHORT_COOLDOWN_LEN : SABOTAGE_COOLDOWN_LEN);
