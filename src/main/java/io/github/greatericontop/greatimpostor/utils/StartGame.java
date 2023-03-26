@@ -13,6 +13,8 @@ import org.bukkit.entity.Player;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scheduler.BukkitRunnable;
+import org.bukkit.scoreboard.Scoreboard;
+import org.bukkit.scoreboard.Team;
 
 import java.time.Duration;
 import java.util.Collection;
@@ -25,6 +27,15 @@ public class StartGame {
         Collection<Player> playersRaw = (Collection<Player>) Bukkit.getOnlinePlayers();
         Player[] players = playersRaw.toArray(new Player[0]);
         Shuffler.shuffle(players, random);
+
+        // add everyone to the team
+        Scoreboard scoreboard = Bukkit.getScoreboardManager().getMainScoreboard();
+        Team team = scoreboard.getTeam("greatimpostor_players");
+        if (team == null) {
+            team = scoreboard.registerNewTeam("greatimpostor_players");
+            team.setOption(Team.Option.NAME_TAG_VISIBILITY, Team.OptionStatus.NEVER);
+        }
+        team.addEntities(players);
 
         // re-show all players
         for (Player p1 : players) {
