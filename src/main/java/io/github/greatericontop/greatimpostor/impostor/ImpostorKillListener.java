@@ -46,7 +46,21 @@ public class ImpostorKillListener implements Listener {
         if (impostorProfile.getCanKill()) {
             event.setCancelled(true);
             impostorProfile.resetKillCooldown(false);
-            ((Damageable) event.getEntity()).setHealth(0.0);
+            if (!(event.getEntity() instanceof Player victimPlayer)) {
+                ((Damageable) event.getEntity()).setHealth(0.0);
+                player.sendMessage("§7Note: you're killing a non-player victim");
+            } else {
+                PlayerProfile victimProfile = plugin.playerProfiles.get(victimPlayer.getUniqueId());
+                if (victimProfile == null) {
+                    player.sendMessage("§cThis player isn't in this game!");
+                    return;
+                }
+                if (victimProfile.isImpostor()) {
+                    player.sendMessage("§cDon't kill your fellow impostors!");
+                    return;
+                }
+                victimProfile.die();
+            }
             generateDeadBody(event.getEntity().getLocation());
         } else {
             event.setCancelled(true);
