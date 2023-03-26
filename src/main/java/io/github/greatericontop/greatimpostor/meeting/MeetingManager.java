@@ -96,17 +96,13 @@ public class MeetingManager {
                 impMessage = String.format("§e%s §bwas not The Impostor.", toEject.getPlayer().getName());
             }
             Bukkit.broadcast(Component.text(impMessage));
-            toEject.die(); // perform eject
-            int remainingImp = 0;
-            for (PlayerProfile profile : plugin.playerProfiles.values()) {
-                if (profile.isImpostor() && profile.isAlive()) {
-                    remainingImp++;
-                }
-            }
-            Bukkit.broadcast(Component.text(String.format("§6%d impostors remain", remainingImp)));
         }
         Bukkit.broadcast(Component.text(""));
         Bukkit.broadcast(Component.text("§9--------------------------------------------------"));
+
+        if (toEject != null) {
+            toEject.die(); // perform eject
+        }
 
         for (PlayerProfile profile : plugin.playerProfiles.values()) {
             if (profile.isImpostor()) {
