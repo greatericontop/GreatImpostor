@@ -19,6 +19,7 @@ public class PlayerJoinHandler implements Listener {
         if (!plugin.playerProfiles.containsKey(player.getUniqueId()))  return; // only do this for in-game players
 
         for (PlayerProfile otherProfile : plugin.playerProfiles.values()) {
+            if (otherProfile.getPlayer().equals(player))  continue; // don't hide self because bad things happen
             // hide players that need hiding
             if (
                     (!otherProfile.isAlive())
