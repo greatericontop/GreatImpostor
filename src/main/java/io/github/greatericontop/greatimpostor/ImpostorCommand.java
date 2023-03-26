@@ -25,12 +25,6 @@ public class ImpostorCommand implements CommandExecutor {
         }
         Player player = (Player) sender;
 
-        if (args[0].equals("debug")) {
-            String[] newArgs = new String[args.length - 1];
-            System.arraycopy(args, 1, newArgs, 0, args.length - 1);
-            new DebugImpostorCommand(plugin).onCommand(sender, command, label, newArgs);
-        }
-
         if (args[0].equals("tutorial")) {
             player.openBook(Book.book(
                     Component.text("Tutorial"),
@@ -49,8 +43,22 @@ public class ImpostorCommand implements CommandExecutor {
         }
 
         if (args[0].equals("start")) {
+            if (!player.hasPermission("impostor.admin")) {
+                player.sendMessage("§cYou need §6impostor.admin §cto access these commands!");
+                return true;
+            }
             StartGame.startGame(plugin, 1);
             return true;
+        }
+
+        if (args[0].equals("debug")) {
+            if (!player.hasPermission("impostor.admin")) {
+                player.sendMessage("§cYou need §6impostor.admin §cto access these commands!");
+                return true;
+            }
+            String[] newArgs = new String[args.length - 1];
+            System.arraycopy(args, 1, newArgs, 0, args.length - 1);
+            new DebugImpostorCommand(plugin).onCommand(sender, command, label, newArgs);
         }
 
         return false;

@@ -9,9 +9,12 @@ softdepend: [PlaceholderAPI]
 commands:
   impostor:
     description: GreatImpostor command
-    usage: /impostor <...>
-    permission: impostor.command
+    usage: "§eTutorial: §b/impostor tutorial  §7|  §eStart game: §b/impostor start"
   vote:
     description: GreatImpostor Vote command
     usage: "§eVote: §b/vote <player>  §7|  §eSkip vote: §b/vote skip"
-    permission: impostor.vote
+
+permissions:
+  impostor.admin:
+    description: GreatImpostor admin
+    default: op
