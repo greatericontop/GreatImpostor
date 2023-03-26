@@ -26,6 +26,15 @@ public class StartGame {
         Player[] players = playersRaw.toArray(new Player[0]);
         Shuffler.shuffle(players, random);
 
+        // re-show all players
+        for (Player p1 : players) {
+            for (Player p2 : players) {
+                if (!p1.equals(p2)) {
+                    p1.showPlayer(plugin, p2);
+                }
+            }
+        }
+
         for (int i = 0; i < players.length; i++) {
             Player currentPlayer = players[i];
             PlayerProfile newProfile;
