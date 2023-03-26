@@ -91,20 +91,24 @@ public class MeetingManager {
             Bukkit.broadcast(Component.text(String.format("§e%s §bwas ejected!", toEject.getPlayer().getName())));
             String impMessage;
             if (toEject.isImpostor()) {
-                impMessage = String.format("§c%s §6was The Impostor.", toEject.getPlayer().getName());
+                impMessage = String.format("§e%s §bwas The Impostor.", toEject.getPlayer().getName());
             } else {
-                impMessage = String.format("§c%s §6was not The Impostor.", toEject.getPlayer().getName());
+                impMessage = String.format("§e%s §bwas not The Impostor.", toEject.getPlayer().getName());
             }
             Bukkit.broadcast(Component.text(impMessage));
-            toEject.getPlayer().setGameMode(GameMode.SPECTATOR);
+            toEject.die(); // perform eject
+            int remainingImp = 0;
+            for (PlayerProfile profile : plugin.playerProfiles.values()) {
+                if (profile.isImpostor() && profile.isAlive()) {
+                    remainingImp++;
+                }
+            }
+            Bukkit.broadcast(Component.text(String.format("§6%d impostors remain", remainingImp)));
         }
         Bukkit.broadcast(Component.text(""));
         Bukkit.broadcast(Component.text("§9--------------------------------------------------"));
 
         for (PlayerProfile profile : plugin.playerProfiles.values()) {
-            if (toEject != null && profile.getPlayer().getUniqueId().equals(toEject.getPlayer().getUniqueId())) {
-                continue;
-            }
             if (profile.isImpostor()) {
                 ImpostorProfile impostorProfile = (ImpostorProfile) profile;
                 impostorProfile.resetKillCooldown(false);
