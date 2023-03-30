@@ -23,20 +23,20 @@ import java.util.TreeMap;
 public class MeetingManager {
     private static int MEETING_TIME_TICKS = 2100; // 1m 45s
 
-    private int startTime;
-    private boolean doVoteCheck;
+    private int startTime = -1;
+    private boolean meetingActive = false;
+    private boolean postMeetingActive = false;
+    private boolean doVoteCheck = true;
     public final Map<PlayerProfile, PlayerProfile> votes = new HashMap<>();
     public final Set<PlayerProfile> skips = new HashSet<>();
 
     private GreatImpostorMain plugin;
     public MeetingManager(GreatImpostorMain plugin) {
         this.plugin = plugin;
-        startTime = -2;
-        doVoteCheck = true;
     }
 
     public boolean isMeetingActive() {
-        return startTime != -2;
+        return meetingActive;
     }
 
     public void haveEmergencyMeeting(Player callingPlayer) {
@@ -65,6 +65,8 @@ public class MeetingManager {
 
     public void startNewMeeting() {
         startTime = plugin.getClock();
+        meetingActive = true;
+        postMeetingActive = false;
         doVoteCheck = true;
         votes.clear();
         skips.clear();
@@ -107,19 +109,14 @@ public class MeetingManager {
             toEject.die(); // perform eject
         }
 
-        for (PlayerProfile profile : plugin.playerProfiles.values()) {
-            if (profile.isImpostor()) {
-                ImpostorProfile impostorProfile = (ImpostorProfile) profile;
-                impostorProfile.resetKillCooldown(false);
-                impostorProfile.resetSabotageCooldown(false);
-            }
-            profile.getPlayer().setGameMode(GameMode.ADVENTURE);
-            profile.getPlayer().teleport(plugin.getStartingLocation());
-        }
-        startTime = -2;
+        postMeetingActive = true;
     }
 
     public void setMeetingActionBar(Player player) {
+        if (postMeetingActive) {
+            player.sendActionBar(Component.text("§6Continuing soon!"));
+            return;
+        }
         int secondsLeft = (MEETING_TIME_TICKS + startTime - plugin.getClock() + 19) / 20;
         String timeLeft = String.format("%d:%02d", secondsLeft / 60, secondsLeft % 60);
         player.sendActionBar(Component.text(String.format("§6Meeting - %s", timeLeft)));
@@ -146,9 +143,8 @@ public class MeetingManager {
             public void run() {
                 if (!isMeetingActive())  return;
                 int ticksLeft = MEETING_TIME_TICKS + startTime - plugin.getClock();
-                if (ticksLeft <= 0) {
+                if (ticksLeft == 0) {
                     endMeeting();
-                    return;
                 }
                 if (doVoteCheck && hasEveryoneVoted()) {
                     if (ticksLeft > 200) {
@@ -159,6 +155,21 @@ public class MeetingManager {
                     }
                     doVoteCheck = false;
                 }
+                // actually put players back in game 5 seconds after the results are announced
+                if (ticksLeft == -100) {
+                    for (PlayerProfile profile : plugin.playerProfiles.values()) {
+                        if (profile.isImpostor()) {
+                            ImpostorProfile impostorProfile = (ImpostorProfile) profile;
+                            impostorProfile.resetKillCooldown(false);
+                            impostorProfile.resetSabotageCooldown(false);
+                        }
+                        profile.getPlayer().setGameMode(GameMode.ADVENTURE);
+                        profile.getPlayer().teleport(plugin.getStartingLocation());
+                    }
+                    meetingActive = false;
+                    postMeetingActive = false;
+                }
+                // while isMeetingActive is no longer true, this will still lock players in position for the next 5 seconds
                 for (Player player : Bukkit.getOnlinePlayers()) {
                     player.teleport(plugin.getStartingLocation());
                 }
