@@ -21,9 +21,10 @@ import java.util.SortedMap;
 import java.util.TreeMap;
 
 public class MeetingManager {
-    private static int MEETING_TIME_TICKS = 400; //2100; // 1m 45s
+    private static int MEETING_TIME_TICKS = 2100; // 1m 45s
 
     private int startTime;
+    private boolean doVoteCheck;
     public final Map<PlayerProfile, PlayerProfile> votes = new HashMap<>();
     public final Set<PlayerProfile> skips = new HashSet<>();
 
@@ -31,6 +32,7 @@ public class MeetingManager {
     public MeetingManager(GreatImpostorMain plugin) {
         this.plugin = plugin;
         startTime = -2;
+        doVoteCheck = true;
     }
 
     public boolean isMeetingActive() {
@@ -63,6 +65,7 @@ public class MeetingManager {
 
     public void startNewMeeting() {
         startTime = plugin.getClock();
+        doVoteCheck = true;
         votes.clear();
         skips.clear();
         Bukkit.broadcast(Component.text("§9--------------------------------------------------"));
@@ -117,7 +120,7 @@ public class MeetingManager {
     }
 
     public void setMeetingActionBar(Player player) {
-        int secondsLeft = (startTime + MEETING_TIME_TICKS - plugin.getClock() + 19) / 20;
+        int secondsLeft = (MEETING_TIME_TICKS + startTime - plugin.getClock() + 19) / 20;
         String timeLeft = String.format("%d:%02d", secondsLeft / 60, secondsLeft % 60);
         player.sendActionBar(Component.text(String.format("§6Meeting - %s", timeLeft)));
     }
@@ -142,14 +145,23 @@ public class MeetingManager {
         new BukkitRunnable() {
             public void run() {
                 if (!isMeetingActive())  return;
-                if (startTime + MEETING_TIME_TICKS <= plugin.getClock()) {
+                int ticksLeft = MEETING_TIME_TICKS + startTime - plugin.getClock();
+                if (ticksLeft <= 0) {
                     endMeeting();
                     return;
+                }
+                if (doVoteCheck && hasEveryoneVoted()) {
+                    if (ticksLeft > 200) {
+                        startTime = plugin.getClock() - MEETING_TIME_TICKS + 200; // adjust such that there are 200 ticks left
+                        Bukkit.broadcast(Component.text("§aEveryone has voted! The meeting will end in 10 seconds."));
+                    } else {
+                        Bukkit.broadcast(Component.text("§aEveryone has voted! The meeting will end soon."));
+                    }
+                    doVoteCheck = false;
                 }
                 for (Player player : Bukkit.getOnlinePlayers()) {
                     player.teleport(plugin.getStartingLocation());
                 }
-                // TODO: end meeting if enough votes were cast
             }
         }.runTaskTimer(plugin, 1L, 1L);
     }
@@ -203,6 +215,16 @@ public class MeetingManager {
 
         Bukkit.broadcast(Component.text(""));
         Bukkit.broadcast(Component.text("§9--------------------------------------------------"));
+    }
+
+    private boolean hasEveryoneVoted() {
+        int alivePlayerCount = 0;
+        for (PlayerProfile profile : plugin.playerProfiles.values()) {
+            if (profile.isAlive()) {
+                alivePlayerCount++;
+            }
+        }
+        return votes.size() + skips.size() == alivePlayerCount;
     }
 
 }
