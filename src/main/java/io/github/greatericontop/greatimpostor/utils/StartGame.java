@@ -62,6 +62,7 @@ public class StartGame {
             }
             plugin.playerProfiles.put(currentPlayer.getUniqueId(), newProfile);
 
+            currentPlayer.getInventory().clear();
             currentPlayer.setGameMode(GameMode.ADVENTURE);
             currentPlayer.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, 160, 0));
             currentPlayer.teleport(plugin.getStartingLocation());
