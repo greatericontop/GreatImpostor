@@ -2,7 +2,7 @@ package io.github.greatericontop.greatimpostor.task;
 
 public enum TaskType {
 
-    WIRING(
+    WIRING(true, // frequent
             3,
             Subtask.WIRING_ELECTRICAL,
             Subtask.WIRING_STORAGE,
@@ -12,7 +12,7 @@ public enum TaskType {
             Subtask.WIRING_SECURITY
     ),
 
-    REDIRECT_ACCEPT_POWER(
+    REDIRECT_ACCEPT_POWER(true, // frequent
             2,
             Subtask.REDIRECT_POWER,
             Subtask.ACCEPT_POWER_COMMUNICATIONS,
@@ -43,7 +43,7 @@ public enum TaskType {
         }
     },
 
-    DOWNLOAD_UPLOAD_DATA(
+    DOWNLOAD_UPLOAD_DATA(true, // frequent
             2,
             Subtask.DOWNLOAD_DATA_CAFETERIA,
             Subtask.DOWNLOAD_DATA_COMMUNICATIONS,
@@ -137,6 +137,7 @@ public enum TaskType {
 
     private final int requiredSubtaskCount;
     private final Subtask[] subtasks;
+    private final boolean isFrequent;
 
     public int getRequiredSubtaskCount() {
         return requiredSubtaskCount;
@@ -144,10 +145,19 @@ public enum TaskType {
     public Subtask[] getSubtasks() {
         return subtasks;
     }
+    public boolean isFrequent() {
+        return isFrequent;
+    }
 
     TaskType(int requiredSubtaskCount, Subtask... subtasks) {
         this.requiredSubtaskCount = requiredSubtaskCount;
         this.subtasks = subtasks;
+        this.isFrequent = false;
+    }
+    TaskType(boolean isFrequent, int requiredSubtaskCount, Subtask... subtasks) {
+        this.requiredSubtaskCount = requiredSubtaskCount;
+        this.subtasks = subtasks;
+        this.isFrequent = isFrequent;
     }
 
     public Subtask[] getPossibleNextSubtasks(int numberSubtasksAlreadyCompleted) {
