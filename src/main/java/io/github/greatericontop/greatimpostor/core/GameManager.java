@@ -78,6 +78,9 @@ public class GameManager {
         if (plugin.playerProfiles.size() == 0) {
             return;
         }
+        if (!plugin.getConfig().getBoolean("enable-victory-checks")) {
+            return;
+        }
         // all tasks completed
         int[] taskStatus = PlayerProfile.getTaskStatus(plugin.playerProfiles.values());
         if (taskStatus[1] > 0 && taskStatus[0] == taskStatus[1]) { // at least one task and all tasks completed
@@ -86,14 +89,13 @@ public class GameManager {
         }
 
         // all impostors dead
-        // TODO: same as below
-//        if (getAliveImpostorCount() == 0) {
-//            endGame("§bCrewmates win! §aNo impostors left!");
-//            return;
-//        }
+        if (getAliveImpostorCount() == 0) {
+            endGame("§bCrewmates win! §aNo impostors left!");
+            return;
+        }
 
         // impostors can't be voted out anymore
-        if (getAliveImpostorCount() * 2 >= plugin.playerProfiles.size() + 2) { // TODO: remove this (debug feature)
+        if (getAliveImpostorCount() * 2 >= plugin.playerProfiles.size()) {
             endGame("§cImpostors win! §aToo many crewmates died!");
             return;
         }

@@ -13,9 +13,7 @@ starting-location:
 
 
 # This is a vent system.
-
 # Example:
-
 #vents:
 #  - - [-10.0, 25.0, 0.5]  # one vent system, and the coordinates of the vent
 #    - [0.5, 25.0, 0.5]  # coordinates of a second vent in the first system
@@ -23,5 +21,7 @@ starting-location:
 #
 #  - - [0.5, 25.0, -10.5]  # a second vent system
 #    - [0.5, 25.0, 10.5]  # coordinates of a second vent in the second system
-
 vents: []
+
+# This is for debug only. You should always leave this on.
+enable-victory-checks: true
