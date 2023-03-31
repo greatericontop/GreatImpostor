@@ -95,7 +95,7 @@ public class GameManager {
         }
 
         // impostors can't be voted out anymore
-        if (getAliveImpostorCount() * 2 >= plugin.playerProfiles.size()) {
+        if (getAliveImpostorCount() >= getAliveCrewCount()) {
             endGame("§cImpostors win! §aToo many crewmates died!");
             return;
         }
@@ -106,11 +106,20 @@ public class GameManager {
     private int getAliveImpostorCount() {
         int aliveImpostors = 0;
         for (PlayerProfile profile : plugin.playerProfiles.values()) {
-            if (profile.isImpostor()) { // TODO: when spectators implemented, check for alive-ness
+            if (profile.isImpostor() && profile.isAlive()) {
                 aliveImpostors++;
             }
         }
         return aliveImpostors;
+    }
+    private int getAliveCrewCount() {
+        int aliveCrew = 0;
+        for (PlayerProfile profile : plugin.playerProfiles.values()) {
+            if ((!profile.isImpostor()) && profile.isAlive()) {
+                aliveCrew++;
+            }
+        }
+        return aliveCrew;
     }
 
     public void endGame(String message) {
