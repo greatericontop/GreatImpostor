@@ -52,7 +52,6 @@ public class VentManager implements Listener {
         ImpostorProfile profile = (ImpostorProfile) profileGeneric;
         if (profile.isInVent) {
             cycleVent(player, profile);
-            event.setCancelled(true); // extra QOL thing in addition to the setback if too far
             movementCooldown.put(player.getUniqueId(), true);
             new BukkitRunnable() {
                 public void run() {
@@ -85,8 +84,6 @@ public class VentManager implements Listener {
 
         // un-vanish
         player.setGameMode(GameMode.ADVENTURE);
-
-        player.sendMessage("§7[D] exiting vent");
     }
 
     private void enterVent(Player player, ImpostorProfile profile) {
@@ -109,8 +106,6 @@ public class VentManager implements Listener {
 
         // vanish
         player.setGameMode(GameMode.SPECTATOR);
-
-        player.sendMessage(String.format("[D] entering §7ventSystem=%d ventIndex=%d", ventSystem, ventNumber));
     }
 
     private void cycleVent(Player player, ImpostorProfile profile) {
