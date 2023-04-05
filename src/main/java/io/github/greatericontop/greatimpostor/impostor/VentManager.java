@@ -1,6 +1,5 @@
 package io.github.greatericontop.greatimpostor.impostor;
 
-import com.destroystokyo.paper.event.player.PlayerJumpEvent;
 import io.github.greatericontop.greatimpostor.GreatImpostorMain;
 import io.github.greatericontop.greatimpostor.core.ImpostorProfile;
 import io.github.greatericontop.greatimpostor.core.PlayerProfile;
@@ -10,9 +9,17 @@ import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.event.player.PlayerToggleSneakEvent;
+import org.bukkit.scheduler.BukkitRunnable;
+
+import java.util.HashMap;
+import java.util.Map;
+import java.util.UUID;
 
 public class VentManager implements Listener {
+
+    private final Map<UUID, Boolean> movementCooldown = new HashMap<>();
 
     private final GreatImpostorMain plugin;
     public VentManager(GreatImpostorMain plugin) {
@@ -35,7 +42,9 @@ public class VentManager implements Listener {
     }
 
     @EventHandler()
-    public void onSpace(PlayerJumpEvent event) {
+    public void onSpace(PlayerMoveEvent event) {
+        if (event.getTo().getY() <= event.getFrom().getY())  return; // only runs when player jumps (y after > y before)
+        if (movementCooldown.getOrDefault(event.getPlayer().getUniqueId(), false))  return;
         Player player = event.getPlayer();
         PlayerProfile profileGeneric = plugin.playerProfiles.get(player.getUniqueId());
         if (profileGeneric == null)  return;
@@ -43,8 +52,27 @@ public class VentManager implements Listener {
         ImpostorProfile profile = (ImpostorProfile) profileGeneric;
         if (profile.isInVent) {
             cycleVent(player, profile);
+            event.setCancelled(true); // extra QOL thing in addition to the setback if too far
+            movementCooldown.put(player.getUniqueId(), true);
+            new BukkitRunnable() {
+                public void run() {
+                    movementCooldown.put(player.getUniqueId(), false);
+                }
+            }.runTaskLater(plugin, 10L);
         }
     }
+
+//    @EventHandler()
+//    public void onSpace(PlayerJumpEvent event) {
+//        Player player = event.getPlayer();
+//        PlayerProfile profileGeneric = plugin.playerProfiles.get(player.getUniqueId());
+//        if (profileGeneric == null)  return;
+//        if (!profileGeneric.isImpostor())  return;
+//        ImpostorProfile profile = (ImpostorProfile) profileGeneric;
+//        if (profile.isInVent) {
+//            cycleVent(player, profile);
+//        }
+//    }
 
 
 
