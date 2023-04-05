@@ -5,14 +5,12 @@ import io.github.greatericontop.greatimpostor.GreatImpostorMain;
 import io.github.greatericontop.greatimpostor.core.ImpostorProfile;
 import io.github.greatericontop.greatimpostor.core.PlayerProfile;
 import io.github.greatericontop.greatimpostor.utils.PartialCoordinates;
-import org.bukkit.Bukkit;
+import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerToggleSneakEvent;
-import org.bukkit.potion.PotionEffect;
-import org.bukkit.potion.PotionEffectType;
 
 public class VentManager implements Listener {
 
@@ -58,10 +56,7 @@ public class VentManager implements Listener {
         player.teleport(coordinates.teleportLocation(player.getWorld()));
 
         // un-vanish
-        player.removePotionEffect(PotionEffectType.INVISIBILITY);
-        for (Player p1 : Bukkit.getOnlinePlayers()) {
-            p1.showPlayer(plugin, player);
-        }
+        player.setGameMode(GameMode.ADVENTURE);
 
         player.sendMessage("§7[D] exiting vent");
     }
@@ -85,10 +80,7 @@ public class VentManager implements Listener {
         profile.applyVentEntrancePenalty();
 
         // vanish
-        player.addPotionEffect(new PotionEffect(PotionEffectType.INVISIBILITY, 1200, 0));
-        for (Player p1 : Bukkit.getOnlinePlayers()) {
-            p1.hidePlayer(plugin, player);
-        }
+        player.setGameMode(GameMode.SPECTATOR);
 
         player.sendMessage(String.format("[D] entering §7ventSystem=%d ventIndex=%d", ventSystem, ventNumber));
     }

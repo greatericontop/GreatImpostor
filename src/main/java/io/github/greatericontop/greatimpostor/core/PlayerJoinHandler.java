@@ -34,7 +34,6 @@ public class PlayerJoinHandler implements Listener {
             // hide players that need hiding
             if (
                     (!otherProfile.isAlive())
-                    || (otherProfile.isImpostor() && ((ImpostorProfile) otherProfile).isInVent)
             ) {
                 player.hidePlayer(plugin, otherProfile.getPlayer());
             }
