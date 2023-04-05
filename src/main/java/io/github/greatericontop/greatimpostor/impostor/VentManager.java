@@ -115,7 +115,6 @@ public class VentManager implements Listener {
         profile.ventNumber = nextVentNumber;
         PartialCoordinates coordinates = plugin.gameManager.getVent(ventSystem, nextVentNumber);
         player.teleport(coordinates.teleportLocation(player.getWorld()));
-        player.sendMessage(String.format("[D] §eCYCLE §7ventSystem=%d ventIndex=%d", ventSystem, nextVentNumber));
     }
 
     public void setBackVentedImpostor(ImpostorProfile profile) {
