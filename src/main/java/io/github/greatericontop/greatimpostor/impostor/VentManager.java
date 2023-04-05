@@ -32,7 +32,14 @@ public class VentManager implements Listener {
         Player player = event.getPlayer();
         PlayerProfile profileGeneric = plugin.playerProfiles.get(player.getUniqueId());
         if (profileGeneric == null)  return;
-        if (!profileGeneric.isImpostor())  return;
+        if (!profileGeneric.isImpostor()) {
+            // cancel crewmates if they are shifting on a vent
+            PartialCoordinates coordinates = PartialCoordinates.ofLocation(player.getLocation());
+            if (plugin.gameManager.findVentSystem(coordinates) != null) {
+                event.setCancelled(true);
+            }
+            return;
+        }
         ImpostorProfile profile = (ImpostorProfile) profileGeneric;
         if (profile.isInVent) {
             exitVent(player, profile);
