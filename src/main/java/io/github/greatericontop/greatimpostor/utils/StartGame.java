@@ -37,8 +37,8 @@ public class StartGame {
         Team team = scoreboard.getTeam("greatimpostor_players");
         if (team == null) {
             team = scoreboard.registerNewTeam("greatimpostor_players");
-            team.setOption(Team.Option.NAME_TAG_VISIBILITY, Team.OptionStatus.NEVER);
         }
+        team.setOption(Team.Option.NAME_TAG_VISIBILITY, Team.OptionStatus.NEVER);
         team.addEntities(players);
 
         // re-show all players
