@@ -47,7 +47,7 @@ public class ImpostorCommand implements CommandExecutor {
                 player.sendMessage("§cYou need §6impostor.admin §cto access these commands!");
                 return true;
             }
-            StartGame.startGame(plugin, 1);
+            StartGame.startGame(plugin, 1, player);
             return true;
         }
 

@@ -138,7 +138,7 @@ public class DebugImpostorCommand implements CommandExecutor {
         }
 
         if (args[0].equals("start")) {
-            StartGame.startGame(plugin, 1);
+            StartGame.startGame(plugin, 1, player);
             return true;
         }
 

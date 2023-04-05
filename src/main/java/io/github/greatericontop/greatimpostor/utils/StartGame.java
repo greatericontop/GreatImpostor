@@ -9,20 +9,24 @@ import net.kyori.adventure.title.Title;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.Sound;
+import org.bukkit.entity.ArmorStand;
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
+import org.bukkit.persistence.PersistentDataType;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scoreboard.Scoreboard;
 import org.bukkit.scoreboard.Team;
 
+import javax.annotation.Nullable;
 import java.time.Duration;
 import java.util.Collection;
 import java.util.Random;
 
 public class StartGame {
 
-    public static void startGame(GreatImpostorMain plugin, int numberImpostors) {
+    public static void startGame(GreatImpostorMain plugin, int numberImpostors, @Nullable Player responsiblePlayer) {
         Random random = new Random();
         Collection<Player> playersRaw = (Collection<Player>) Bukkit.getOnlinePlayers();
         Player[] players = playersRaw.toArray(new Player[0]);
@@ -72,6 +76,23 @@ public class StartGame {
                     Title.Times.times(Duration.ofMillis(1000L), Duration.ofMillis(7000L), Duration.ofMillis(2000L))
             ));
             currentPlayer.playSound(currentPlayer.getLocation(), Sound.ENTITY_WITHER_DEATH, 1.0F, 1.0F);
+        }
+
+        // remove old bodies
+        if (responsiblePlayer != null) {
+            responsiblePlayer.sendMessage("§7Removing old dead bodies. If your server has too many entities, it might lag for a few seconds.");
+        }
+        int amount = 0;
+        for (Entity entity : plugin.getStartingLocation().getWorld().getEntities()) {
+            if (entity instanceof ArmorStand armorStand) {
+                if (armorStand.getPersistentDataContainer().has(ImpostorUtil.DEAD_BODY_KEY, PersistentDataType.INTEGER)) {
+                    armorStand.remove();
+                    amount++;
+                }
+            }
+        }
+        if (responsiblePlayer != null) {
+            responsiblePlayer.sendMessage(String.format("§7Finished removing %d dead bodies.", amount));
         }
 
         new BukkitRunnable() {
