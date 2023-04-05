@@ -30,6 +30,7 @@ import io.github.greatericontop.greatimpostor.task.sabotagetaskexecutors.Sabotag
 import io.github.greatericontop.greatimpostor.task.sabotagetaskexecutors.SabotageFixLights;
 import io.github.greatericontop.greatimpostor.task.sabotagetaskexecutors.SabotageOxygen;
 import io.github.greatericontop.greatimpostor.task.sabotagetaskexecutors.SabotageReactor;
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -81,6 +82,12 @@ public class GreatImpostorMain extends JavaPlugin {
         this.saveDefaultConfig();
         this.getConfig().options().copyDefaults(true);
         this.saveConfig();
+
+        if (Bukkit.getPluginManager().getPlugin("PlaceholderAPI") != null) {
+            new Placeholders(this).register();
+        } else {
+            getLogger().warning("PlaceholderAPI not found");
+        }
 
         this.getServer().getPluginManager().registerEvents(new AntiVandalism(this), this);
         this.getServer().getPluginManager().registerEvents(new BodyReportingListener(this), this);
