@@ -43,7 +43,7 @@ public class VentManager implements Listener {
 
     @EventHandler()
     public void onSpace(PlayerMoveEvent event) {
-        if (event.getTo().getY() <= event.getFrom().getY())  return; // only runs when player jumps (y after > y before)
+        if (event.getTo().getY() - 0.05 <= event.getFrom().getY())  return; // only runs when player jumps (y after > y before, with tolerance)
         if (movementCooldown.getOrDefault(event.getPlayer().getUniqueId(), false))  return;
         Player player = event.getPlayer();
         PlayerProfile profileGeneric = plugin.playerProfiles.get(player.getUniqueId());
