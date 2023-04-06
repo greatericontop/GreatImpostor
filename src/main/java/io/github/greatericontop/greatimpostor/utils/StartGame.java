@@ -82,6 +82,7 @@ public class StartGame {
         if (responsiblePlayer != null) {
             responsiblePlayer.sendMessage("§7Removing old dead bodies. If your server has too many entities, it might lag for a few seconds.");
         }
+        long start = System.currentTimeMillis();
         int amount = 0;
         for (Entity entity : plugin.getStartingLocation().getWorld().getEntities()) {
             if (entity instanceof ArmorStand armorStand) {
@@ -92,7 +93,7 @@ public class StartGame {
             }
         }
         if (responsiblePlayer != null) {
-            responsiblePlayer.sendMessage(String.format("§7Finished removing %d dead bodies.", amount));
+            responsiblePlayer.sendMessage(String.format("§7Finished removing %d dead bodies in %d ms.", amount, System.currentTimeMillis()-start));
         }
 
         new BukkitRunnable() {
