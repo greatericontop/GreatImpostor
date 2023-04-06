@@ -36,6 +36,7 @@ public class VentManager implements Listener {
             // cancel crewmates if they are shifting on a vent
             PartialCoordinates coordinates = PartialCoordinates.ofLocation(player.getLocation());
             if (plugin.gameManager.findVentSystem(coordinates) != null) {
+                player.sendMessage("§7To prevent abuse, you can't shift on vents.");
                 event.setCancelled(true);
             }
             return;
