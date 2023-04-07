@@ -74,7 +74,7 @@ public class SabotageManager implements Listener {
         }
         activeSabotage = playerProfile.selectedSabotage;
         responsibleImpostor = playerProfile;
-        criticalCountdown = 600;
+        criticalCountdown = plugin.getConfig().getInt("critical-sabotage-fix-ticks");
         TaskUtil.getSabotageTaskClass(plugin, activeSabotage).prepareSabotageTask();
         player.sendMessage(String.format("§6You activated §c%s§6.", activeSabotage.getDisplayName()));
         if (activeSabotage == Sabotage.COMMUNICATIONS) { // update inventory for communications sabotage
