@@ -67,6 +67,7 @@ public class StartGame {
             plugin.playerProfiles.put(currentPlayer.getUniqueId(), newProfile);
 
             currentPlayer.getInventory().clear();
+            currentPlayer.getInventory().setHeldItemSlot(0); // force reset held item so impostors don't reveal themselves
             currentPlayer.setGameMode(GameMode.ADVENTURE);
             currentPlayer.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, 160, 0));
             currentPlayer.teleport(plugin.getStartingLocation());
