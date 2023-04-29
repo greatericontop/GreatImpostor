@@ -79,23 +79,27 @@ public class StartGame {
             currentPlayer.playSound(currentPlayer.getLocation(), Sound.ENTITY_WITHER_DEATH, 1.0F, 1.0F);
         }
 
-        // remove old bodies
-        if (responsiblePlayer != null) {
-            responsiblePlayer.sendMessage("§7Removing old dead bodies. If your server has too many entities, it might lag for a few seconds.");
-        }
-        long start = System.currentTimeMillis();
-        int amount = 0;
-        for (Entity entity : plugin.getStartingLocation().getWorld().getEntities()) {
-            if (entity instanceof ArmorStand armorStand) {
-                if (armorStand.getPersistentDataContainer().has(ImpostorUtil.DEAD_BODY_KEY, PersistentDataType.INTEGER)) {
-                    armorStand.remove();
-                    amount++;
+        // remove old bodies (after 1 tick, when the chunks have loaded)
+        new BukkitRunnable() {
+            public void run() {
+                if (responsiblePlayer != null) {
+                    responsiblePlayer.sendMessage("§7Removing old dead bodies. If your server has too many entities, it might lag for a few seconds.");
+                }
+                long start = System.currentTimeMillis();
+                int amount = 0;
+                for (Entity entity : plugin.getStartingLocation().getWorld().getEntities()) {
+                    if (entity instanceof ArmorStand armorStand) {
+                        if (armorStand.getPersistentDataContainer().has(ImpostorUtil.DEAD_BODY_KEY, PersistentDataType.INTEGER)) {
+                            armorStand.remove();
+                            amount++;
+                        }
+                    }
+                }
+                if (responsiblePlayer != null) {
+                    responsiblePlayer.sendMessage(String.format("§7Finished removing %d dead bodies in %d ms.", amount, System.currentTimeMillis()-start));
                 }
             }
-        }
-        if (responsiblePlayer != null) {
-            responsiblePlayer.sendMessage(String.format("§7Finished removing %d dead bodies in %d ms.", amount, System.currentTimeMillis()-start));
-        }
+        }.runTaskLater(plugin, 1L);
 
         new BukkitRunnable() {
             int i = 8;
