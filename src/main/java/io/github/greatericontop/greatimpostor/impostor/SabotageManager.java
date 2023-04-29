@@ -61,7 +61,7 @@ public class SabotageManager implements Listener {
     public void activateSabotage(ImpostorProfile playerProfile) {
         Player player = playerProfile.getPlayer();
         if (!playerProfile.isAlive()) {
-            player.sendMessage("§cYou can't sabotage while dead!"); // TODO: shared cooldown for impostors (remove responsibleImpostor, or just have a global cooldown in GameManager) and allow dead to sabotage
+            player.sendMessage("§cYou can't sabotage while dead!"); // TODO: allow dead to sabotage
             return;
         }
         if (isSabotageActive()) {
@@ -92,7 +92,14 @@ public class SabotageManager implements Listener {
             plugin.gameManager.requestInventoryChange();
         }
         activeSabotage = null;
-        responsibleImpostor.resetSabotageCooldown(false);
+        // All impostors' cooldowns are reset together.
+        // They are not completely shared though, because individual impostors can, for example, have their cooldowns
+        //   not run while they are hiding in vents.
+        for (PlayerProfile profile : plugin.playerProfiles.values()) {
+            if (profile.isImpostor()) {
+                ((ImpostorProfile) profile).resetSabotageCooldown(false);
+            }
+        }
     }
 
     public void tickSabotages() {
