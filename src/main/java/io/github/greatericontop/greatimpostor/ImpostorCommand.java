@@ -52,6 +52,23 @@ public class ImpostorCommand implements CommandExecutor {
             return true;
         }
 
+        if (args[0].equals("startTwo")) {
+            if (!player.hasPermission("impostor.admin")) {
+                player.sendMessage("§cYou need §6impostor.admin §cto access these commands!");
+                return true;
+            }
+            StartGame.startGame(plugin, 2, player);
+            return true;
+        }
+        if (args[0].equals("startThree")) {
+            if (!player.hasPermission("impostor.admin")) {
+                player.sendMessage("§cYou need §6impostor.admin §cto access these commands!");
+                return true;
+            }
+            StartGame.startGame(plugin, 3, player);
+            return true;
+        }
+
         if (args[0].equals("debug")) {
             if (!player.hasPermission("impostor.admin")) {
                 player.sendMessage("§cYou need §6impostor.admin §cto access these commands!");
