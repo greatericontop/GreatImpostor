@@ -5,8 +5,11 @@ import io.github.greatericontop.greatimpostor.task.Subtask;
 import io.github.greatericontop.greatimpostor.task.TaskType;
 import io.github.greatericontop.greatimpostor.task.TaskUtil;
 import io.github.greatericontop.greatimpostor.utils.Shuffler;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.title.Title;
 import org.bukkit.entity.Player;
 
+import java.time.Duration;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
@@ -141,7 +144,11 @@ public abstract class PlayerProfile {
         for (Player p : plugin.getServer().getOnlinePlayers()) {
             p.hidePlayer(plugin, player);
         }
-
+        player.showTitle(Title.title(
+                Component.text("§cYou Died!"),
+                Component.text(""),
+                Title.Times.times(Duration.ofMillis(1000L), Duration.ofMillis(8000L), Duration.ofMillis(1000L))
+        ));
     }
 
     public abstract void die();
