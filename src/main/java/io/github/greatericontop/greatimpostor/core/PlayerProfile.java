@@ -146,9 +146,10 @@ public abstract class PlayerProfile {
         }
         player.showTitle(Title.title(
                 Component.text("§cYou Died!"),
-                Component.text(""),
+                Component.text("§cYou Died!"),
                 Title.Times.times(Duration.ofMillis(1000L), Duration.ofMillis(8000L), Duration.ofMillis(1000L))
         ));
+        player.sendMessage("§7TEST MESSAGE");
     }
 
     public abstract void die();
