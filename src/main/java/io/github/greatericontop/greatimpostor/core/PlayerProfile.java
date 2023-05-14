@@ -8,6 +8,8 @@ import io.github.greatericontop.greatimpostor.utils.Shuffler;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.title.Title;
 import org.bukkit.entity.Player;
+import org.bukkit.potion.PotionEffect;
+import org.bukkit.potion.PotionEffectType;
 
 import java.time.Duration;
 import java.util.ArrayList;
@@ -149,6 +151,8 @@ public abstract class PlayerProfile {
                 Component.text("§cYou Died!"),
                 Title.Times.times(Duration.ofMillis(1000L), Duration.ofMillis(8000L), Duration.ofMillis(1000L))
         ));
+        player.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, 60, 4)); // this should be obvious (if lights are on)
+        player.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 60, 4)); // this should shrink and re-enlarge FOV
         player.sendMessage("§7TEST MESSAGE");
     }
 
