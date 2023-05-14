@@ -76,7 +76,7 @@ public abstract class DownloadUpload extends BaseTask {
                 event.getInventory().setItem(SLOTS[loopNum], new ItemStack(PROGRESS_YES, 1));
                 loopNum++;
             }
-        }.runTaskTimer(plugin, 0L, 12L); // 24 intervals * 12 ticks = 14.4 seconds
+        }.runTaskTimer(plugin, 0L, 9L); // 24 intervals * 9 ticks = 10.8 seconds
     }
 
 }
