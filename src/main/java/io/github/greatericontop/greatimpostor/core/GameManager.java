@@ -50,7 +50,7 @@ public class GameManager {
                     }
 
                     // darkness effect for everyone (no particles or icon)
-                    player.addPotionEffect(new PotionEffect(PotionEffectType.DARKNESS, 39, 0, false, false, false));
+                    //player.addPotionEffect(new PotionEffect(PotionEffectType.DARKNESS, 79, 0, false, false, false));
                     // if lights sabotage, disallow sprinting (takes effect immediately), otherwise refill hunger
                     player.setFoodLevel((plugin.sabotageManager.getActiveSabotage() == Sabotage.LIGHTS) ? 6 : 20);
 

@@ -37,6 +37,9 @@ public class SabotageManager implements Listener {
     public boolean isDisruptiveSabotageActive() {
         return isSabotageActive() && activeSabotage.disruptsGame();
     }
+    public boolean shouldRemoveWhenBodyReported() {
+        return isSabotageActive() && (activeSabotage == Sabotage.REACTOR || activeSabotage == Sabotage.OXYGEN);
+    }
 
     @EventHandler()
     public void onHotkey(PlayerItemHeldEvent event) {

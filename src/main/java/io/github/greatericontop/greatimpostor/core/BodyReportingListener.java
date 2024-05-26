@@ -45,9 +45,9 @@ public class BodyReportingListener implements Listener {
                 player.sendMessage("§cYou're dead! You can't report a body!");
                 return;
             }
-            if (plugin.sabotageManager.isDisruptiveSabotageActive()) {
-                player.sendMessage("§cSabotage! You can't report a body right now!");
-                return;
+            // Dead body bypasses some sabotages and even cancels some
+            if (plugin.sabotageManager.shouldRemoveWhenBodyReported()) {
+                plugin.sabotageManager.forceEndSabotage();
             }
             boolean noBodyFound = true; // no for-else :(
             for (Entity entity : player.getNearbyEntities(REPORT_DIST, REPORT_DIST, REPORT_DIST)) {
