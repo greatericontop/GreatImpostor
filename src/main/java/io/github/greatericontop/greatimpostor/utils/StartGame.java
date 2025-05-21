@@ -9,10 +9,7 @@ import net.kyori.adventure.title.Title;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.Sound;
-import org.bukkit.entity.ArmorStand;
-import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
-import org.bukkit.persistence.PersistentDataType;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scheduler.BukkitRunnable;
@@ -86,15 +83,7 @@ public class StartGame {
                     responsiblePlayer.sendMessage("§7Removing old dead bodies. If your server has too many entities, it might lag for a few seconds.");
                 }
                 long start = System.currentTimeMillis();
-                int amount = 0;
-                for (Entity entity : plugin.getStartingLocation().getWorld().getEntities()) {
-                    if (entity instanceof ArmorStand armorStand) {
-                        if (armorStand.getPersistentDataContainer().has(ImpostorUtil.DEAD_BODY_KEY, PersistentDataType.INTEGER)) {
-                            armorStand.remove();
-                            amount++;
-                        }
-                    }
-                }
+                int amount = plugin.gameManager.removeAllBodies();
                 if (responsiblePlayer != null) {
                     responsiblePlayer.sendMessage(String.format("§7Finished removing %d dead bodies in %d ms.", amount, System.currentTimeMillis()-start));
                 }

@@ -12,9 +12,11 @@ import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import java.time.Duration;
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.SortedMap;
@@ -60,10 +62,10 @@ public class MeetingManager {
                     Title.Times.times(Duration.ofMillis(1500L), Duration.ofMillis(5000L), Duration.ofMillis(1500L))
             ));
         }
-        startNewMeeting();
+        startNewMeeting(true);
     }
 
-    public void startNewMeeting() {
+    public void startNewMeeting(boolean isEmergency) {
         startTime = plugin.getClock();
         meetingActive = true;
         postMeetingActive = false;
@@ -80,11 +82,33 @@ public class MeetingManager {
         Bukkit.broadcast(Component.text("§3You can vote for a player, e.g. §b/vote Notch"));
         Bukkit.broadcast(Component.text("§3Or skip the vote, e.g. §b/vote skip"));
         Bukkit.broadcast(Component.text(""));
-        Bukkit.broadcast(Component.text("§9--------------------------------------------------"));
         playMeetingSound();
         for (Player player : Bukkit.getOnlinePlayers()) {
             player.setGameMode(GameMode.SPECTATOR);
         }
+        int number = plugin.gameManager.removeAllBodies();
+        if (number > 0) {
+            if (isEmergency) {
+                Bukkit.broadcast(Component.text(String.format("§e%d §6player(s) died between the last meeting and right now!", number)));
+                Bukkit.broadcast(Component.text(""));
+            } else {
+                Bukkit.broadcast(Component.text(String.format("§6In addition to the reported body, §e%d §6player(s) died (§e%d §6died in total)", number, number+1)));
+                Bukkit.broadcast(Component.text(""));
+            }
+        }
+        List<String> alivePlayers = new ArrayList<>();
+        List<String> deadPlayers = new ArrayList<>();
+        for (PlayerProfile profile : plugin.playerProfiles.values()) {
+            if (profile.isAlive()) {
+                alivePlayers.add(profile.getPlayer().getName());
+            } else {
+                deadPlayers.add(profile.getPlayer().getName());
+            }
+        }
+        Bukkit.broadcast(Component.text(String.format("§aAlive §3Players: §3%s", String.join(", ", alivePlayers))));
+        Bukkit.broadcast(Component.text(String.format("§cDead §3Players: §3%s", String.join(", ", deadPlayers))));
+        Bukkit.broadcast(Component.text(""));
+        Bukkit.broadcast(Component.text("§9--------------------------------------------------"));
     }
 
     public void endMeeting() {

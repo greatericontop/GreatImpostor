@@ -2,10 +2,14 @@ package io.github.greatericontop.greatimpostor.core;
 
 import io.github.greatericontop.greatimpostor.GreatImpostorMain;
 import io.github.greatericontop.greatimpostor.impostor.Sabotage;
+import io.github.greatericontop.greatimpostor.utils.ImpostorUtil;
 import io.github.greatericontop.greatimpostor.utils.PartialCoordinates;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
+import org.bukkit.entity.ArmorStand;
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
+import org.bukkit.persistence.PersistentDataType;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scheduler.BukkitRunnable;
@@ -162,6 +166,19 @@ public class GameManager {
 
     public PartialCoordinates getVent(int ventSystem, int ventNumber) {
         return vents.get(ventSystem).get(ventNumber);
+    }
+
+    public int removeAllBodies() {
+        int amount = 0;
+        for (Entity entity : plugin.getStartingLocation().getWorld().getEntities()) {
+            if (entity instanceof ArmorStand armorStand) {
+                if (armorStand.getPersistentDataContainer().has(ImpostorUtil.DEAD_BODY_KEY, PersistentDataType.INTEGER)) {
+                    armorStand.remove();
+                    amount++;
+                }
+            }
+        }
+        return amount;
     }
 
 }
