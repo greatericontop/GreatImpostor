@@ -10,6 +10,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.inventory.meta.MapMeta;
 
 import java.util.List;
 
@@ -113,14 +114,14 @@ public class ImpostorProfile extends PlayerProfile {
         inv.clear();
 
         if (plugin.sabotageManager.getActiveSabotage() == Sabotage.COMMUNICATIONS) {
-            for (int i = 0; i < 4; i++) {
+            for (int i = 0; i < 3; i++) { // 3
                 inv.setItem(i, ImpostorUtil.commsSabotageTaskDisplayItemStack());
             }
         } else {
             inv.setItem(0, tasks.get(0).getDisplayItemStack(subtasksCompletedPerTask[0], "§7Fake A - "));
             inv.setItem(1, tasks.get(1).getDisplayItemStack(subtasksCompletedPerTask[1], "§7Fake B - "));
             inv.setItem(2, tasks.get(2).getDisplayItemStack(subtasksCompletedPerTask[2], "§7Fake C - "));
-            inv.setItem(3, tasks.get(3).getDisplayItemStack(subtasksCompletedPerTask[3], "§7Fake D - "));
+            //inv.setItem(3, tasks.get(3).getDisplayItemStack(subtasksCompletedPerTask[3], "§7Fake D - "));
         }
 
         ItemStack kill = new ItemStack(Material.NETHERITE_SWORD, 1);
@@ -149,6 +150,13 @@ public class ImpostorProfile extends PlayerProfile {
         ));
         sabotageActivate.setItemMeta(im);
         inv.setItem(6, sabotageActivate);
+
+        ItemStack mapStack = new ItemStack(Material.FILLED_MAP, 1);
+        MapMeta mapIM = (MapMeta) mapStack.getItemMeta();
+        mapIM.setMapId(plugin.getConfig().getInt("map-id"));
+        mapIM.displayName(Component.text("§bMap"));
+        mapStack.setItemMeta(mapIM);
+        inv.setItem(7, mapStack);
 
         inv.setItem(8, ImpostorUtil.reportItemStack());
 
