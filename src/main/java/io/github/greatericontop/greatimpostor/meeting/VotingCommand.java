@@ -69,7 +69,7 @@ public class VotingCommand implements CommandExecutor {
                 alivePlayerCount++;
             }
         }
-        Bukkit.broadcast(Component.text(String.format("§b%s §3voted (§e%d§3/%d§3)",
+        Bukkit.broadcast(Component.text(String.format("§b%s §3voted (§e%d§3/§e%d§3)",
                 player.getName(),
                 plugin.meetingManager.votes.size() + plugin.meetingManager.skips.size(),
                 alivePlayerCount)));
