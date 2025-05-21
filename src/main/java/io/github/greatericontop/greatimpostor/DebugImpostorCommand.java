@@ -23,7 +23,15 @@ public class DebugImpostorCommand implements CommandExecutor {
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-        if (args.length == 0)  return false;
+        if (args.length == 0) {
+            sender.sendMessage("§7task[Wiring RedirectPower StartReactor EmptyTrash AdjustSteering AcceptPower CleanOxygenFilter ClearAsteroids UnlockManifolds StabilizeNavigation DownloadData UploadData SwipeCard FetchFuel FuelEngines]");
+            sender.sendMessage("§7test[Crewmate1 CrewmateTaskComplete Impostor1]");
+            sender.sendMessage("§7setSign <task>");
+            sender.sendMessage("§7fixSabotage");
+            sender.sendMessage("§7die");
+            sender.sendMessage("§7start");
+            return false;
+        }
 
         if (!(sender instanceof Player)) {
             sender.sendMessage("§cYou must be a player to use this command!");
