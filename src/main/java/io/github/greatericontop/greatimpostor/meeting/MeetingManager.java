@@ -105,8 +105,8 @@ public class MeetingManager {
                 deadPlayers.add(profile.getPlayer().getName());
             }
         }
-        Bukkit.broadcast(Component.text(String.format("§aAlive §3Players: §3%s", String.join(", ", alivePlayers))));
-        Bukkit.broadcast(Component.text(String.format("§cDead §3Players: §3%s", String.join(", ", deadPlayers))));
+        Bukkit.broadcast(Component.text(String.format("§3Alive Players: §a%s", String.join(", ", alivePlayers))));
+        Bukkit.broadcast(Component.text(String.format("§3Dead Players: §c%s", String.join(", ", deadPlayers))));
         Bukkit.broadcast(Component.text(""));
         Bukkit.broadcast(Component.text("§9--------------------------------------------------"));
     }
