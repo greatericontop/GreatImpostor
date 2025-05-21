@@ -143,6 +143,7 @@ public class TaskStartReactor extends BaseTask {
             playerDigitCount.put(player, newDigitCount);
             for (int i = 0; i < newDigitCount; i++) {
                 ItemStack sequenceItemStack = ItemMaker.createStack(MATERIALS[playerPasswordMap.get(player).get(i)], 1, "§3Memorize the sequence and enter it below.");
+                inv.setItem(DISPLAY_OFFSET + i, sequenceItemStack);
             }
             for (int i = newDigitCount; i < 7; i++) {
                 inv.setItem(DISPLAY_OFFSET + i, blackGlassStack());
