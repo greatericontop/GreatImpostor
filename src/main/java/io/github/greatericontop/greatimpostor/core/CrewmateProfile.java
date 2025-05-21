@@ -37,7 +37,7 @@ public class CrewmateProfile extends PlayerProfile {
         }
 
         int[] taskStatus = getTaskStatus(plugin.playerProfiles.values());
-        String tasks = String.format("§6[Tasks §e%d/%d§6]", taskStatus[0], taskStatus[1]);
+        String tasks = String.format("§6[Total Tasks Completed §e%d/%d§6]", taskStatus[0], taskStatus[1]);
         String sabotage = "";
         if (plugin.sabotageManager.isSabotageActive()) {
             sabotage = String.format("   §d[%s]", plugin.sabotageManager.getActiveSabotage().getDisplayName());
@@ -55,10 +55,10 @@ public class CrewmateProfile extends PlayerProfile {
                 inv.setItem(i, ImpostorUtil.commsSabotageTaskDisplayItemStack());
             }
         } else {
-            inv.setItem(0, tasks.get(0).getDisplayItemStack(subtasksCompletedPerTask[0], "§7A - "));
-            inv.setItem(1, tasks.get(1).getDisplayItemStack(subtasksCompletedPerTask[1], "§7B - "));
-            inv.setItem(2, tasks.get(2).getDisplayItemStack(subtasksCompletedPerTask[2], "§7C - "));
-            inv.setItem(3, tasks.get(3).getDisplayItemStack(subtasksCompletedPerTask[3], "§7D - "));
+            inv.setItem(0, tasks.get(0).getDisplayItemStack(subtasksCompletedPerTask[0], "§7Task A - "));
+            inv.setItem(1, tasks.get(1).getDisplayItemStack(subtasksCompletedPerTask[1], "§7Task B - "));
+            inv.setItem(2, tasks.get(2).getDisplayItemStack(subtasksCompletedPerTask[2], "§7Task C - "));
+            inv.setItem(3, tasks.get(3).getDisplayItemStack(subtasksCompletedPerTask[3], "§7Task D - "));
         }
 
         inv.setItem(8, ImpostorUtil.reportItemStack());
