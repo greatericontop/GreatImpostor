@@ -4,11 +4,8 @@ import io.github.greatericontop.greatimpostor.GreatImpostorMain;
 import io.github.greatericontop.greatimpostor.impostor.Sabotage;
 import io.github.greatericontop.greatimpostor.utils.ImpostorUtil;
 import net.kyori.adventure.text.Component;
-import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
-import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.MapMeta;
 
 public class CrewmateProfile extends PlayerProfile {
 
@@ -63,13 +60,6 @@ public class CrewmateProfile extends PlayerProfile {
             inv.setItem(2, tasks.get(2).getDisplayItemStack(subtasksCompletedPerTask[2], "§7Task C - "));
             inv.setItem(3, tasks.get(3).getDisplayItemStack(subtasksCompletedPerTask[3], "§7Task D - "));
         }
-
-        ItemStack mapStack = new ItemStack(Material.FILLED_MAP, 1);
-        MapMeta mapIM = (MapMeta) mapStack.getItemMeta();
-        mapIM.setMapId(plugin.getConfig().getInt("map-id"));
-        mapIM.displayName(Component.text("§bMap"));
-        mapStack.setItemMeta(mapIM);
-        inv.setItem(7, mapStack);
 
         inv.setItem(8, ImpostorUtil.reportItemStack());
 

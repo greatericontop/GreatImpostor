@@ -10,7 +10,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
-import org.bukkit.inventory.meta.MapMeta;
 
 import java.util.List;
 
@@ -150,13 +149,6 @@ public class ImpostorProfile extends PlayerProfile {
         ));
         sabotageActivate.setItemMeta(im);
         inv.setItem(6, sabotageActivate);
-
-        ItemStack mapStack = new ItemStack(Material.FILLED_MAP, 1);
-        MapMeta mapIM = (MapMeta) mapStack.getItemMeta();
-        mapIM.setMapId(plugin.getConfig().getInt("map-id"));
-        mapIM.displayName(Component.text("§bMap"));
-        mapStack.setItemMeta(mapIM);
-        inv.setItem(7, mapStack);
 
         inv.setItem(8, ImpostorUtil.reportItemStack());
 
