@@ -3,6 +3,7 @@ package io.github.greatericontop.greatimpostor.task.maintaskexecutors;
 import io.github.greatericontop.greatimpostor.GreatImpostorMain;
 import io.github.greatericontop.greatimpostor.task.BaseTask;
 import io.github.greatericontop.greatimpostor.task.TaskType;
+import io.github.greatericontop.greatimpostor.utils.ItemMaker;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
@@ -58,18 +59,14 @@ public class TaskStartReactor extends BaseTask {
         playerDigitCount.put(player, 1);
 
         for (int i = 0; i < MATERIALS.length; i++) {
-            ItemStack stack = new ItemStack(MATERIALS[i], 1);
-            ItemMeta im = stack.getItemMeta();
-            im.displayName(Component.text("§eClick on this to enter the code."));
-            stack.setItemMeta(im);
-            gui.setItem(KEY_OFFSET + i, stack);
+            gui.setItem(KEY_OFFSET + i, ItemMaker.createStack(MATERIALS[i], 1, "§eClick on this to enter the sequence."));
         }
 
         for (int i = 0; i < 7; i++) {
             gui.setItem(DISPLAY_OFFSET + i, blackGlassStack());
         }
-        ItemStack stackFirst = new ItemStack(MATERIALS[password.get(0)], 1);
-        gui.setItem(DISPLAY_OFFSET, stackFirst);
+        ItemStack sequenceItemStack = ItemMaker.createStack(MATERIALS[password.get(0)], 1, "§3Memorize the sequence and enter it below.");
+        gui.setItem(DISPLAY_OFFSET, sequenceItemStack);
 
         // extra visual padding
         gui.setItem(0, new ItemStack(Material.NETHER_STAR, 1));
@@ -145,7 +142,7 @@ public class TaskStartReactor extends BaseTask {
             }
             playerDigitCount.put(player, newDigitCount);
             for (int i = 0; i < newDigitCount; i++) {
-                inv.setItem(DISPLAY_OFFSET + i, new ItemStack(MATERIALS[playerPasswordMap.get(player).get(i)], 1));
+                ItemStack sequenceItemStack = ItemMaker.createStack(MATERIALS[playerPasswordMap.get(player).get(i)], 1, "§3Memorize the sequence and enter it below.");
             }
             for (int i = newDigitCount; i < 7; i++) {
                 inv.setItem(DISPLAY_OFFSET + i, blackGlassStack());
