@@ -72,7 +72,7 @@ public class ImpostorKillListener implements Listener {
         }
     }
 
-    private void generateDeadBody(Location loc, @Nullable Player deadPlayer) {
+    public void generateDeadBody(Location loc, @Nullable Player deadPlayer) {
         ArmorStand armorStand = loc.getWorld().spawn(loc.add(0.0, -1.15, 0.0), ArmorStand.class);
         armorStand.setInvulnerable(true);
         armorStand.setGravity(false);

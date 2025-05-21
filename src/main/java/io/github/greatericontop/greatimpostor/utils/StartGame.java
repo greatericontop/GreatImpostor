@@ -79,7 +79,7 @@ public class StartGame {
             currentPlayer.playSound(currentPlayer.getLocation(), Sound.ENTITY_WITHER_DEATH, 1.0F, 1.0F);
         }
 
-        // remove old bodies (after 1 tick, when the chunks have loaded)
+        // remove old bodies (after a few ticks (1 tick delay is not enough), when the chunks have loaded)
         new BukkitRunnable() {
             public void run() {
                 if (responsiblePlayer != null) {
@@ -99,7 +99,7 @@ public class StartGame {
                     responsiblePlayer.sendMessage(String.format("§7Finished removing %d dead bodies in %d ms.", amount, System.currentTimeMillis()-start));
                 }
             }
-        }.runTaskLater(plugin, 1L);
+        }.runTaskLater(plugin, 5L);
 
         new BukkitRunnable() {
             int i = 8;

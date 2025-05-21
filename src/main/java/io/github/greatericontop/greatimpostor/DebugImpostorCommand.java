@@ -3,6 +3,7 @@ package io.github.greatericontop.greatimpostor;
 import io.github.greatericontop.greatimpostor.core.CrewmateProfile;
 import io.github.greatericontop.greatimpostor.core.ImpostorProfile;
 import io.github.greatericontop.greatimpostor.core.PlayerProfile;
+import io.github.greatericontop.greatimpostor.impostor.ImpostorKillListener;
 import io.github.greatericontop.greatimpostor.task.SignListener;
 import io.github.greatericontop.greatimpostor.utils.StartGame;
 import org.bukkit.Material;
@@ -27,9 +28,7 @@ public class DebugImpostorCommand implements CommandExecutor {
             sender.sendMessage("§7task[Wiring RedirectPower StartReactor EmptyTrash AdjustSteering AcceptPower CleanOxygenFilter ClearAsteroids UnlockManifolds StabilizeNavigation DownloadData UploadData SwipeCard FetchFuel FuelEngines]");
             sender.sendMessage("§7test[Crewmate1 CrewmateTaskComplete Impostor1]");
             sender.sendMessage("§7setSign <task>");
-            sender.sendMessage("§7fixSabotage");
-            sender.sendMessage("§7die");
-            sender.sendMessage("§7start");
+            sender.sendMessage("§7spawnDeadBody / fixSabotage / die / start");
             return false;
         }
 
@@ -132,6 +131,10 @@ public class DebugImpostorCommand implements CommandExecutor {
             sign.getPersistentDataContainer().set(SignListener.TASK_SIGN_KEY, PersistentDataType.STRING, args[1]);
             player.sendMessage("§aSet your sign to be: " + args[1]);
             return true;
+        }
+
+        if (args[0].equals("spawnDeadBody")) {
+            new ImpostorKillListener(plugin).generateDeadBody(player.getLocation(), player);
         }
 
         if (args[0].equals("fixSabotage")) {
