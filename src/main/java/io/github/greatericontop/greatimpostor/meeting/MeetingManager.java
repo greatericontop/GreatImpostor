@@ -171,9 +171,9 @@ public class MeetingManager {
                     endMeeting();
                 }
                 if (doVoteCheck && hasEveryoneVoted()) {
-                    if (ticksLeft > 200) {
-                        startTime = plugin.getClock() - MEETING_TIME_TICKS + 200; // adjust such that there are 200 ticks left
-                        Bukkit.broadcast(Component.text("§aEveryone has voted! The meeting will end in 10 seconds."));
+                    if (ticksLeft > 100) {
+                        startTime = plugin.getClock() - MEETING_TIME_TICKS + 100; // adjust such that there are 100 ticks left
+                        Bukkit.broadcast(Component.text("§aEveryone has voted! The meeting will end in 5 seconds."));
                     } else {
                         Bukkit.broadcast(Component.text("§aEveryone has voted! The meeting will end soon."));
                     }
