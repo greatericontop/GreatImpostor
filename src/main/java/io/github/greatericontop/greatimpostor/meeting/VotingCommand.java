@@ -2,6 +2,8 @@ package io.github.greatericontop.greatimpostor.meeting;
 
 import io.github.greatericontop.greatimpostor.GreatImpostorMain;
 import io.github.greatericontop.greatimpostor.core.PlayerProfile;
+import net.kyori.adventure.text.Component;
+import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -60,6 +62,17 @@ public class VotingCommand implements CommandExecutor {
             plugin.meetingManager.votes.put(playerProfile, targetPlayerProfile);
             player.sendMessage(String.format("§dYou voted to eject §e%s§d!", targetPlayer.getName()));
         }
+
+        int alivePlayerCount = 0;
+        for (PlayerProfile profile : plugin.playerProfiles.values()) {
+            if (profile.isAlive()) {
+                alivePlayerCount++;
+            }
+        }
+        Bukkit.broadcast(Component.text(String.format("§b%s §3voted (§e%d§3/%d§3)",
+                player.getName(),
+                plugin.meetingManager.votes.size() + plugin.meetingManager.skips.size(),
+                alivePlayerCount)));
         return true;
     }
 
