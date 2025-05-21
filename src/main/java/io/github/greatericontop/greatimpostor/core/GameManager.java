@@ -133,6 +133,7 @@ public class GameManager {
         Bukkit.broadcast(Component.text(""));
         Bukkit.broadcast(Component.text("§9--------------------------------------------------"));
         plugin.playerProfiles.clear();
+        showAllPlayers();
         for (Player p : Bukkit.getOnlinePlayers()) {
             p.teleport(p.getWorld().getSpawnLocation());
             p.setGameMode(Bukkit.getDefaultGameMode());
@@ -166,6 +167,20 @@ public class GameManager {
 
     public PartialCoordinates getVent(int ventSystem, int ventNumber) {
         return vents.get(ventSystem).get(ventNumber);
+    }
+
+    //
+    // Game utils used by multiple classes
+    //
+
+    public void showAllPlayers() {
+        for (Player p1 : Bukkit.getOnlinePlayers()) {
+            for (Player p2 : Bukkit.getOnlinePlayers()) {
+                if (!p1.equals(p2)) {
+                    p1.showPlayer(plugin, p2);
+                }
+            }
+        }
     }
 
     public int removeAllBodies() {

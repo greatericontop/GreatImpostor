@@ -39,13 +39,7 @@ public class StartGame {
         team.addEntities(players);
 
         // re-show all players
-        for (Player p1 : players) {
-            for (Player p2 : players) {
-                if (!p1.equals(p2)) {
-                    p1.showPlayer(plugin, p2);
-                }
-            }
-        }
+        plugin.gameManager.showAllPlayers();
 
         for (int i = 0; i < players.length; i++) {
             Player currentPlayer = players[i];
