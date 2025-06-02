@@ -29,15 +29,14 @@ public class DebugImpostorCommand implements CommandExecutor {
             sender.sendMessage("§7task[Wiring RedirectPower StartReactor EmptyTrash AdjustSteering AcceptPower CleanOxygenFilter ClearAsteroids UnlockManifolds StabilizeNavigation DownloadData UploadData SwipeCard FetchFuel FuelEngines]");
             sender.sendMessage("§7test[Crewmate1 CrewmateTaskComplete Impostor1]");
             sender.sendMessage("§7setSign <task>");
-            sender.sendMessage("§7spawnDeadBody / fixSabotage / die / start");
+            sender.sendMessage("§7spawnDeadBody / fixSabotage / die / start / deleteme");
             return false;
         }
 
-        if (!(sender instanceof Player)) {
+        if (!(sender instanceof Player player)) {
             sender.sendMessage("§cYou must be a player to use this command!");
             return true;
         }
-        Player player = (Player) sender;
 
         if (args[0].equals("taskWiring")) {
             plugin.taskWiring.startTask(player);
@@ -151,6 +150,12 @@ public class DebugImpostorCommand implements CommandExecutor {
 
         if (args[0].equals("start")) {
             StartGame.startGame(plugin, 1, player);
+            return true;
+        }
+
+        if (args[0].equals("deleteme")) {
+            plugin.playerProfiles.remove(player.getUniqueId());
+            player.sendMessage("§3You have been removed from the game.");
             return true;
         }
 

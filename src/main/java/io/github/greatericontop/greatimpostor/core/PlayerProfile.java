@@ -62,7 +62,7 @@ public abstract class PlayerProfile {
      * Render method for use with the alive/dead players display in meetings.
      */
     public String renderNameDisplay(String nameColor) {
-        return String.format("%s%s§1(%s§1)", nameColor, player.getName(), color.getDisplayName());
+        return String.format("%s%s§3(%s§3)", nameColor, player.getName(), color.getDisplayName());
     }
 
     /*

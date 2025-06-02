@@ -78,7 +78,7 @@ public class StartGame {
                     Title.Times.times(Duration.ofMillis(1000L), Duration.ofMillis(7000L), Duration.ofMillis(2000L))
             ));
             currentPlayer.playSound(currentPlayer.getLocation(), Sound.ENTITY_WITHER_DEATH, 1.0F, 1.0F);
-            currentPlayer.sendMessage(String.format("§bYour color is: §1[%s§1]§b.", colors[i].getDisplayName()));
+            currentPlayer.sendMessage(String.format("§bYour color is: §3[%s§3]§b.", colors[i].getDisplayName()));
         }
 
         // remove old bodies (after a few ticks (1 tick delay is not enough), when the chunks have loaded)

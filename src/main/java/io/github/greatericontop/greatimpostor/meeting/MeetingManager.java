@@ -100,13 +100,13 @@ public class MeetingManager {
         List<String> deadPlayers = new ArrayList<>();
         for (PlayerProfile profile : plugin.playerProfiles.values()) {
             if (profile.isAlive()) {
-                alivePlayers.add(profile.renderNameDisplay("§2"));
+                alivePlayers.add(profile.renderNameDisplay("§x§2§2§c§c§2§2"));
             } else {
-                deadPlayers.add(profile.renderNameDisplay("§4"));
+                deadPlayers.add(profile.renderNameDisplay("§x§c§c§2§2§2§2"));
             }
         }
-        Bukkit.broadcast(Component.text(String.format("§2Alive §3Players: %s", String.join(", ", alivePlayers))));
-        Bukkit.broadcast(Component.text(String.format("§4Dead §3Players: %s", String.join(", ", deadPlayers))));
+        Bukkit.broadcastMessage(String.format("§x§2§2§c§c§2§2Alive §3Players: %s", String.join(", ", alivePlayers)));
+        Bukkit.broadcastMessage(String.format("§x§c§c§2§2§2§2Dead §3Players: %s", String.join(", ", deadPlayers)));
         Bukkit.broadcast(Component.text(""));
         Bukkit.broadcast(Component.text("§9--------------------------------------------------"));
     }
