@@ -3,7 +3,6 @@ package io.github.greatericontop.greatimpostor.task;
 import io.github.greatericontop.greatimpostor.GreatImpostorMain;
 import io.github.greatericontop.greatimpostor.core.PlayerProfile;
 import io.github.greatericontop.greatimpostor.core.impostor.Sabotage;
-import io.github.greatericontop.greatimpostor.core.impostor.SabotageSubtask;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
