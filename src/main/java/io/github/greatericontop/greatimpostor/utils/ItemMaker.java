@@ -23,9 +23,10 @@ public class ItemMaker {
         return stack;
     }
 
-    public static ItemStack createLeatherArmor(Material mat, int color) {
+    public static ItemStack createLeatherArmor(Material mat, int color, String name) {
         ItemStack stack = new ItemStack(mat, 1);
         LeatherArmorMeta im = (LeatherArmorMeta) stack.getItemMeta();
+        im.displayName(Component.text(name));
         im.setColor(Color.fromRGB(color));
         im.setUnbreakable(true);
         im.addEnchant(Enchantment.BINDING_CURSE, 10, true);

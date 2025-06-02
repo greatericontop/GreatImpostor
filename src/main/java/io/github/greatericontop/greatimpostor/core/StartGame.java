@@ -2,6 +2,7 @@ package io.github.greatericontop.greatimpostor.core;
 
 import io.github.greatericontop.greatimpostor.GreatImpostorMain;
 import io.github.greatericontop.greatimpostor.core.impostor.ImpostorProfile;
+import io.github.greatericontop.greatimpostor.utils.PlayerColor;
 import io.github.greatericontop.greatimpostor.utils.Shuffler;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.title.Title;
@@ -40,17 +41,27 @@ public class StartGame {
         // re-show all players
         plugin.gameManager.showAllPlayers();
 
+        // who gets what color
+        PlayerColor[] colors = PlayerColor.values();
+        Shuffler.shuffle(colors, random);
+        if (players.length > colors.length) {
+            if (responsiblePlayer != null) {
+                responsiblePlayer.sendMessage("§cToo many players for the available number of player colors!");
+            }
+            return;
+        }
+
         for (int i = 0; i < players.length; i++) {
             Player currentPlayer = players[i];
             PlayerProfile newProfile;
             String title;
             String subtitle;
             if (i < numberImpostors) {
-                newProfile = new ImpostorProfile(plugin, currentPlayer);
+                newProfile = new ImpostorProfile(plugin, currentPlayer, colors[i]);
                 title = "§cIMPOSTOR";
                 subtitle = "§eKill off the crew!";
             } else {
-                newProfile = new CrewmateProfile(plugin, currentPlayer);
+                newProfile = new CrewmateProfile(plugin, currentPlayer, colors[i]);
                 title = "§bCREWMATE";
                 subtitle = "§eDo your tasks and find the impostor!";
             }
@@ -67,6 +78,7 @@ public class StartGame {
                     Title.Times.times(Duration.ofMillis(1000L), Duration.ofMillis(7000L), Duration.ofMillis(2000L))
             ));
             currentPlayer.playSound(currentPlayer.getLocation(), Sound.ENTITY_WITHER_DEATH, 1.0F, 1.0F);
+            currentPlayer.sendMessage(String.format("§bYour color is: §1[%s§1]§b.", colors[i].getDisplayName()));
         }
 
         // remove old bodies (after a few ticks (1 tick delay is not enough), when the chunks have loaded)

@@ -6,6 +6,7 @@ import io.github.greatericontop.greatimpostor.core.PlayerProfile;
 import io.github.greatericontop.greatimpostor.core.impostor.ImpostorKillListener;
 import io.github.greatericontop.greatimpostor.task.SignListener;
 import io.github.greatericontop.greatimpostor.core.StartGame;
+import io.github.greatericontop.greatimpostor.utils.PlayerColor;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.block.Sign;
@@ -100,7 +101,7 @@ public class DebugImpostorCommand implements CommandExecutor {
         }
 
         if (args[0].equals("testCrewmate1")) {
-            CrewmateProfile c = new CrewmateProfile(plugin, player);
+            CrewmateProfile c = new CrewmateProfile(plugin, player, PlayerColor.RED);
             c.setInitialTasks();
             player.sendMessage(String.valueOf(c.tasks));
             c.setInventory();
@@ -114,7 +115,7 @@ public class DebugImpostorCommand implements CommandExecutor {
             return true;
         }
         if (args[0].equals("testImpostor1")) {
-            ImpostorProfile imp = new ImpostorProfile(plugin, player);
+            ImpostorProfile imp = new ImpostorProfile(plugin, player, PlayerColor.RED);
             imp.setInitialTasks();
             imp.setInventory();
             plugin.playerProfiles.put(player.getUniqueId(), imp);

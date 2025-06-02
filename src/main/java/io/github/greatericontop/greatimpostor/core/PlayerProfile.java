@@ -173,10 +173,10 @@ public abstract class PlayerProfile {
     protected Inventory setInventoryCommon() {
         PlayerInventory inv = this.getPlayer().getInventory();
         inv.clear();
-        inv.setItem(EquipmentSlot.HEAD, ItemMaker.createLeatherArmor(Material.LEATHER_HELMET, color.getColorCode()));
-        inv.setItem(EquipmentSlot.CHEST, ItemMaker.createLeatherArmor(Material.LEATHER_CHESTPLATE, color.getColorCode()));
-        inv.setItem(EquipmentSlot.LEGS, ItemMaker.createLeatherArmor(Material.LEATHER_LEGGINGS, color.getColorCode()));
-        inv.setItem(EquipmentSlot.FEET, ItemMaker.createLeatherArmor(Material.LEATHER_BOOTS, color.getColorCode()));
+        inv.setItem(EquipmentSlot.HEAD, ItemMaker.createLeatherArmor(Material.LEATHER_HELMET, color.getColorCode(), color.getDisplayName()));
+        inv.setItem(EquipmentSlot.CHEST, ItemMaker.createLeatherArmor(Material.LEATHER_CHESTPLATE, color.getColorCode(), color.getDisplayName()));
+        inv.setItem(EquipmentSlot.LEGS, ItemMaker.createLeatherArmor(Material.LEATHER_LEGGINGS, color.getColorCode(), color.getDisplayName()));
+        inv.setItem(EquipmentSlot.FEET, ItemMaker.createLeatherArmor(Material.LEATHER_BOOTS, color.getColorCode(), color.getDisplayName()));
         return inv;
     }
 
