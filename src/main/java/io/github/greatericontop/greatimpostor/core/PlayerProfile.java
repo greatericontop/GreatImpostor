@@ -59,6 +59,13 @@ public abstract class PlayerProfile {
     //
 
     /*
+     * Render method for use with the alive/dead players display in meetings.
+     */
+    public String renderNameDisplay(String nameColor) {
+        return String.format("%s%s§1(%s§1)", nameColor, player.getName(), color.getDisplayName());
+    }
+
+    /*
      * Get the number of tasks completed and the number that need to be completed
      */
     public static int[] getTaskStatus(Collection<PlayerProfile> profiles) {
@@ -152,6 +159,9 @@ public abstract class PlayerProfile {
         }
     }
 
+    /*
+     * Generic stuff that happens in death common to all players.
+     */
     protected void dieGeneric() {
         alive = false;
         for (Player p : plugin.getServer().getOnlinePlayers()) {
