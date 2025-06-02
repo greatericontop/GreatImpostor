@@ -6,7 +6,7 @@ import io.github.greatericontop.greatimpostor.core.GameManager;
 import io.github.greatericontop.greatimpostor.core.PlayerJoinHandler;
 import io.github.greatericontop.greatimpostor.core.PlayerProfile;
 import io.github.greatericontop.greatimpostor.core.impostor.ImpostorKillListener;
-import io.github.greatericontop.greatimpostor.core.impostor.SabotageManager;
+import io.github.greatericontop.greatimpostor.task.SabotageManager;
 import io.github.greatericontop.greatimpostor.core.impostor.VentManager;
 import io.github.greatericontop.greatimpostor.meeting.MeetingManager;
 import io.github.greatericontop.greatimpostor.meeting.VotingCommand;
