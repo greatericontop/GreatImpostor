@@ -22,8 +22,8 @@ public enum SabotageSubtask {
 
     ;
 
-    private Sabotage fullSabotage;
-    private int magicNumber;
+    private final Sabotage fullSabotage;
+    private final int magicNumber;
 
     public Sabotage getFullSabotage() {
         return fullSabotage;
