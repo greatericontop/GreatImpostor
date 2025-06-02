@@ -1,7 +1,6 @@
 package io.github.greatericontop.greatimpostor.core.impostor;
 
 import io.github.greatericontop.greatimpostor.GreatImpostorMain;
-import io.github.greatericontop.greatimpostor.core.ImpostorProfile;
 import io.github.greatericontop.greatimpostor.core.PlayerProfile;
 import io.github.greatericontop.greatimpostor.utils.PartialCoordinates;
 import org.bukkit.GameMode;

@@ -9,8 +9,8 @@ import org.bukkit.inventory.Inventory;
 
 public class CrewmateProfile extends PlayerProfile {
 
-    public CrewmateProfile(GreatImpostorMain plugin, Player player) {
-        super(plugin, player);
+    public CrewmateProfile(GreatImpostorMain plugin, Player player, PlayerColor color) {
+        super(plugin, player, color);
     }
 
 

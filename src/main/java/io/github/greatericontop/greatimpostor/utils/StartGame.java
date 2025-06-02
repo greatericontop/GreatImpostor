@@ -2,7 +2,7 @@ package io.github.greatericontop.greatimpostor.utils;
 
 import io.github.greatericontop.greatimpostor.GreatImpostorMain;
 import io.github.greatericontop.greatimpostor.core.CrewmateProfile;
-import io.github.greatericontop.greatimpostor.core.ImpostorProfile;
+import io.github.greatericontop.greatimpostor.core.impostor.ImpostorProfile;
 import io.github.greatericontop.greatimpostor.core.PlayerProfile;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.title.Title;

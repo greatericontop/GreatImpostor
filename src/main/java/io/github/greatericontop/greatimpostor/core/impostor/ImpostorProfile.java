@@ -1,7 +1,8 @@
-package io.github.greatericontop.greatimpostor.core;
+package io.github.greatericontop.greatimpostor.core.impostor;
 
 import io.github.greatericontop.greatimpostor.GreatImpostorMain;
-import io.github.greatericontop.greatimpostor.core.impostor.Sabotage;
+import io.github.greatericontop.greatimpostor.core.PlayerColor;
+import io.github.greatericontop.greatimpostor.core.PlayerProfile;
 import io.github.greatericontop.greatimpostor.utils.ImpostorUtil;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Material;
@@ -25,8 +26,8 @@ public class ImpostorProfile extends PlayerProfile {
     private int sabotageCooldownTicks;
     public Sabotage selectedSabotage;
 
-    public ImpostorProfile(GreatImpostorMain plugin, Player player) {
-        super(plugin, player);
+    public ImpostorProfile(GreatImpostorMain plugin, Player player, PlayerColor color) {
+        super(plugin, player, color);
         isInVent = false;
         killCooldownTicks = Integer.MAX_VALUE;
         sabotageCooldownTicks = Integer.MAX_VALUE;
