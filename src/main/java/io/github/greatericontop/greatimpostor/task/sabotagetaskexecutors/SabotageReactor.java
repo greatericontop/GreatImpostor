@@ -10,6 +10,7 @@ import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -56,7 +57,7 @@ public class SabotageReactor extends BaseSabotageTask {
         if (event.getInventory().getItem(22) == null)  return;
         event.getInventory().setItem(22, null);
         this.playSuccessSound(player);
-        if (otherPlayer != null ){//&& !otherPlayer.getUniqueId().equals(player.getUniqueId())) { // TODO: for testing, allow same player to do it twice
+        if (otherPlayer != null && !otherPlayer.getUniqueId().equals(player.getUniqueId())) { // This check is probably redundant as the player can't close the inventory
             this.playSuccessSound(otherPlayer);
             player.closeInventory();
             otherPlayer.closeInventory();
@@ -65,7 +66,14 @@ public class SabotageReactor extends BaseSabotageTask {
         } else {
             otherPlayer = player;
         }
+    }
 
+    @EventHandler()
+    public void onInventoryClose(InventoryCloseEvent event) {
+        Player player = (Player) event.getPlayer();
+        if (otherPlayer != null && otherPlayer.getUniqueId().equals(player.getUniqueId())) { // Meaning player is currently on the screen and no longer is
+            otherPlayer = null;
+        }
     }
 
 }
