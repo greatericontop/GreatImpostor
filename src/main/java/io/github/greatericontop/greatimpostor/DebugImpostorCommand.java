@@ -3,7 +3,7 @@ package io.github.greatericontop.greatimpostor;
 import io.github.greatericontop.greatimpostor.core.CrewmateProfile;
 import io.github.greatericontop.greatimpostor.core.ImpostorProfile;
 import io.github.greatericontop.greatimpostor.core.PlayerProfile;
-import io.github.greatericontop.greatimpostor.impostor.ImpostorKillListener;
+import io.github.greatericontop.greatimpostor.core.impostor.ImpostorKillListener;
 import io.github.greatericontop.greatimpostor.task.SignListener;
 import io.github.greatericontop.greatimpostor.utils.StartGame;
 import org.bukkit.Material;

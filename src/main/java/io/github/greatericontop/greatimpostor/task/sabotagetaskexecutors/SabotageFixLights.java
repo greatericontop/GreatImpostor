@@ -1,8 +1,8 @@
 package io.github.greatericontop.greatimpostor.task.sabotagetaskexecutors;
 
 import io.github.greatericontop.greatimpostor.GreatImpostorMain;
-import io.github.greatericontop.greatimpostor.impostor.Sabotage;
-import io.github.greatericontop.greatimpostor.impostor.SabotageSubtask;
+import io.github.greatericontop.greatimpostor.core.impostor.Sabotage;
+import io.github.greatericontop.greatimpostor.core.impostor.SabotageSubtask;
 import io.github.greatericontop.greatimpostor.task.BaseSabotageTask;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;

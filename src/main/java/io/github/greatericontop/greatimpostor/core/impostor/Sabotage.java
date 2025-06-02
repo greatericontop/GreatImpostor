@@ -1,4 +1,4 @@
-package io.github.greatericontop.greatimpostor.impostor;
+package io.github.greatericontop.greatimpostor.core.impostor;
 
 public enum Sabotage {
     REACTOR("Reactor Meltdown", true, true),

@@ -1,4 +1,4 @@
-package io.github.greatericontop.greatimpostor.impostor;
+package io.github.greatericontop.greatimpostor.core.impostor;
 
 import io.github.greatericontop.greatimpostor.GreatImpostorMain;
 import io.github.greatericontop.greatimpostor.core.ImpostorProfile;
