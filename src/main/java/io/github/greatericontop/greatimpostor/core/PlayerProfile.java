@@ -4,10 +4,15 @@ import io.github.greatericontop.greatimpostor.GreatImpostorMain;
 import io.github.greatericontop.greatimpostor.task.Subtask;
 import io.github.greatericontop.greatimpostor.task.TaskType;
 import io.github.greatericontop.greatimpostor.task.TaskUtil;
+import io.github.greatericontop.greatimpostor.utils.ItemMaker;
 import io.github.greatericontop.greatimpostor.utils.Shuffler;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.title.Title;
+import org.bukkit.Material;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.EquipmentSlot;
+import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.PlayerInventory;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
@@ -159,6 +164,19 @@ public abstract class PlayerProfile {
         player.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, 60, 4)); // this should be obvious (if lights are on)
         player.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 60, 4)); // this should shrink and re-enlarge FOV
         player.sendMessage("§7TEST MESSAGE");
+    }
+
+    /*
+     * Inventory setting common to all players. Clears inventory and puts colored armor on.
+     */
+    protected Inventory setInventoryCommon() {
+        PlayerInventory inv = this.getPlayer().getInventory();
+        inv.clear();
+        inv.setItem(EquipmentSlot.HEAD, ItemMaker.createLeatherArmor(Material.LEATHER_HELMET, color.getColorCode()));
+        inv.setItem(EquipmentSlot.CHEST, ItemMaker.createLeatherArmor(Material.LEATHER_CHESTPLATE, color.getColorCode()));
+        inv.setItem(EquipmentSlot.LEGS, ItemMaker.createLeatherArmor(Material.LEATHER_LEGGINGS, color.getColorCode()));
+        inv.setItem(EquipmentSlot.FEET, ItemMaker.createLeatherArmor(Material.LEATHER_BOOTS, color.getColorCode()));
+        return inv;
     }
 
     public abstract void die();

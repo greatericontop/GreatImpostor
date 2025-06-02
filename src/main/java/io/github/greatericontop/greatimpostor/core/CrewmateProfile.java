@@ -47,8 +47,7 @@ public class CrewmateProfile extends PlayerProfile {
 
     @Override
     public void setInventory() {
-        Inventory inv = this.getPlayer().getInventory();
-        inv.clear();
+        Inventory inv = super.setInventoryCommon();
 
         if (plugin.sabotageManager.getActiveSabotage() == Sabotage.COMMUNICATIONS) {
             for (int i = 0; i < 4; i++) {

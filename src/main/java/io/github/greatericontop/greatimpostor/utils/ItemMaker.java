@@ -1,9 +1,12 @@
 package io.github.greatericontop.greatimpostor.utils;
 
 import net.kyori.adventure.text.Component;
+import org.bukkit.Color;
 import org.bukkit.Material;
+import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.inventory.meta.LeatherArmorMeta;
 
 import javax.annotation.Nullable;
 
@@ -16,6 +19,16 @@ public class ItemMaker {
         if (lore != null && lore.length > 0) {
             im.setLore(java.util.Arrays.asList(lore));
         }
+        stack.setItemMeta(im);
+        return stack;
+    }
+
+    public static ItemStack createLeatherArmor(Material mat, int color) {
+        ItemStack stack = new ItemStack(mat, 1);
+        LeatherArmorMeta im = (LeatherArmorMeta) stack.getItemMeta();
+        im.setColor(Color.fromRGB(color));
+        im.setUnbreakable(true);
+        im.addEnchant(Enchantment.BINDING_CURSE, 10, true);
         stack.setItemMeta(im);
         return stack;
     }

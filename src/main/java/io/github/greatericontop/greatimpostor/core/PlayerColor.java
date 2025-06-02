@@ -19,18 +19,18 @@ public enum PlayerColor {
     ;
 
     private final String displayName;
-    private final int color;
+    private final int colorCode;
 
     public String getDisplayName() {
         return displayName;
     }
-    public int getColor() {
-        return color;
+    public int getColorCode() {
+        return colorCode;
     }
 
-    PlayerColor(String displayName, int color) {
+    PlayerColor(String displayName, int colorCode) {
         this.displayName = displayName;
-        this.color = color;
+        this.colorCode = colorCode;
     }
 
 }
