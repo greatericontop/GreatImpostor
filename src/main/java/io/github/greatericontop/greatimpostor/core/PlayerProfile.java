@@ -27,6 +27,7 @@ public abstract class PlayerProfile {
     protected int[] subtasksCompletedPerTask = null;
     protected final Set<Subtask> tasksAlreadyCompleted = new HashSet<>();
     protected boolean alive;
+    protected PlayerColor color;
 
     protected GreatImpostorMain plugin;
     protected final Player player;
@@ -37,12 +38,16 @@ public abstract class PlayerProfile {
     public boolean isAlive() {
         return alive;
     }
+    public PlayerColor getColor() {
+        return color;
+    }
 
-    public PlayerProfile(GreatImpostorMain plugin, Player player) {
+    public PlayerProfile(GreatImpostorMain plugin, Player player, PlayerColor color) {
         this.plugin = plugin;
         this.random = new Random();
         this.player = player;
         this.alive = true;
+        this.color = color;
     }
 
     //
