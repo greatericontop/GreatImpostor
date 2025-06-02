@@ -1,6 +1,6 @@
 package io.github.greatericontop.greatimpostor;
 
-import io.github.greatericontop.greatimpostor.utils.StartGame;
+import io.github.greatericontop.greatimpostor.core.StartGame;
 import net.kyori.adventure.inventory.Book;
 import net.kyori.adventure.text.Component;
 import org.bukkit.command.Command;

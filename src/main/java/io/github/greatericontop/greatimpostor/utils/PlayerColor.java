@@ -1,4 +1,4 @@
-package io.github.greatericontop.greatimpostor.core;
+package io.github.greatericontop.greatimpostor.utils;
 
 public enum PlayerColor {
     DARK_GREEN("§2Dark Green", 0x00aa00),

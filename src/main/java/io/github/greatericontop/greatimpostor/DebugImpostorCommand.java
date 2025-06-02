@@ -5,7 +5,7 @@ import io.github.greatericontop.greatimpostor.core.impostor.ImpostorProfile;
 import io.github.greatericontop.greatimpostor.core.PlayerProfile;
 import io.github.greatericontop.greatimpostor.core.impostor.ImpostorKillListener;
 import io.github.greatericontop.greatimpostor.task.SignListener;
-import io.github.greatericontop.greatimpostor.utils.StartGame;
+import io.github.greatericontop.greatimpostor.core.StartGame;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.block.Sign;

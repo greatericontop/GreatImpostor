@@ -3,6 +3,7 @@ package io.github.greatericontop.greatimpostor.core;
 import io.github.greatericontop.greatimpostor.GreatImpostorMain;
 import io.github.greatericontop.greatimpostor.core.impostor.Sabotage;
 import io.github.greatericontop.greatimpostor.utils.ImpostorUtil;
+import io.github.greatericontop.greatimpostor.utils.PlayerColor;
 import net.kyori.adventure.text.Component;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;

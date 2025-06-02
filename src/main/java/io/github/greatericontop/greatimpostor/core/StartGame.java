@@ -1,9 +1,8 @@
-package io.github.greatericontop.greatimpostor.utils;
+package io.github.greatericontop.greatimpostor.core;
 
 import io.github.greatericontop.greatimpostor.GreatImpostorMain;
-import io.github.greatericontop.greatimpostor.core.CrewmateProfile;
 import io.github.greatericontop.greatimpostor.core.impostor.ImpostorProfile;
-import io.github.greatericontop.greatimpostor.core.PlayerProfile;
+import io.github.greatericontop.greatimpostor.utils.Shuffler;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.title.Title;
 import org.bukkit.Bukkit;
