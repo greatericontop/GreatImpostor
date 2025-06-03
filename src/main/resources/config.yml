@@ -27,9 +27,20 @@ starting-location:
 #    - [0.5, 25.0, 10.5]  # coordinates of a second vent in the second system
 vents: []
 
+
 # Number of ticks you have to fix a critical sabotage (reactor, oxygen)
 # Default is 600 ticks (30 seconds)
 critical-sabotage-fix-ticks: 600
+
+
+# Put the coordinates of the signs for each of the sabotage tasks here.
+# The format is [X, Z].
+sabotage-fix-coordinates:
+  # Only 1 set of coordinates for the reactor; it is suggested you just set this to one of the two signs
+  reactor: [0.5, 0.5]
+  oxygen-in-oxygen: [0.5, 0.5]
+  oxygen-in-admin: [0.5, 0.5]
+
 
 # This is for debug only. You should always leave this on.
 enable-victory-checks: true

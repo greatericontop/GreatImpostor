@@ -74,6 +74,11 @@ public class SabotageCommunications extends BaseSabotageTask {
 
     }
 
+    @Override
+    public double[][] getPOICoordinates() {
+        return new double[0][];
+    }
+
     private int findClick(int slotClicked) {
         // Why is there no builtin for this? Why?
         for (int i = 0; i < OPTIONS.length; i++) {

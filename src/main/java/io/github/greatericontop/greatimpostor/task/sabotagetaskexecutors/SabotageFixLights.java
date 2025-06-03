@@ -81,6 +81,11 @@ public class SabotageFixLights extends BaseSabotageTask {
         }
     }
 
+    @Override
+    public double[][] getPOICoordinates() {
+        return new double[0][];
+    }
+
     private ItemStack getItemStackSwitchNo() {
         ItemStack stack = new ItemStack(Material.GRAY_STAINED_GLASS_PANE, 1);
         ItemMeta im = stack.getItemMeta();
