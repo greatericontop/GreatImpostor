@@ -1,4 +1,4 @@
-package io.github.greatericontop.greatimpostor.task;
+package io.github.greatericontop.greatimpostor.task.sabotage;
 
 import io.github.greatericontop.greatimpostor.GreatImpostorMain;
 import io.github.greatericontop.greatimpostor.core.PlayerProfile;
