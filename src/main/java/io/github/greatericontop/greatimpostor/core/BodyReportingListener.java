@@ -1,6 +1,7 @@
 package io.github.greatericontop.greatimpostor.core;
 
 import io.github.greatericontop.greatimpostor.GreatImpostorMain;
+import io.github.greatericontop.greatimpostor.core.profiles.PlayerProfile;
 import io.github.greatericontop.greatimpostor.utils.ImpostorUtil;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.title.Title;

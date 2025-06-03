@@ -1,7 +1,9 @@
 package io.github.greatericontop.greatimpostor.core;
 
 import io.github.greatericontop.greatimpostor.GreatImpostorMain;
-import io.github.greatericontop.greatimpostor.core.impostor.ImpostorProfile;
+import io.github.greatericontop.greatimpostor.core.profiles.CrewmateProfile;
+import io.github.greatericontop.greatimpostor.core.profiles.ImpostorProfile;
+import io.github.greatericontop.greatimpostor.core.profiles.PlayerProfile;
 import io.github.greatericontop.greatimpostor.utils.PlayerColor;
 import io.github.greatericontop.greatimpostor.utils.Shuffler;
 import net.kyori.adventure.text.Component;

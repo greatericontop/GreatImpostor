@@ -1,8 +1,8 @@
 package io.github.greatericontop.greatimpostor.meeting;
 
 import io.github.greatericontop.greatimpostor.GreatImpostorMain;
-import io.github.greatericontop.greatimpostor.core.impostor.ImpostorProfile;
-import io.github.greatericontop.greatimpostor.core.PlayerProfile;
+import io.github.greatericontop.greatimpostor.core.profiles.ImpostorProfile;
+import io.github.greatericontop.greatimpostor.core.profiles.PlayerProfile;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.title.Title;
 import org.bukkit.Bukkit;

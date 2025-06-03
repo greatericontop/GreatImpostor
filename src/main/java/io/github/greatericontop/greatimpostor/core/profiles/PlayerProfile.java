@@ -1,4 +1,4 @@
-package io.github.greatericontop.greatimpostor.core;
+package io.github.greatericontop.greatimpostor.core.profiles;
 
 import io.github.greatericontop.greatimpostor.GreatImpostorMain;
 import io.github.greatericontop.greatimpostor.task.Subtask;

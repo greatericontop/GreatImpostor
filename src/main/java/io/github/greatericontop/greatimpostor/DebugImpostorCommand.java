@@ -1,8 +1,8 @@
 package io.github.greatericontop.greatimpostor;
 
-import io.github.greatericontop.greatimpostor.core.CrewmateProfile;
-import io.github.greatericontop.greatimpostor.core.impostor.ImpostorProfile;
-import io.github.greatericontop.greatimpostor.core.PlayerProfile;
+import io.github.greatericontop.greatimpostor.core.profiles.CrewmateProfile;
+import io.github.greatericontop.greatimpostor.core.profiles.ImpostorProfile;
+import io.github.greatericontop.greatimpostor.core.profiles.PlayerProfile;
 import io.github.greatericontop.greatimpostor.core.impostor.ImpostorKillListener;
 import io.github.greatericontop.greatimpostor.task.SignListener;
 import io.github.greatericontop.greatimpostor.core.StartGame;

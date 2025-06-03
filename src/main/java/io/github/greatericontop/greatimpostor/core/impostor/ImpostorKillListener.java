@@ -1,7 +1,8 @@
 package io.github.greatericontop.greatimpostor.core.impostor;
 
 import io.github.greatericontop.greatimpostor.GreatImpostorMain;
-import io.github.greatericontop.greatimpostor.core.PlayerProfile;
+import io.github.greatericontop.greatimpostor.core.profiles.PlayerProfile;
+import io.github.greatericontop.greatimpostor.core.profiles.ImpostorProfile;
 import io.github.greatericontop.greatimpostor.utils.ImpostorUtil;
 import org.bukkit.Color;
 import org.bukkit.Location;

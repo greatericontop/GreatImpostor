@@ -1,8 +1,8 @@
 package io.github.greatericontop.greatimpostor.task.sabotage;
 
 import io.github.greatericontop.greatimpostor.GreatImpostorMain;
-import io.github.greatericontop.greatimpostor.core.PlayerProfile;
-import io.github.greatericontop.greatimpostor.core.impostor.ImpostorProfile;
+import io.github.greatericontop.greatimpostor.core.profiles.PlayerProfile;
+import io.github.greatericontop.greatimpostor.core.profiles.ImpostorProfile;
 import io.github.greatericontop.greatimpostor.core.impostor.Sabotage;
 import io.github.greatericontop.greatimpostor.task.TaskUtil;
 import net.kyori.adventure.text.Component;

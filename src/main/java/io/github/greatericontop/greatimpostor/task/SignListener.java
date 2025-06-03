@@ -1,7 +1,7 @@
 package io.github.greatericontop.greatimpostor.task;
 
 import io.github.greatericontop.greatimpostor.GreatImpostorMain;
-import io.github.greatericontop.greatimpostor.core.PlayerProfile;
+import io.github.greatericontop.greatimpostor.core.profiles.PlayerProfile;
 import io.github.greatericontop.greatimpostor.task.sabotage.BaseSabotageTask;
 import io.github.greatericontop.greatimpostor.task.sabotage.SabotageSubtask;
 import org.bukkit.Material;
