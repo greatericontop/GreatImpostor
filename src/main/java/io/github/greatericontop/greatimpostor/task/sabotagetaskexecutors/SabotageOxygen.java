@@ -16,7 +16,6 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.Random;
 import java.util.UUID;
@@ -31,6 +30,10 @@ public class SabotageOxygen extends BaseSabotageTask {
     private Map<UUID, Integer> playerSubtaskNumber = new HashMap<>();
     private int[] codes = null;
     private int totalCompletionState = 0;
+
+    public int getTotalCompletionState() {
+        return totalCompletionState;
+    }
 
     public SabotageOxygen(GreatImpostorMain plugin) {
         super(plugin);
@@ -112,23 +115,6 @@ public class SabotageOxygen extends BaseSabotageTask {
             player.closeInventory();
             player.sendMessage("§cTry again!");
         }
-    }
-
-    @Override
-    public double[][] getPOICoordinates() {
-        List<Double> coordsOxygen = plugin.getConfig().getDoubleList("sabotage-fix-coordinates.oxygen-in-oxygen");
-        List<Double> coordsAdmin = plugin.getConfig().getDoubleList("sabotage-fix-coordinates.oxygen-in-oxygen");
-        // questionable code quality
-        if (totalCompletionState == 0b00) {
-            return new double[][]{ {coordsOxygen.get(0), coordsOxygen.get(1)}, {coordsAdmin.get(0), coordsAdmin.get(1)} };
-        }
-        if (totalCompletionState == 0b01) { // oxygen done so we still need admin
-            return new double[][]{ {coordsAdmin.get(0), coordsAdmin.get(1)} };
-        }
-        if (totalCompletionState == 0b10) {
-            return new double[][]{ {coordsOxygen.get(0), coordsOxygen.get(1)} };
-        }
-        return new double[][]{}; // shouldn't happen
     }
 
 }

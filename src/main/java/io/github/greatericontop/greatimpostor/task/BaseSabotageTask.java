@@ -40,13 +40,6 @@ public abstract class BaseSabotageTask implements Listener {
         player.sendMessage("§aYou completed the task!");
     }
 
-    /*
-     * Return coordinates of the places that the sabotage needs to be fixed at.
-     * This is for particles leading the player to said coordinates.
-     * Returns a double[] of [X, Z]
-     */
-    public abstract double[][] getPOICoordinates();
-
     // Everything below is the same as :BaseTask:
 
     protected void playSuccessSound(Player player) {

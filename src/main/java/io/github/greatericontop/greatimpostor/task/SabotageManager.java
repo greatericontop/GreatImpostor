@@ -7,6 +7,8 @@ import io.github.greatericontop.greatimpostor.core.impostor.Sabotage;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.title.Title;
 import org.bukkit.Bukkit;
+import org.bukkit.Location;
+import org.bukkit.Particle;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -14,6 +16,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerItemHeldEvent;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
+import org.bukkit.util.Vector;
 
 import java.time.Duration;
 
@@ -128,10 +131,25 @@ public class SabotageManager implements Listener {
             }
         }
 
+        double[][] poiCoordinates = activeSabotage.getPOICoordinates(plugin);
+        if (plugin.getClock() % 30 == 0) {
+            for (double[] coord : poiCoordinates) {
+                for (Player player : Bukkit.getOnlinePlayers()) {
+                    Location loc = player.getLocation().add(0.0, 0.8, 0.0);
+                    Vector arrowDirection = new Vector(coord[0] - loc.getX(), 0, coord[1] - loc.getZ())
+                            .normalize().multiply(0.09);
+                    for (int i = 0; i < 60; i++) {
+                        loc.add(arrowDirection);
+                        loc.getWorld().spawnParticle(Particle.WAX_OFF, loc, 1, 0.0, 0.0, 0.0);
+                    }
+                }
+            }
+        }
+
         switch (activeSabotage) {
             case REACTOR, OXYGEN -> {}
             case LIGHTS -> {
-                for (Player player : Bukkit.getOnlinePlayers()) {
+                for (Player player : Bukkit.getOnlinePlayers()) { // TODO: use PlayerProfile?
                     // note: hunger will be handled later in GameManager
                     PlayerProfile profile = plugin.playerProfiles.get(player.getUniqueId());
                     if (profile == null)  continue;

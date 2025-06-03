@@ -15,8 +15,6 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
-import java.util.List;
-
 public class SabotageReactor extends BaseSabotageTask {
     public static final String INVENTORY_NAME = "§aAmong Us - Reactor Meltdown";
 
@@ -76,12 +74,6 @@ public class SabotageReactor extends BaseSabotageTask {
         if (otherPlayer != null && otherPlayer.getUniqueId().equals(player.getUniqueId())) { // Meaning player is currently on the screen and no longer is
             otherPlayer = null;
         }
-    }
-
-    @Override
-    public double[][] getPOICoordinates() {
-        List<Double> coords = plugin.getConfig().getDoubleList("sabotage-fix-coordinates.reactor");
-        return new double[][]{ {coords.get(0), coords.get(1)} };
     }
 
 }
