@@ -262,4 +262,12 @@ public class MeetingManager {
         return votes.size() + skips.size() == alivePlayerCount;
     }
 
+    /*
+     * Kills the meeting. Used when the game ends
+     */
+    public void killMeeting() {
+        meetingActive = false;
+        postMeetingActive = false;
+    }
+
 }

@@ -136,6 +136,7 @@ public class GameManager {
         Bukkit.broadcast(Component.text("§9--------------------------------------------------"));
         plugin.playerProfiles.clear();
         showAllPlayers();
+        plugin.meetingManager.killMeeting();
         for (Player p : Bukkit.getOnlinePlayers()) {
             p.teleport(p.getWorld().getSpawnLocation());
             p.setGameMode(Bukkit.getDefaultGameMode());
