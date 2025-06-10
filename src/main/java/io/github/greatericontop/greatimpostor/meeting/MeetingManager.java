@@ -41,7 +41,7 @@ public class MeetingManager {
         return meetingActive;
     }
 
-    public void haveEmergencyMeeting(Player callingPlayer) {
+    public void callEmergencyMeeting(Player callingPlayer) {
         if (isMeetingActive()) {
             callingPlayer.sendMessage("§cThere is already a meeting in progress!");
             return;
@@ -51,10 +51,20 @@ public class MeetingManager {
             callingPlayer.sendMessage("§cCouldn't get your profile!");
             return;
         }
-        if (plugin.sabotageManager.isDisruptiveSabotageActive()) {
-            callingPlayer.sendMessage("§cSabotage! You call a meeting right now!");
+        if (!profile.isAlive()) {
+            callingPlayer.sendMessage("§cYou can't call meetings while dead!");
             return;
         }
+        if (plugin.sabotageManager.isDisruptiveSabotageActive()) {
+            callingPlayer.sendMessage("§cSabotage! You can't call a meeting right now!");
+            return;
+        }
+        if (profile.getMeetingsCalled() >= plugin.getConfig().getInt("max-meetings-per-player")) {
+            callingPlayer.sendMessage("§cYou have already called the maximum number of meetings!");
+            return;
+        }
+        profile.incrementMeetingsCalled();
+        callingPlayer.sendMessage(String.format("§7%d/%d available meetings called", profile.getMeetingsCalled(), plugin.getConfig().getInt("max-meetings-per-player")));
         for (Player p : Bukkit.getOnlinePlayers()) {
             p.showTitle(Title.title(
                     Component.text("§cEmergency Meeting"),

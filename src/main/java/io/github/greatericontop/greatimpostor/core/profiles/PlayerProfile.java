@@ -33,7 +33,8 @@ public abstract class PlayerProfile {
     protected int[] subtasksCompletedPerTask = null;
     protected final Set<Subtask> tasksAlreadyCompleted = new HashSet<>();
     protected boolean alive;
-    protected PlayerColor color;
+    private final PlayerColor color;
+    private int meetingsCalled;
 
     protected GreatImpostorMain plugin;
     protected final Player player;
@@ -47,6 +48,12 @@ public abstract class PlayerProfile {
     public PlayerColor getColor() {
         return color;
     }
+    public int getMeetingsCalled() {
+        return meetingsCalled;
+    }
+    public void incrementMeetingsCalled() {
+        meetingsCalled++;
+    }
 
     public PlayerProfile(GreatImpostorMain plugin, Player player, PlayerColor color) {
         this.plugin = plugin;
@@ -54,6 +61,7 @@ public abstract class PlayerProfile {
         this.player = player;
         this.alive = true;
         this.color = color;
+        this.meetingsCalled = 0;
     }
 
     //

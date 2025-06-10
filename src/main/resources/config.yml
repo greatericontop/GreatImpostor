@@ -33,6 +33,11 @@ vents: []
 critical-sabotage-fix-ticks: 600
 
 
+# Maximum number of meetings each player can call during a game.
+# Default is 1 in the original game.
+max-meetings-per-player: 1
+
+
 # Put the coordinates of the signs for each of the sabotage tasks here.
 # The format is [X, Z].
 sabotage-fix-coordinates:
