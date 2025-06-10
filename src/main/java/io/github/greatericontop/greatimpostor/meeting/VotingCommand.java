@@ -25,7 +25,7 @@ public class VotingCommand implements CommandExecutor {
             sender.sendMessage("§cPlayers only!");
             return true;
         }
-        if (!plugin.meetingManager.isMeetingActive()) {
+        if (!plugin.meetingManager.isVotingPhaseActive()) {
             sender.sendMessage("§cYou can only vote during meetings!");
             return true;
         }

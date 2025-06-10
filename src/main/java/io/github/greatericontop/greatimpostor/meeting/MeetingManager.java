@@ -40,6 +40,9 @@ public class MeetingManager {
     public boolean isMeetingActive() {
         return meetingActive;
     }
+    public boolean isVotingPhaseActive() {
+        return meetingActive && !postMeetingActive;
+    }
 
     public void callEmergencyMeeting(Player callingPlayer) {
         if (isMeetingActive()) {
