@@ -57,6 +57,8 @@ public enum Subtask {
 
     UNLOCK_MANIFOLDS("UNLOCK_MANIFOLDS", "§eReactor: Unlock Manifolds"),
 
+    SUBMIT_SCAN("SUBMIT_SCAN", "§eMedbay: Submit Scan"),
+
     ;
 
     private final String fullTask;

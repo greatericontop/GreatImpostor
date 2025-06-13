@@ -133,6 +133,11 @@ public enum TaskType {
             Subtask.UNLOCK_MANIFOLDS
     ),
 
+    SUBMIT_SCAN(
+            1,
+            Subtask.SUBMIT_SCAN
+    )
+
     ;
 
     private final int requiredSubtaskCount;

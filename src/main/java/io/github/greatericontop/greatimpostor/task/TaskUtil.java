@@ -20,7 +20,8 @@ public class TaskUtil {
             TaskType.EMPTY_TRASH,
             TaskType.STABILIZE_NAVIGATION,
             TaskType.START_REACTOR,
-            TaskType.UNLOCK_MANIFOLDS
+            TaskType.UNLOCK_MANIFOLDS,
+            TaskType.SUBMIT_SCAN,
     };
 
     public static BaseTask getTaskClass(GreatImpostorMain plugin, Subtask subtask) {
@@ -72,6 +73,9 @@ public class TaskUtil {
             }
             case UNLOCK_MANIFOLDS -> {
                 return plugin.taskUnlockManifolds;
+            }
+            case SUBMIT_SCAN -> {
+                return plugin.taskSubmitScan;
             }
             default -> throw new IllegalArgumentException("Unknown/unrecognized task type: " + subtask.getFullTask());
         }

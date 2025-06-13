@@ -6,6 +6,7 @@ import io.github.greatericontop.greatimpostor.core.GameManager;
 import io.github.greatericontop.greatimpostor.core.PlayerJoinHandler;
 import io.github.greatericontop.greatimpostor.core.profiles.PlayerProfile;
 import io.github.greatericontop.greatimpostor.core.impostor.ImpostorKillListener;
+import io.github.greatericontop.greatimpostor.task.maintaskexecutors.TaskSubmitScan;
 import io.github.greatericontop.greatimpostor.task.sabotage.SabotageManager;
 import io.github.greatericontop.greatimpostor.core.impostor.VentManager;
 import io.github.greatericontop.greatimpostor.meeting.MeetingManager;
@@ -57,6 +58,7 @@ public class GreatImpostorMain extends JavaPlugin {
     public TaskSwipeCard taskSwipeCard;
     public TaskFetchFuel taskFetchFuel;
     public TaskFuelEngines taskFuelEngines;
+    public TaskSubmitScan taskSubmitScan;
 
     public SabotageFixLights sabotageFixLights;
     public SabotageReactor sabotageReactor;
@@ -133,6 +135,8 @@ public class GreatImpostorMain extends JavaPlugin {
         this.getServer().getPluginManager().registerEvents(taskFetchFuel, this);
         taskFuelEngines = new TaskFuelEngines(this);
         this.getServer().getPluginManager().registerEvents(taskFuelEngines, this);
+        taskSubmitScan = new TaskSubmitScan(this);
+        this.getServer().getPluginManager().registerEvents(taskSubmitScan, this);
         // sabotage tasks
         sabotageFixLights = new SabotageFixLights(this);
         this.getServer().getPluginManager().registerEvents(sabotageFixLights, this);
