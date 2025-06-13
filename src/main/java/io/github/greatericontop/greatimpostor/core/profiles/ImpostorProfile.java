@@ -113,7 +113,7 @@ public class ImpostorProfile extends PlayerProfile {
         Inventory inv = super.setInventoryCommon();
 
         if (plugin.sabotageManager.getActiveSabotage() == Sabotage.COMMUNICATIONS) {
-            for (int i = 0; i < 3; i++) { // 3
+            for (int i = 0; i < 4; i++) {
                 inv.setItem(i, ImpostorUtil.commsSabotageTaskDisplayItemStack());
             }
         } else {
