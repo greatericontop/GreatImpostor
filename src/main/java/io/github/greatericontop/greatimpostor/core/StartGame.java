@@ -70,7 +70,6 @@ public class StartGame {
             plugin.playerProfiles.put(currentPlayer.getUniqueId(), newProfile);
 
             currentPlayer.getInventory().clear();
-            currentPlayer.getInventory().setHeldItemSlot(0); // force reset held item so impostors don't reveal themselves
             currentPlayer.setGameMode(GameMode.ADVENTURE);
             currentPlayer.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, 160, 0));
             currentPlayer.teleport(plugin.getStartingLocation());
@@ -98,7 +97,7 @@ public class StartGame {
         }.runTaskLater(plugin, 5L);
 
         new BukkitRunnable() {
-            int i = 8;
+            int i = 4;
             public void run() {
                 if (i <= 0) {
                     cancel();
@@ -119,6 +118,7 @@ public class StartGame {
                 for (PlayerProfile profile : plugin.playerProfiles.values()) {
                     profile.setInitialTasks();
                     profile.setInventory();
+                    profile.getPlayer().getInventory().setHeldItemSlot(0); // force reset held item so impostors don't reveal themselves
                     if (profile.isImpostor()) {
                         ImpostorProfile impostorProfile = (ImpostorProfile) profile;
                         impostorProfile.resetKillCooldown(true);
@@ -126,7 +126,7 @@ public class StartGame {
                     }
                 }
             }
-        }.runTaskLater(plugin, 160L);
+        }.runTaskLater(plugin, 80L);
 
     }
 
