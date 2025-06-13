@@ -71,12 +71,12 @@ public class StartGame {
 
             currentPlayer.getInventory().clear();
             currentPlayer.setGameMode(GameMode.ADVENTURE);
-            currentPlayer.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, 160, 0));
+            currentPlayer.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, 80, 0));
             currentPlayer.teleport(plugin.getStartingLocation());
             currentPlayer.showTitle(Title.title(
                     Component.text(title),
                     Component.text(subtitle),
-                    Title.Times.times(Duration.ofMillis(1000L), Duration.ofMillis(7000L), Duration.ofMillis(2000L))
+                    Title.Times.times(Duration.ofMillis(1000L), Duration.ofMillis(3000L), Duration.ofMillis(2000L))
             ));
             currentPlayer.playSound(currentPlayer.getLocation(), Sound.ENTITY_WITHER_DEATH, 1.0F, 1.0F);
             currentPlayer.sendMessage(String.format("§bYour color is: §3[%s§3]§b.", colors[i].getDisplayName()));
