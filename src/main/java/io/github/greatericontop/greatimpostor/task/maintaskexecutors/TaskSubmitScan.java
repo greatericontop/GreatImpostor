@@ -43,6 +43,7 @@ public class TaskSubmitScan extends BaseTask {
                     TaskSubmitScan.this.playSuccessSound(player);
                     TaskSubmitScan.this.taskSuccessful(player);
                     this.cancel();
+                    return;
                 }
                 if (tickNum % 15 == 0) { // spawn particles every 0.75s
                     int i = tickNum / 15;
@@ -57,8 +58,8 @@ public class TaskSubmitScan extends BaseTask {
                     final int DIVISIONS = 60;
                     for (int angle = 0; angle < DIVISIONS; angle++) {
                         double radians = angle * 2 * Math.PI / DIVISIONS;
-                        double xOffset = Math.cos(radians) * 0.7;
-                        double zOffset = Math.sin(radians) * 0.7;
+                        double xOffset = Math.cos(radians) * 0.9;
+                        double zOffset = Math.sin(radians) * 0.9;
                         player.getWorld().spawnParticle(Particle.VILLAGER_HAPPY, playerLocation.clone().add(xOffset, yOffset, zOffset), 1, 0.0, 0.0, 0.0);
                     }
                 }
