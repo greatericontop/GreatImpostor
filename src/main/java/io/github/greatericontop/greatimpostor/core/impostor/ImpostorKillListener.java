@@ -1,14 +1,13 @@
 package io.github.greatericontop.greatimpostor.core.impostor;
 
 import io.github.greatericontop.greatimpostor.GreatImpostorMain;
-import io.github.greatericontop.greatimpostor.core.profiles.PlayerProfile;
 import io.github.greatericontop.greatimpostor.core.profiles.ImpostorProfile;
+import io.github.greatericontop.greatimpostor.core.profiles.PlayerProfile;
 import io.github.greatericontop.greatimpostor.utils.ImpostorUtil;
 import org.bukkit.Color;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.entity.ArmorStand;
-import org.bukkit.entity.Damageable;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -31,7 +30,7 @@ public class ImpostorKillListener implements Listener {
     @EventHandler()
     public void onHit(EntityDamageByEntityEvent event) {
         if (!(event.getDamager() instanceof Player player))  return;
-        // if (!(event.getEntity() instanceof Player victim))  return;
+        if (!(event.getEntity() instanceof Player victimPlayer))  return;
         PlayerProfile profile = plugin.playerProfiles.get(player.getUniqueId());
         if (profile == null)  return;
         if (!profile.isImpostor()) {
@@ -49,23 +48,17 @@ public class ImpostorKillListener implements Listener {
         if (impostorProfile.getCanKill()) {
             event.setCancelled(true);
             impostorProfile.resetKillCooldown(false);
-            if (!(event.getEntity() instanceof Player victimPlayer)) {
-                ((Damageable) event.getEntity()).setHealth(0.0);
-                player.sendMessage("§7Note: you're killing a non-player victim");
-                generateDeadBody(event.getEntity().getLocation(), null);
-            } else {
-                PlayerProfile victimProfile = plugin.playerProfiles.get(victimPlayer.getUniqueId());
-                if (victimProfile == null) {
-                    player.sendMessage("§cThis player isn't in this game!");
-                    return;
-                }
-                if (victimProfile.isImpostor()) {
-                    player.sendMessage("§cDon't kill your fellow impostors!");
-                    return;
-                }
-                victimProfile.die();
-                generateDeadBody(event.getEntity().getLocation(), victimPlayer);
+            PlayerProfile victimProfile = plugin.playerProfiles.get(victimPlayer.getUniqueId());
+            if (victimProfile == null) {
+                player.sendMessage("§cThis player isn't in this game!");
+                return;
             }
+            if (victimProfile.isImpostor()) {
+                player.sendMessage("§cDon't kill your fellow impostors!");
+                return;
+            }
+            victimProfile.die();
+            generateDeadBody(event.getEntity().getLocation(), victimPlayer);
         } else {
             event.setCancelled(true);
             player.sendMessage("§cYou can't kill right now!");
