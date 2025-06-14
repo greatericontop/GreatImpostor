@@ -8,6 +8,7 @@ import io.github.greatericontop.greatimpostor.task.TaskUtil;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.title.Title;
 import org.bukkit.Bukkit;
+import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.Particle;
 import org.bukkit.Sound;
@@ -136,6 +137,10 @@ public class SabotageManager implements Listener {
         if (plugin.getClock() % 30 == 0) {
             for (double[] coord : poiCoordinates) {
                 for (Player player : Bukkit.getOnlinePlayers()) {
+                    if (player.getGameMode() == GameMode.SPECTATOR) {
+                        // Don't show to impostors in vents who are in spectator
+                        continue;
+                    }
                     Location loc = player.getLocation().add(0.0, 0.8, 0.0);
                     Vector arrowDirection = new Vector(coord[0] - loc.getX(), 0, coord[1] - loc.getZ())
                             .normalize().multiply(0.09);
