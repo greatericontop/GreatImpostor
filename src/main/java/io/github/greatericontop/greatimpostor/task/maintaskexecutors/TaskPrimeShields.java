@@ -55,7 +55,7 @@ public class TaskPrimeShields extends BaseTask {
     public void startTask(Player player) {
         Inventory gui = Bukkit.createInventory(player, 27, Component.text(INVENTORY_NAME));
         for (int slot : ALL_POSITIONS) {
-            gui.setItem(slot, getNodeItem(Math.random() < 0.4));
+            gui.setItem(slot, getNodeItem(Math.random() < 0.3));
         }
         player.openInventory(gui);
     }
