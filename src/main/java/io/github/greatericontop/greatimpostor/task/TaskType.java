@@ -136,6 +136,11 @@ public enum TaskType {
     SUBMIT_SCAN(
             1,
             Subtask.SUBMIT_SCAN
+    ),
+
+    PRIME_SHIELDS(
+            1,
+            Subtask.PRIME_SHIELDS
     )
 
     ;
