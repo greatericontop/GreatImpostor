@@ -39,6 +39,7 @@ public class TaskAnalyzeSample extends BaseTask {
 
     private final Random random = new Random();
     private final Map<UUID, Status> playerStatusMap = new HashMap<>();
+    private final Map<UUID, Integer> timeLeftCached = new HashMap<>();
     private final Map<UUID, Integer> whichSample = new HashMap<>();
 
     public TaskAnalyzeSample(GreatImpostorMain plugin) {
@@ -57,7 +58,7 @@ public class TaskAnalyzeSample extends BaseTask {
             whichSample.put(player.getUniqueId(), SAMPLES[random.nextInt(SAMPLES.length)]);
         }
         Inventory inv = Bukkit.createInventory(player, 54, Component.text(INVENTORY_NAME));
-        updateInventory(player, inv, -1); // (if opened mid-timer it will show the placeholder for up to 1 second)
+        updateInventory(player, inv, timeLeftCached.getOrDefault(player.getUniqueId(), -1));
         player.openInventory(inv);
     }
 
@@ -75,6 +76,7 @@ public class TaskAnalyzeSample extends BaseTask {
                         int secondsLeft = 1 + 20;
                         public void run() {
                             secondsLeft -= 1;
+                            timeLeftCached.put(player.getUniqueId(), secondsLeft); // so the correct time can be shown immediately when inventory is reopened
                             if (secondsLeft <= 0) {
                                 playerStatusMap.put(player.getUniqueId(), Status.READY);
                                 updateInventory(player, event.getInventory(), -1);
@@ -118,6 +120,8 @@ public class TaskAnalyzeSample extends BaseTask {
                     PotionMeta im = (PotionMeta) stack.getItemMeta();
                     im.displayName(Component.text(String.format("§6Sample %d", (slot-44)/2)));
                     im.setColor(Color.fromRGB(0xaaaaaa));
+                    stack.setItemMeta(im);
+                    inv.setItem(slot, stack);
                 }
             }
             case WAITING -> {
@@ -128,6 +132,8 @@ public class TaskAnalyzeSample extends BaseTask {
                     PotionMeta im = (PotionMeta) stack.getItemMeta();
                     im.displayName(Component.text(String.format("§6Sample %d", (slot-44)/2)));
                     im.setColor(Color.fromRGB(0xaaaaaa));
+                    stack.setItemMeta(im);
+                    inv.setItem(slot, stack);
                 }
             }
             case READY -> {
@@ -137,6 +143,8 @@ public class TaskAnalyzeSample extends BaseTask {
                     PotionMeta im = (PotionMeta) stack.getItemMeta();
                     im.displayName(Component.text(String.format("§6Sample %d", (slot-44)/2)));
                     im.setColor(whichSample.get(player.getUniqueId()) == slot ? Color.fromRGB(0xaa0000) : Color.fromRGB(0xffffff));
+                    stack.setItemMeta(im);
+                    inv.setItem(slot, stack);
                 }
             }
         }
