@@ -45,6 +45,11 @@ public class ImpostorKillListener implements Listener {
             player.sendMessage("§cYou can't kill while dead!");
             return;
         }
+        if (event.getDamage() < 2.0) { // chose this so fist crits (1.5) don't count but a not-very-attack-speed'ed sword hit counts
+            event.setCancelled(true);
+            player.sendMessage("§cYou must use your sword!");
+            return;
+        }
         if (impostorProfile.getCanKill()) {
             event.setCancelled(true);
             impostorProfile.resetKillCooldown(false);
