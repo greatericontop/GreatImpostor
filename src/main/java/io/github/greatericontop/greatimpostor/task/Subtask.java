@@ -59,7 +59,9 @@ public enum Subtask {
 
     SUBMIT_SCAN("SUBMIT_SCAN", "§eMedbay: Submit Scan"),
 
-    PRIME_SHIELDS("PRIME_SHIELDS", "§eShields: Prime Shields")
+    PRIME_SHIELDS("PRIME_SHIELDS", "§eShields: Prime Shields"),
+
+    ANALYZE_SAMPLE("ANALYZE_SAMPLE", "§eMedbay: Analyze Sample"),
 
     ;
 

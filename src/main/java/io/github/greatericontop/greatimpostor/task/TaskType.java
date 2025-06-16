@@ -141,7 +141,12 @@ public enum TaskType {
     PRIME_SHIELDS(
             1,
             Subtask.PRIME_SHIELDS
-    )
+    ),
+
+    ANALYZE_SAMPLE(
+            1,
+            Subtask.ANALYZE_SAMPLE
+    ),
 
     ;
 
