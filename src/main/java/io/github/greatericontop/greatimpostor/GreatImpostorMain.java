@@ -1,9 +1,9 @@
 package io.github.greatericontop.greatimpostor;
 
-import io.github.greatericontop.greatimpostor.core.AntiVandalism;
-import io.github.greatericontop.greatimpostor.core.BodyReportingListener;
+import io.github.greatericontop.greatimpostor.core.events.AntiVandalism;
+import io.github.greatericontop.greatimpostor.core.events.BodyReportingListener;
 import io.github.greatericontop.greatimpostor.core.GameManager;
-import io.github.greatericontop.greatimpostor.core.PlayerJoinHandler;
+import io.github.greatericontop.greatimpostor.core.events.PlayerJoinHandler;
 import io.github.greatericontop.greatimpostor.core.profiles.PlayerProfile;
 import io.github.greatericontop.greatimpostor.core.impostor.ImpostorKillListener;
 import io.github.greatericontop.greatimpostor.task.maintaskexecutors.TaskAnalyzeSample;

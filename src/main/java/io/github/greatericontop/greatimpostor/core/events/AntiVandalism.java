@@ -1,4 +1,4 @@
-package io.github.greatericontop.greatimpostor.core;
+package io.github.greatericontop.greatimpostor.core.events;
 
 import io.github.greatericontop.greatimpostor.GreatImpostorMain;
 import org.bukkit.entity.ItemFrame;
