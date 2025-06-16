@@ -4,6 +4,7 @@ import io.github.greatericontop.greatimpostor.GreatImpostorMain;
 import io.github.greatericontop.greatimpostor.core.profiles.PlayerProfile;
 import io.github.greatericontop.greatimpostor.utils.PartialCoordinates;
 import org.bukkit.GameMode;
+import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -24,6 +25,7 @@ public class SecurityCameraManager implements Listener {
 
     private final List<PartialCoordinates> cameraSystem;
 
+    private final Map<UUID, Location> originalLocations = new HashMap<>();
     private final Map<UUID, Boolean> movementCooldown = new HashMap<>();
 
     private final GreatImpostorMain plugin;
@@ -55,6 +57,7 @@ public class SecurityCameraManager implements Listener {
 
         profile.isInCameras = true;
         profile.currentCameraNumber = -1; // cycleCamera will set it to 0
+        originalLocations.put(player.getUniqueId(), player.getLocation());
         player.setGameMode(GameMode.SPECTATOR);
         cycleCamera(profile, player);
     }
@@ -79,7 +82,15 @@ public class SecurityCameraManager implements Listener {
 
     @EventHandler()
     public void onShift(PlayerToggleSneakEvent event) {
-        // TODO
+        if (!event.isSneaking())  return; // only runs when shift is toggled ON
+        Player player = event.getPlayer();
+        PlayerProfile profile = plugin.playerProfiles.get(player.getUniqueId());
+        if (profile == null)  return;
+        if (profile.isInCameras) {
+            profile.isInCameras = false;
+            player.setGameMode(GameMode.ADVENTURE);
+            player.teleport(originalLocations.get(player.getUniqueId()));
+        }
     }
 
     private void cycleCamera(PlayerProfile profile, Player player) {
