@@ -84,7 +84,7 @@ public class TaskSwipeCard extends BaseTask {
             double consistency = Math.sqrt(getVariance(deltas, mean));
             double score = accuracy + CONSISTENCY_FACTOR*consistency;
             player.sendMessage(String.format("§7accuracy §f%.2f §7consistency §f%.2f §7(mean %.2f)  §7|  SCORE: §e%.2f", accuracy, consistency, mean, score));
-            if (score < 6.00) {
+            if (score < 7.00) {
                 this.playSuccessSound(player);
                 this.taskSuccessful(player);
                 player.closeInventory();
@@ -96,7 +96,7 @@ public class TaskSwipeCard extends BaseTask {
                     player.sendMessage("§cYou were too slow!");
                 } else if (mean <= 4.3) {
                     player.sendMessage("§cYou were too fast!");
-                } else if (CONSISTENCY_FACTOR*consistency >= 4.0) {
+                } else if (CONSISTENCY_FACTOR*consistency >= 4.5) {
                     player.sendMessage("§cYou were not very consistent.");
                 } else {
                     player.sendMessage("§cYou were close. Try again!");
