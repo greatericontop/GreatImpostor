@@ -35,6 +35,8 @@ public abstract class PlayerProfile {
     protected boolean alive;
     private final PlayerColor color;
     private int meetingsCalled;
+    public boolean isInCameras;
+    public int currentCameraNumber = -1;
 
     protected GreatImpostorMain plugin;
     protected final Player player;
@@ -62,6 +64,7 @@ public abstract class PlayerProfile {
         this.alive = true;
         this.color = color;
         this.meetingsCalled = 0;
+        this.isInCameras = false;
     }
 
     //

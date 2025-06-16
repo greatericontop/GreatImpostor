@@ -28,6 +28,14 @@ starting-location:
 vents: []
 
 
+# The list of the coordinates to teleport to when viewing security cameras
+# Example:
+#cameras:
+#  - [5.5, 25.0, 5.5]
+#  - [15.5, 25.0, 15.5]
+cameras: []
+
+
 # Number of ticks you have to fix a critical sabotage (reactor, oxygen)
 # Default is 600 ticks (30 seconds)
 critical-sabotage-fix-ticks: 600
