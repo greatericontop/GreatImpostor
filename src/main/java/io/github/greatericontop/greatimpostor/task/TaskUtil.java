@@ -23,6 +23,7 @@ public class TaskUtil {
             TaskType.UNLOCK_MANIFOLDS,
             TaskType.SUBMIT_SCAN,
             TaskType.PRIME_SHIELDS,
+            TaskType.ANALYZE_SAMPLE,
     };
 
     public static BaseTask getTaskClass(GreatImpostorMain plugin, Subtask subtask) {
@@ -80,6 +81,9 @@ public class TaskUtil {
             }
             case PRIME_SHIELDS -> {
                 return plugin.taskPrimeShields;
+            }
+            case ANALYZE_SAMPLE -> {
+                return plugin.taskAnalyzeSample;
             }
             default -> throw new IllegalArgumentException("Unknown/unrecognized task type: " + subtask.getFullTask());
         }
