@@ -46,6 +46,10 @@ public class TaskAnalyzeSample extends BaseTask {
         super(plugin);
     }
 
+    public void resetSelf() {
+        playerStatusMap.clear();
+    }
+
     @Override
     public TaskType getTaskType() {
         return TaskType.ANALYZE_SAMPLE;
@@ -73,7 +77,7 @@ public class TaskAnalyzeSample extends BaseTask {
                 if (event.getSlot() == START_BUTTON) {
                     playerStatusMap.put(player.getUniqueId(), Status.WAITING);
                     new BukkitRunnable() {
-                        int secondsLeft = 1 + 20;
+                        int secondsLeft = 1 + 60;
                         public void run() {
                             secondsLeft -= 1;
                             timeLeftCached.put(player.getUniqueId(), secondsLeft); // so the correct time can be shown immediately when inventory is reopened

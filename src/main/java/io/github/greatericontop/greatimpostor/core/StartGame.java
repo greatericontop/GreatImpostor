@@ -53,6 +53,9 @@ public class StartGame {
             return;
         }
 
+        // any task handlers that need resets
+        plugin.taskAnalyzeSample.resetSelf();
+
         for (int i = 0; i < players.length; i++) {
             Player currentPlayer = players[i];
             PlayerProfile newProfile;
