@@ -50,45 +50,40 @@ public class ImpostorKillListener implements Listener {
         }
         PlayerProfile profile = plugin.playerProfiles.get(player.getUniqueId());
         if (profile == null)  return;
+        event.setCancelled(true); // (cancel the damage once we have the profile)
         if (!profile.isImpostor()) {
-            event.setCancelled(true);
             player.sendMessage("§cYou can't attack others!");
             return;
         }
         ImpostorProfile impostorProfile = (ImpostorProfile) profile;
-
         if (!impostorProfile.isAlive()) {
-            event.setCancelled(true);
             player.sendMessage("§cYou can't kill while dead!");
             return;
         }
         if (event.getDamage() < 2.0) { // chose this so fist crits (1.5) don't count but a not-very-attack-speed'ed sword hit counts
-            event.setCancelled(true);
             player.sendMessage("§cYou must use your sword!");
             return;
         }
-        if (impostorProfile.getCanKill()) {
-            event.setCancelled(true);
-            impostorProfile.resetKillCooldown(false);
-            PlayerProfile victimProfile = plugin.playerProfiles.get(victimPlayer.getUniqueId());
-            if (victimProfile == null) {
-                player.sendMessage("§cThis player isn't in this game!");
-                return;
-            }
-            if (victimProfile.isImpostor()) {
-                player.sendMessage("§cDon't kill your fellow impostors!");
-                return;
-            }
-            if (isFakePlayerKill) {
-                // Kick out of cameras (& removes armor stand) before killing the player
-                plugin.securityCameraManager.exitCameras(victimProfile, victimPlayer);
-            }
-            victimProfile.die();
-            generateDeadBody(event.getEntity().getLocation(), victimPlayer);
-        } else {
-            event.setCancelled(true);
+        if (!impostorProfile.getCanKill()) {
             player.sendMessage("§cYou can't kill right now!");
+            return;
         }
+        PlayerProfile victimProfile = plugin.playerProfiles.get(victimPlayer.getUniqueId());
+        if (victimProfile == null) {
+            player.sendMessage("§cThis player isn't in this game!");
+            return;
+        }
+        if (victimProfile.isImpostor()) {
+            player.sendMessage("§cDon't kill your fellow impostors!");
+            return;
+        }
+        impostorProfile.resetKillCooldown(false);
+        if (isFakePlayerKill) {
+            // Kick out of cameras (& removes armor stand) before killing the player
+            plugin.securityCameraManager.exitCameras(victimProfile, victimPlayer);
+        }
+        victimProfile.die();
+        generateDeadBody(event.getEntity().getLocation(), victimPlayer);
     }
 
     public void generateDeadBody(Location loc, @Nullable Player deadPlayer) {
