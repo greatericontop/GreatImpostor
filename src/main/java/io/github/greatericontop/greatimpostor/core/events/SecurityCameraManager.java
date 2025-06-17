@@ -60,6 +60,14 @@ public class SecurityCameraManager implements Listener {
         originalLocations.put(player.getUniqueId(), player.getLocation());
         player.setGameMode(GameMode.SPECTATOR);
         cycleCamera(profile, player);
+        // Darkness effect takes I think exactly 1 second to apply, so prevent cycling for that long. You do get to
+        // see the first camera better but you can set the first camera to be one where that's not an advantage.
+        movementCooldown.put(player.getUniqueId(), true);
+        new BukkitRunnable() {
+            public void run() {
+                movementCooldown.put(player.getUniqueId(), false);
+            }
+        }.runTaskLater(plugin, 20L);
     }
 
     @EventHandler()
