@@ -117,6 +117,13 @@ public class MeetingManager {
             } else {
                 deadPlayers.add(profile.renderNameDisplay("§x§c§c§2§2§2§2"));
             }
+            // Remove all players from cameras/vents
+            if (profile instanceof ImpostorProfile impostorProfile && impostorProfile.isInVent) {
+                impostorProfile.isInVent = false; // (This is actually all we need. Reference: VentManager.exitVent)
+            }
+            if (profile.isInCameras) {
+                plugin.securityCameraManager.exitCameras(profile, profile.getPlayer());
+            }
         }
         Bukkit.broadcastMessage(String.format("§x§2§2§c§c§2§2Alive §3Players: %s", String.join(", ", alivePlayers)));
         Bukkit.broadcastMessage(String.format("§x§c§c§2§2§2§2Dead §3Players: %s", String.join(", ", deadPlayers)));
