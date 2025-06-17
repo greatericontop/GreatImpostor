@@ -56,8 +56,12 @@ public class GameManager {
                     }
 
                     plugin.securityCameraManager.setBackSecurityCameraPlayer(profile);
-                    // darkness effect for everyone (no particles or icon)
-                    //player.addPotionEffect(new PotionEffect(PotionEffectType.DARKNESS, 79, 0, false, false, false));
+                    // darkness applied if watching cameras (so you can't see too far with them)
+                    if (profile.isInCameras) {
+                        player.addPotionEffect(new PotionEffect(PotionEffectType.DARKNESS, 600, 0, false, false, false));
+                    } else {
+                        player.removePotionEffect(PotionEffectType.DARKNESS);
+                    }
                     // if lights sabotage, disallow sprinting (takes effect immediately), otherwise refill hunger
                     player.setFoodLevel((plugin.sabotageManager.getActiveSabotage() == Sabotage.LIGHTS) ? 6 : 20);
 
