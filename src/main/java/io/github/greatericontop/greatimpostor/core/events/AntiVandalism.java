@@ -9,6 +9,7 @@ import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.event.player.PlayerArmorStandManipulateEvent;
 import org.bukkit.event.player.PlayerDropItemEvent;
 
 public class AntiVandalism implements Listener {
@@ -53,6 +54,14 @@ public class AntiVandalism implements Listener {
     @EventHandler(priority = EventPriority.LOW)
     public void onAttackItemFrame(EntityDamageByEntityEvent event) {
         if (event.getEntity() instanceof ItemFrame && plugin.playerProfiles.containsKey(event.getDamager().getUniqueId())) {
+            event.setCancelled(true);
+        }
+    }
+
+    // Prevent dead body / fake player armor stands from being modified
+    @EventHandler(priority = EventPriority.LOW)
+    public void onEditArmorStand(PlayerArmorStandManipulateEvent event) {
+        if (plugin.playerProfiles.containsKey(event.getPlayer().getUniqueId())) {
             event.setCancelled(true);
         }
     }
