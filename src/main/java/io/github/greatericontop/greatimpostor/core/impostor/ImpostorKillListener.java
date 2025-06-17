@@ -4,6 +4,7 @@ import io.github.greatericontop.greatimpostor.GreatImpostorMain;
 import io.github.greatericontop.greatimpostor.core.profiles.ImpostorProfile;
 import io.github.greatericontop.greatimpostor.core.profiles.PlayerProfile;
 import io.github.greatericontop.greatimpostor.utils.ImpostorUtil;
+import org.bukkit.Bukkit;
 import org.bukkit.Color;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -19,6 +20,7 @@ import org.bukkit.persistence.PersistentDataType;
 import org.bukkit.util.EulerAngle;
 
 import javax.annotation.Nullable;
+import java.util.UUID;
 
 public class ImpostorKillListener implements Listener {
 
@@ -30,7 +32,22 @@ public class ImpostorKillListener implements Listener {
     @EventHandler()
     public void onHit(EntityDamageByEntityEvent event) {
         if (!(event.getDamager() instanceof Player player))  return;
-        if (!(event.getEntity() instanceof Player victimPlayer))  return;
+        Player victimPlayer;
+        boolean isFakePlayerKill = false;
+        if (event.getEntity() instanceof Player) {
+            victimPlayer = (Player) event.getEntity();
+        } else {
+            // Could be a fake player armor stand, otherwise ignore
+            if (!(event.getEntity() instanceof ArmorStand entity
+                    && entity.getPersistentDataContainer().has(ImpostorUtil.FAKE_PLAYER_KEY, PersistentDataType.INTEGER))) {
+                return;
+            }
+            victimPlayer = Bukkit.getPlayer(UUID.fromString(entity.getPersistentDataContainer().get(ImpostorUtil.FAKE_PLAYER_KEY, PersistentDataType.STRING)));
+            if (victimPlayer == null) {
+                return;
+            }
+            isFakePlayerKill = true;
+        }
         PlayerProfile profile = plugin.playerProfiles.get(player.getUniqueId());
         if (profile == null)  return;
         if (!profile.isImpostor()) {
@@ -61,6 +78,10 @@ public class ImpostorKillListener implements Listener {
             if (victimProfile.isImpostor()) {
                 player.sendMessage("§cDon't kill your fellow impostors!");
                 return;
+            }
+            if (isFakePlayerKill) {
+                // Kick out of cameras (& removes armor stand) before killing the player
+                plugin.securityCameraManager.exitCameras(victimProfile, victimPlayer);
             }
             victimProfile.die();
             generateDeadBody(event.getEntity().getLocation(), victimPlayer);

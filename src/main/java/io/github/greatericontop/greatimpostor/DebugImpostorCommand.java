@@ -6,6 +6,8 @@ import io.github.greatericontop.greatimpostor.core.profiles.PlayerProfile;
 import io.github.greatericontop.greatimpostor.core.impostor.ImpostorKillListener;
 import io.github.greatericontop.greatimpostor.task.SignListener;
 import io.github.greatericontop.greatimpostor.core.StartGame;
+import io.github.greatericontop.greatimpostor.utils.ImpostorUtil;
+import io.github.greatericontop.greatimpostor.utils.ItemMaker;
 import io.github.greatericontop.greatimpostor.utils.PlayerColor;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
@@ -13,7 +15,10 @@ import org.bukkit.block.Sign;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.SkullMeta;
 import org.bukkit.persistence.PersistentDataType;
 
 public class DebugImpostorCommand implements CommandExecutor {
@@ -29,8 +34,8 @@ public class DebugImpostorCommand implements CommandExecutor {
             sender.sendMessage("§7task[Wiring RedirectPower StartReactor EmptyTrash AdjustSteering AcceptPower CleanOxygenFilter ClearAsteroids UnlockManifolds StabilizeNavigation DownloadData UploadData SwipeCard FetchFuel FuelEngines]");
             sender.sendMessage("§7test[Crewmate1 CrewmateTaskComplete Impostor1]");
             sender.sendMessage("§7setSign <task>");
-            sender.sendMessage("§7spawnDeadBody / fixSabotage / die / start / deleteme");
-            return false;
+            sender.sendMessage("§7spawnDeadBody / spawnFakePlayer / fixSabotage / die / start / deleteme");
+            return true;
         }
 
         if (!(sender instanceof Player player)) {
@@ -135,6 +140,23 @@ public class DebugImpostorCommand implements CommandExecutor {
 
         if (args[0].equals("spawnDeadBody")) {
             new ImpostorKillListener(plugin).generateDeadBody(player.getLocation(), player);
+            return true;
+        }
+
+        if (args[0].equals("spawnFakePlayer")) {
+            PlayerProfile profile = plugin.playerProfiles.get(player.getUniqueId());
+            ArmorStand armorStand = player.getWorld().spawn(player.getLocation(), ArmorStand.class);
+            armorStand.setGravity(false);
+            ItemStack head = new ItemStack(Material.PLAYER_HEAD, 1);
+            SkullMeta headMeta = (SkullMeta) head.getItemMeta();
+            headMeta.setOwningPlayer(player);
+            head.setItemMeta(headMeta);
+            armorStand.getEquipment().setHelmet(head);
+            armorStand.getEquipment().setChestplate(ItemMaker.createLeatherArmor(Material.LEATHER_CHESTPLATE, profile.getColor().getColorCode(), ""));
+            armorStand.getEquipment().setLeggings(ItemMaker.createLeatherArmor(Material.LEATHER_LEGGINGS, profile.getColor().getColorCode(), ""));
+            armorStand.getEquipment().setBoots(ItemMaker.createLeatherArmor(Material.LEATHER_BOOTS, profile.getColor().getColorCode(), ""));
+            armorStand.getPersistentDataContainer().set(ImpostorUtil.FAKE_PLAYER_KEY, PersistentDataType.STRING, player.getUniqueId().toString());
+            return true;
         }
 
         if (args[0].equals("fixSabotage")) {

@@ -104,19 +104,7 @@ public class SecurityCameraManager implements Listener {
         PlayerProfile profile = plugin.playerProfiles.get(player.getUniqueId());
         if (profile == null)  return;
         if (profile.isInCameras) {
-            profile.isInCameras = false;
-            player.setGameMode(GameMode.ADVENTURE);
-            Location originalLoc = originalLocations.get(player.getUniqueId());
-            player.teleport(originalLoc);
-            for (Entity e : player.getWorld().getNearbyEntities(originalLoc, 0.1, 0.1, 0.1, e -> e instanceof ArmorStand)) {
-                if (e.getPersistentDataContainer().has(ImpostorUtil.FAKE_PLAYER_KEY, PersistentDataType.STRING)) {
-                    String uuidString = e.getPersistentDataContainer().get(ImpostorUtil.FAKE_PLAYER_KEY, PersistentDataType.STRING);
-                    if (uuidString.equals(player.getUniqueId().toString())) {
-                        e.remove();
-                        break;
-                    }
-                }
-            }
+            exitCameras(profile, player);
         }
     }
 
@@ -125,6 +113,22 @@ public class SecurityCameraManager implements Listener {
         profile.currentCameraNumber = nextNum;
         PartialCoordinates cameraCoords = cameraSystem.get(nextNum);
         player.teleport(cameraCoords.teleportLocation(player.getWorld()));
+    }
+
+    public void exitCameras(PlayerProfile profile, Player player) {
+        profile.isInCameras = false;
+        player.setGameMode(GameMode.ADVENTURE);
+        Location originalLoc = originalLocations.get(player.getUniqueId());
+        player.teleport(originalLoc);
+        for (Entity e : player.getWorld().getNearbyEntities(originalLoc, 0.1, 0.1, 0.1, e -> e instanceof ArmorStand)) {
+            if (e.getPersistentDataContainer().has(ImpostorUtil.FAKE_PLAYER_KEY, PersistentDataType.STRING)) {
+                String uuidString = e.getPersistentDataContainer().get(ImpostorUtil.FAKE_PLAYER_KEY, PersistentDataType.STRING);
+                if (uuidString.equals(player.getUniqueId().toString())) {
+                    e.remove();
+                    break;
+                }
+            }
+        }
     }
 
     public void setBackSecurityCameraPlayer(PlayerProfile profile) {
