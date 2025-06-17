@@ -1,6 +1,7 @@
 package io.github.greatericontop.greatimpostor.core.events;
 
 import io.github.greatericontop.greatimpostor.GreatImpostorMain;
+import io.github.greatericontop.greatimpostor.core.impostor.Sabotage;
 import io.github.greatericontop.greatimpostor.core.profiles.PlayerProfile;
 import io.github.greatericontop.greatimpostor.utils.ImpostorUtil;
 import io.github.greatericontop.greatimpostor.utils.ItemMaker;
@@ -60,6 +61,10 @@ public class SecurityCameraManager implements Listener {
         }
         if (profile.isInCameras) {
             player.sendMessage("§cYou're already viewing the security cameras.");
+            return;
+        }
+        if (plugin.sabotageManager.getActiveSabotage() == Sabotage.COMMUNICATIONS) {
+            player.sendMessage("§cCommunications are offline!");
             return;
         }
 

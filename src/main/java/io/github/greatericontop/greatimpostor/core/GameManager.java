@@ -56,8 +56,12 @@ public class GameManager {
                     }
 
                     plugin.securityCameraManager.setBackSecurityCameraPlayer(profile);
-                    // darkness applied if watching cameras (so you can't see too far with them)
                     if (profile.isInCameras) {
+                        if (plugin.sabotageManager.getActiveSabotage() == Sabotage.COMMUNICATIONS) {
+                            player.sendMessage("§cCommunications sabotaged!");
+                            plugin.securityCameraManager.exitCameras(profile, player);
+                        }
+                        // darkness applied if watching cameras (so you can't see too far with them)
                         player.addPotionEffect(new PotionEffect(PotionEffectType.DARKNESS, 600, 0, false, false, false));
                     } else {
                         player.removePotionEffect(PotionEffectType.DARKNESS);
