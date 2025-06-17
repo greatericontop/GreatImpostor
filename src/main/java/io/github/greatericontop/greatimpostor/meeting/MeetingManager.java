@@ -99,7 +99,7 @@ public class MeetingManager {
         for (Player player : Bukkit.getOnlinePlayers()) {
             player.setGameMode(GameMode.SPECTATOR);
         }
-        int number = plugin.gameManager.removeAllBodies();
+        int number = plugin.gameManager.removeAllBodiesAndFakePlayers();
         if (number > 0) {
             if (isEmergency) {
                 Bukkit.broadcast(Component.text(String.format("§e%d §6player(s) died between the last meeting and right now!", number)));

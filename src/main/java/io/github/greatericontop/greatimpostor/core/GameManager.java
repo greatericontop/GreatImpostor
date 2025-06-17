@@ -194,11 +194,13 @@ public class GameManager {
         }
     }
 
-    public int removeAllBodies() {
+    public int removeAllBodiesAndFakePlayers() {
         int amount = 0;
         for (Entity entity : plugin.getStartingLocation().getWorld().getEntities()) {
             if (entity instanceof ArmorStand armorStand) {
-                if (armorStand.getPersistentDataContainer().has(ImpostorUtil.DEAD_BODY_KEY, PersistentDataType.INTEGER)) {
+                if (armorStand.getPersistentDataContainer().has(ImpostorUtil.DEAD_BODY_KEY, PersistentDataType.INTEGER)
+                        || armorStand.getPersistentDataContainer().has(ImpostorUtil.FAKE_PLAYER_KEY, PersistentDataType.STRING)
+                ) {
                     armorStand.remove();
                     amount++;
                 }

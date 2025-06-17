@@ -92,7 +92,7 @@ public class StartGame {
                     responsiblePlayer.sendMessage("§7Removing old dead bodies. If your server has too many entities, it might lag for a few seconds.");
                 }
                 long start = System.currentTimeMillis();
-                int amount = plugin.gameManager.removeAllBodies();
+                int amount = plugin.gameManager.removeAllBodiesAndFakePlayers();
                 if (responsiblePlayer != null) {
                     responsiblePlayer.sendMessage(String.format("§7Finished removing %d dead bodies in %d ms.", amount, System.currentTimeMillis()-start));
                 }
