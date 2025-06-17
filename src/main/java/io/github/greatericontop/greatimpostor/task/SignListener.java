@@ -51,6 +51,10 @@ public class SignListener implements Listener {
             executeSabotageTask(player, subtaskName.replaceFirst("@sabotage=", "")); // note: the regex "@sabotage=" just matches the literal
             return;
         }
+        if (subtaskName.startsWith("@securitycameras")) {
+            plugin.securityCameraManager.enterCameras(profile, player);
+            return;
+        }
         executeMainTask(profile, player, subtaskName);
     }
 
