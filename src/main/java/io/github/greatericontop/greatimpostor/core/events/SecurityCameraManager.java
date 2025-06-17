@@ -2,14 +2,22 @@ package io.github.greatericontop.greatimpostor.core.events;
 
 import io.github.greatericontop.greatimpostor.GreatImpostorMain;
 import io.github.greatericontop.greatimpostor.core.profiles.PlayerProfile;
+import io.github.greatericontop.greatimpostor.utils.ImpostorUtil;
+import io.github.greatericontop.greatimpostor.utils.ItemMaker;
 import io.github.greatericontop.greatimpostor.utils.PartialCoordinates;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
+import org.bukkit.Material;
+import org.bukkit.entity.ArmorStand;
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.event.player.PlayerToggleSneakEvent;
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.SkullMeta;
+import org.bukkit.persistence.PersistentDataType;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.ArrayList;
@@ -59,6 +67,7 @@ public class SecurityCameraManager implements Listener {
         profile.currentCameraNumber = -1; // cycleCamera will set it to 0
         originalLocations.put(player.getUniqueId(), player.getLocation());
         player.setGameMode(GameMode.SPECTATOR);
+        spawnFakePlayer(profile, player);
         cycleCamera(profile, player);
         // Darkness effect takes I think exactly 1 second to apply, so prevent cycling for that long. You do get to
         // see the first camera better but you can set the first camera to be one where that's not an advantage.
@@ -97,7 +106,17 @@ public class SecurityCameraManager implements Listener {
         if (profile.isInCameras) {
             profile.isInCameras = false;
             player.setGameMode(GameMode.ADVENTURE);
-            player.teleport(originalLocations.get(player.getUniqueId()));
+            Location originalLoc = originalLocations.get(player.getUniqueId());
+            player.teleport(originalLoc);
+            for (Entity e : player.getWorld().getNearbyEntities(originalLoc, 0.1, 0.1, 0.1, e -> e instanceof ArmorStand)) {
+                if (e.getPersistentDataContainer().has(ImpostorUtil.FAKE_PLAYER_KEY, PersistentDataType.STRING)) {
+                    String uuidString = e.getPersistentDataContainer().get(ImpostorUtil.FAKE_PLAYER_KEY, PersistentDataType.STRING);
+                    if (uuidString.equals(player.getUniqueId().toString())) {
+                        e.remove();
+                        break;
+                    }
+                }
+            }
         }
     }
 
@@ -114,6 +133,20 @@ public class SecurityCameraManager implements Listener {
         Player player = profile.getPlayer();
         if (coordinates.isClose(PartialCoordinates.ofLocation(player.getLocation())))  return;
         player.teleport(coordinates.teleportLocation(player.getWorld()));
+    }
+
+    private void spawnFakePlayer(PlayerProfile profile, Player player) {
+        ArmorStand armorStand = player.getWorld().spawn(player.getLocation(), ArmorStand.class);
+        armorStand.setGravity(false);
+        ItemStack head = new ItemStack(Material.PLAYER_HEAD, 1);
+        SkullMeta headMeta = (SkullMeta) head.getItemMeta();
+        headMeta.setOwningPlayer(player);
+        head.setItemMeta(headMeta);
+        armorStand.getEquipment().setHelmet(head);
+        armorStand.getEquipment().setChestplate(ItemMaker.createLeatherArmor(Material.LEATHER_CHESTPLATE, profile.getColor().getColorCode(), ""));
+        armorStand.getEquipment().setLeggings(ItemMaker.createLeatherArmor(Material.LEATHER_LEGGINGS, profile.getColor().getColorCode(), ""));
+        armorStand.getEquipment().setBoots(ItemMaker.createLeatherArmor(Material.LEATHER_BOOTS, profile.getColor().getColorCode(), ""));
+        armorStand.getPersistentDataContainer().set(ImpostorUtil.FAKE_PLAYER_KEY, PersistentDataType.STRING, player.getUniqueId().toString());
     }
 
 }

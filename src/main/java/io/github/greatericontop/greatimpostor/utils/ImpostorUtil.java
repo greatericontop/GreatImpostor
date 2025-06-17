@@ -9,6 +9,7 @@ import org.bukkit.persistence.PersistentDataType;
 public class ImpostorUtil {
     public static final NamespacedKey DEAD_BODY_KEY = new NamespacedKey("greatimpostor", "dead_body");
     public static final NamespacedKey REPORT_KEY = new NamespacedKey("greatimpostor", "report");
+    public static final NamespacedKey FAKE_PLAYER_KEY = new NamespacedKey("greatimpostor", "fake_player");
 
     public static boolean checkOrthoInvSlots(int a, int b) {
         if (a != b+1 && a != b-1 && a != b+9 && a != b-9)  return false;
