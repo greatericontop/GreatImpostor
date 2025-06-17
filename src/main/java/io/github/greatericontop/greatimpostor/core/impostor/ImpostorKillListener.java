@@ -39,7 +39,7 @@ public class ImpostorKillListener implements Listener {
         } else {
             // Could be a fake player armor stand, otherwise ignore
             if (!(event.getEntity() instanceof ArmorStand entity
-                    && entity.getPersistentDataContainer().has(ImpostorUtil.FAKE_PLAYER_KEY, PersistentDataType.INTEGER))) {
+                    && entity.getPersistentDataContainer().has(ImpostorUtil.FAKE_PLAYER_KEY, PersistentDataType.STRING))) {
                 return;
             }
             victimPlayer = Bukkit.getPlayer(UUID.fromString(entity.getPersistentDataContainer().get(ImpostorUtil.FAKE_PLAYER_KEY, PersistentDataType.STRING)));
