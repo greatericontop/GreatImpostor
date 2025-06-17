@@ -100,6 +100,12 @@ public class SecurityCameraManager implements Listener {
         player.teleport(cameraCoords.teleportLocation(player.getWorld()));
     }
 
-    // setBack
+    public void setBackSecurityCameraPlayer(PlayerProfile profile) {
+        if (!profile.isInCameras)  return;
+        PartialCoordinates coordinates = cameraSystem.get(profile.currentCameraNumber);
+        Player player = profile.getPlayer();
+        if (coordinates.isClose(PartialCoordinates.ofLocation(player.getLocation())))  return;
+        player.teleport(coordinates.teleportLocation(player.getWorld()));
+    }
 
 }

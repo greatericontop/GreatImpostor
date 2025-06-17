@@ -4,6 +4,7 @@ import io.github.greatericontop.greatimpostor.core.events.AntiVandalism;
 import io.github.greatericontop.greatimpostor.core.events.BodyReportingListener;
 import io.github.greatericontop.greatimpostor.core.GameManager;
 import io.github.greatericontop.greatimpostor.core.events.PlayerJoinHandler;
+import io.github.greatericontop.greatimpostor.core.events.SecurityCameraManager;
 import io.github.greatericontop.greatimpostor.core.profiles.PlayerProfile;
 import io.github.greatericontop.greatimpostor.core.impostor.ImpostorKillListener;
 import io.github.greatericontop.greatimpostor.task.maintaskexecutors.TaskAnalyzeSample;
@@ -72,6 +73,7 @@ public class GreatImpostorMain extends JavaPlugin {
     public MeetingManager meetingManager;
     public SabotageManager sabotageManager;
     public VentManager ventManager;
+    public SecurityCameraManager securityCameraManager;
 
     public GameManager gameManager;
 
@@ -103,7 +105,8 @@ public class GreatImpostorMain extends JavaPlugin {
         this.getServer().getPluginManager().registerEvents(ventManager, this);
         sabotageManager = new SabotageManager(this);
         this.getServer().getPluginManager().registerEvents(sabotageManager, this);
-
+        securityCameraManager = new SecurityCameraManager(this);
+        this.getServer().getPluginManager().registerEvents(securityCameraManager, this);
         meetingManager = new MeetingManager(this);
         meetingManager.registerMeetingRunnable();
 

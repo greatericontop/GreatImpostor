@@ -36,6 +36,10 @@ public class CrewmateProfile extends PlayerProfile {
             player.sendActionBar(Component.text(String.format("§c[!] §d[%s]", Sabotage.COMMUNICATIONS.getDisplayName())));
             return;
         }
+        if (this.isInCameras) {
+            player.sendActionBar(Component.text("§aSecurity Cameras  §7|  §eJUMP §bto cycle  §7|  §eSNEAK §bto exit"));
+            return;
+        }
 
         int[] taskStatus = getTaskStatus(plugin.playerProfiles.values());
         String tasks = String.format("§6[Total Tasks Completed §e%d/%d§6]", taskStatus[0], taskStatus[1]);

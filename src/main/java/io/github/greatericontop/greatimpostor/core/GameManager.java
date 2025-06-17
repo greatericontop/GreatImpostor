@@ -55,12 +55,12 @@ public class GameManager {
                         plugin.ventManager.setBackVentedImpostor(impostorProfile);
                     }
 
+                    plugin.securityCameraManager.setBackSecurityCameraPlayer(profile);
                     // darkness effect for everyone (no particles or icon)
                     //player.addPotionEffect(new PotionEffect(PotionEffectType.DARKNESS, 79, 0, false, false, false));
                     // if lights sabotage, disallow sprinting (takes effect immediately), otherwise refill hunger
                     player.setFoodLevel((plugin.sabotageManager.getActiveSabotage() == Sabotage.LIGHTS) ? 6 : 20);
 
-                    // dead players
                     if (!profile.isAlive()) {
                         player.addPotionEffect(new PotionEffect(PotionEffectType.INVISIBILITY, 5, 0, false, false, false));
                         player.addPotionEffect(new PotionEffect(PotionEffectType.NIGHT_VISION, 5, 0, false, false, false));
