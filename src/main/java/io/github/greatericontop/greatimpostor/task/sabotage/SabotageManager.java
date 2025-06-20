@@ -5,6 +5,7 @@ import io.github.greatericontop.greatimpostor.core.profiles.PlayerProfile;
 import io.github.greatericontop.greatimpostor.core.profiles.ImpostorProfile;
 import io.github.greatericontop.greatimpostor.core.impostor.Sabotage;
 import io.github.greatericontop.greatimpostor.task.TaskUtil;
+import io.github.greatericontop.greatimpostor.utils.ImpostorUtil;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.title.Title;
 import org.bukkit.Bukkit;
@@ -141,7 +142,7 @@ public class SabotageManager implements Listener {
                         // Don't show to impostors in vents who are in spectator
                         continue;
                     }
-                    Location loc = player.getLocation().add(0.0, 0.8, 0.0);
+                    Location loc = ImpostorUtil.forceLocationDownwards(player.getLocation());
                     Vector arrowDirection = new Vector(coord[0] - loc.getX(), 0, coord[1] - loc.getZ())
                             .normalize().multiply(0.09);
                     for (int i = 0; i < 60; i++) {

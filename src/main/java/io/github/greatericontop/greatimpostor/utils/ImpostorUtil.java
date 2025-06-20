@@ -1,10 +1,13 @@
 package io.github.greatericontop.greatimpostor.utils;
 
+import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.persistence.PersistentDataType;
+import org.bukkit.util.BoundingBox;
+import org.bukkit.util.VoxelShape;
 
 public class ImpostorUtil {
     public static final NamespacedKey DEAD_BODY_KEY = new NamespacedKey("greatimpostor", "dead_body");
@@ -33,6 +36,25 @@ public class ImpostorUtil {
         im.setDisplayName("§c*");
         stack.setItemMeta(im);
         return stack;
+    }
+
+    /*
+     * For spawning particles.
+     * This will start at the current location and go downwards until a collision box (i.e., a block) is found.
+     * This searches downwards 1 block at a time and always returns a y-value of `n.1` where n is an integer.
+     */
+    public static Location forceLocationDownwards(Location loc) {
+        int blockX = loc.getBlockX();
+        int blockY = loc.getBlockY();
+        int blockZ = loc.getBlockZ();
+        for (int y = blockY; y >= loc.getWorld().getMinHeight(); y--) {
+            VoxelShape currentBlockCollisionShape = new Location(loc.getWorld(), blockX, y, blockZ).getBlock().getCollisionShape();
+            BoundingBox bb = new BoundingBox(0, 0.1, 0, 1, 0.101, 1); // voxels are 0,0,0 to 1,1,1
+            if (currentBlockCollisionShape.overlaps(bb)) {
+                return new Location(loc.getWorld(), loc.getX(), y+1.1, loc.getZ()); // previous good location
+            }
+        }
+        return new Location(loc.getWorld(), loc.getX(), loc.getWorld().getMinHeight()+0.1, loc.getZ());
     }
 
 }
