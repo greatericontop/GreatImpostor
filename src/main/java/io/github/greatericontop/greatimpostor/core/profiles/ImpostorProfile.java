@@ -138,8 +138,9 @@ public class ImpostorProfile extends PlayerProfile {
         im = sabotageSelect.getItemMeta();
         im.displayName(Component.text("§cSelect Sabotage"));
         im.lore(List.of(
-                Component.text("§bHotkey §7to this item to select one"),
-                Component.text("§7of the sabotages.")
+                Component.text("§bHotkey §7to this item §7(press §66§7 with default controls)"),
+                Component.text("§7to change your selected sabotage."),
+                Component.text("§7Your currently selected sabotage is displayed above your hotbar.")
         ));
         sabotageSelect.setItemMeta(im);
         inv.setItem(5, sabotageSelect);
@@ -148,8 +149,9 @@ public class ImpostorProfile extends PlayerProfile {
         im = sabotageActivate.getItemMeta();
         im.displayName(Component.text("§cActivate Sabotage"));
         im.lore(List.of(
-                Component.text("§bHotkey §7to this item to activate"),
-                Component.text("§7your selected sabotage.")
+                Component.text("§bHotkey §7to this item §7(press §67§7 with default controls)"),
+                Component.text("§7to activate your selected sabotage."),
+                Component.text("§7Your currently selected sabotage is displayed above your hotbar.")
         ));
         sabotageActivate.setItemMeta(im);
         inv.setItem(6, sabotageActivate);
