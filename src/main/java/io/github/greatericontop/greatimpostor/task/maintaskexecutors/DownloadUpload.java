@@ -49,8 +49,9 @@ public abstract class DownloadUpload extends BaseTask {
     }
 
     protected void onInventoryClick(InventoryClickEvent event, GreatImpostorMain plugin, String inventoryName) {
-        if (!event.getView().getTitle().equals(inventoryName)) return;
+        if (!event.getView().getTitle().equals(inventoryName))  return;
         event.setCancelled(true);
+        if (!event.getClickedInventory().equals(event.getView().getTopInventory()))  return;
         Player player = (Player) event.getWhoClicked();
 
         if (event.getSlot() != 22)  return;

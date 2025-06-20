@@ -55,8 +55,9 @@ public class TaskUnlockManifolds extends BaseTask {
 
     @EventHandler()
     public void onInventoryClick(InventoryClickEvent event) {
-        if (!event.getView().getTitle().equals(INVENTORY_NAME)) return;
+        if (!event.getView().getTitle().equals(INVENTORY_NAME))  return;
         event.setCancelled(true);
+        if (!event.getClickedInventory().equals(event.getView().getTopInventory()))  return;
         Player player = (Player) event.getWhoClicked();
 
         ItemStack clickedOn = event.getCurrentItem();

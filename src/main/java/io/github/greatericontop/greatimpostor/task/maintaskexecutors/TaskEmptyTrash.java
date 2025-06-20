@@ -55,8 +55,9 @@ public class TaskEmptyTrash extends BaseTask {
 
     @EventHandler()
     public void onInventoryClick(InventoryClickEvent event) {
-        if (!event.getView().getTitle().equals(INVENTORY_NAME)) return;
+        if (!event.getView().getTitle().equals(INVENTORY_NAME))  return;
         event.setCancelled(true);
+        if (!event.getClickedInventory().equals(event.getView().getTopInventory()))  return;
         Player player = (Player) event.getWhoClicked();
 
         // item in slot 0 must NOT be empty (otherwise we've already started and we shouldn't go again)

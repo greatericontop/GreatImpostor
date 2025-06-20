@@ -70,6 +70,7 @@ public class TaskAnalyzeSample extends BaseTask {
     public void onClick(InventoryClickEvent event) {
         if (!event.getView().getTitle().equals(INVENTORY_NAME))  return;
         event.setCancelled(true);
+        if (!event.getClickedInventory().equals(event.getView().getTopInventory()))  return;
         Player player = (Player) event.getWhoClicked();
         Status status = playerStatusMap.get(player.getUniqueId());
         switch (status) {
