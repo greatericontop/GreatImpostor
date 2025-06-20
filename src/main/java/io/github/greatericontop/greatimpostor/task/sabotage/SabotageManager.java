@@ -104,11 +104,7 @@ public class SabotageManager implements Listener {
         // All impostors' cooldowns are reset together.
         // They are not completely shared though, because individual impostors can, for example, have their cooldowns
         //   not run while they are hiding in vents.
-        for (PlayerProfile profile : plugin.playerProfiles.values()) {
-            if (profile.isImpostor()) {
-                ((ImpostorProfile) profile).resetSabotageCooldown(false);
-            }
-        }
+        plugin.gameManager.resetAllSabotageCooldowns(false);
     }
 
     public void tickSabotages() {

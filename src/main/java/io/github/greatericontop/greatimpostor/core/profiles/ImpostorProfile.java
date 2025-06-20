@@ -60,7 +60,7 @@ public class ImpostorProfile extends PlayerProfile {
     public boolean getCanSabotage() {
         return sabotageCooldownTicks <= 0 && (!plugin.meetingManager.isMeetingActive()) && (!isInVent);
     }
-    public void resetSabotageCooldown(boolean isShort) {
+    public void resetSabotageCooldownSelfOnly(boolean isShort) {
         sabotageCooldownTicks = (isShort ? SHORT_COOLDOWN_LEN : SABOTAGE_COOLDOWN_LEN);
     }
     public void applyVentEntrancePenalty() {

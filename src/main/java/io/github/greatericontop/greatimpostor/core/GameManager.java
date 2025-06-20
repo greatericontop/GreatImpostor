@@ -33,6 +33,15 @@ public class GameManager {
         inventoryChangeRequested = true;
     }
 
+    public void resetAllSabotageCooldowns(boolean isShort) {
+        for (PlayerProfile profile : plugin.playerProfiles.values()) {
+            if (profile.isImpostor()) {
+                ImpostorProfile impostorProfile = (ImpostorProfile) profile;
+                impostorProfile.resetSabotageCooldownSelfOnly(isShort);
+            }
+        }
+    }
+
     public void registerGameRunnable() {
         new BukkitRunnable() {
             public void run() {

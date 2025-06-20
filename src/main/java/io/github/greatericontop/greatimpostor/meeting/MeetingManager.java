@@ -205,8 +205,8 @@ public class MeetingManager {
                         if (profile.isImpostor()) {
                             ImpostorProfile impostorProfile = (ImpostorProfile) profile;
                             impostorProfile.resetKillCooldown(false);
-                            impostorProfile.resetSabotageCooldown(false);
                         }
+                        plugin.gameManager.resetAllSabotageCooldowns(false);
                         profile.getPlayer().setGameMode(GameMode.ADVENTURE);
                         profile.getPlayer().teleport(plugin.getStartingLocation());
                     }

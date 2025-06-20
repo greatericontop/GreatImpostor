@@ -125,9 +125,9 @@ public class StartGame {
                     if (profile.isImpostor()) {
                         ImpostorProfile impostorProfile = (ImpostorProfile) profile;
                         impostorProfile.resetKillCooldown(true);
-                        impostorProfile.resetSabotageCooldown(true);
                     }
                 }
+                plugin.gameManager.resetAllSabotageCooldowns(true);
             }
         }.runTaskLater(plugin, 80L);
 
