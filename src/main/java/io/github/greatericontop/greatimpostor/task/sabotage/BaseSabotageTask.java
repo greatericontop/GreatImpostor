@@ -2,7 +2,6 @@ package io.github.greatericontop.greatimpostor.task.sabotage;
 
 import io.github.greatericontop.greatimpostor.GreatImpostorMain;
 import io.github.greatericontop.greatimpostor.core.profiles.PlayerProfile;
-import io.github.greatericontop.greatimpostor.core.impostor.Sabotage;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;

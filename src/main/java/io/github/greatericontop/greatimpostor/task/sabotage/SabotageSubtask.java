@@ -1,7 +1,5 @@
 package io.github.greatericontop.greatimpostor.task.sabotage;
 
-import io.github.greatericontop.greatimpostor.core.impostor.Sabotage;
-
 public enum SabotageSubtask {
 
     /*

@@ -1,7 +1,7 @@
 package io.github.greatericontop.greatimpostor.core.profiles;
 
 import io.github.greatericontop.greatimpostor.GreatImpostorMain;
-import io.github.greatericontop.greatimpostor.core.impostor.Sabotage;
+import io.github.greatericontop.greatimpostor.task.sabotage.Sabotage;
 import io.github.greatericontop.greatimpostor.utils.ImpostorUtil;
 import io.github.greatericontop.greatimpostor.utils.PlayerColor;
 import net.kyori.adventure.text.Component;

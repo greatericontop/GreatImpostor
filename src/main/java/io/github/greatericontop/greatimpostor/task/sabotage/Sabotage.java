@@ -1,4 +1,4 @@
-package io.github.greatericontop.greatimpostor.core.impostor;
+package io.github.greatericontop.greatimpostor.task.sabotage;
 
 import io.github.greatericontop.greatimpostor.GreatImpostorMain;
 

@@ -1,7 +1,7 @@
 package io.github.greatericontop.greatimpostor.task;
 
 import io.github.greatericontop.greatimpostor.GreatImpostorMain;
-import io.github.greatericontop.greatimpostor.core.impostor.Sabotage;
+import io.github.greatericontop.greatimpostor.task.sabotage.Sabotage;
 import io.github.greatericontop.greatimpostor.task.sabotage.BaseSabotageTask;
 
 public class TaskUtil {
