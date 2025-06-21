@@ -7,9 +7,13 @@ import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.command.TabCompleter;
 import org.bukkit.entity.Player;
 
-public class VotingCommand implements CommandExecutor {
+import java.util.ArrayList;
+import java.util.List;
+
+public class VotingCommand implements CommandExecutor, TabCompleter {
 
     private final GreatImpostorMain plugin;
     public VotingCommand(GreatImpostorMain plugin) {
@@ -74,6 +78,21 @@ public class VotingCommand implements CommandExecutor {
                 plugin.meetingManager.votes.size() + plugin.meetingManager.skips.size(),
                 alivePlayerCount)));
         return true;
+    }
+
+    @Override
+    public List<String> onTabComplete(CommandSender sender, Command command, String label, String[] args) {
+        if (args.length == 1) {
+            List<String> alivePlayers = new ArrayList<>();
+            for (PlayerProfile profile : plugin.playerProfiles.values()) {
+                if (profile.isAlive()) {
+                    alivePlayers.add(profile.getPlayer().getName());
+                }
+            }
+            alivePlayers.add("skip");
+            return alivePlayers;
+        }
+        return List.of();
     }
 
 }

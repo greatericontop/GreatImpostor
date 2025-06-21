@@ -169,7 +169,9 @@ public class GreatImpostorMain extends JavaPlugin {
         ImpostorCommand impostorCommand = new ImpostorCommand(this);
         this.getCommand("impostor").setExecutor(impostorCommand);
         this.getCommand("impostor").setTabCompleter(impostorCommand);
-        this.getCommand("vote").setExecutor(new VotingCommand(this));
+        VotingCommand votingCommand = new VotingCommand(this);
+        this.getCommand("vote").setExecutor(votingCommand);
+        this.getCommand("vote").setTabCompleter(votingCommand);
 
         clock = 1;
         new BukkitRunnable() {
