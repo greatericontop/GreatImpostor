@@ -183,7 +183,6 @@ public abstract class PlayerProfile {
         ));
         player.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, 60, 4)); // this should be obvious (if lights are on)
         player.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 60, 4)); // this should shrink and re-enlarge FOV
-        player.sendMessage("§7TEST MESSAGE");
     }
 
     /*
