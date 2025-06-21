@@ -109,7 +109,6 @@ public abstract class PlayerProfile {
             }
         } while (
                 (getFrequentTaskCount() == 0 && random.nextDouble() < 0.85) // 85% chance to roll again if no frequent tasks
-                || !tasks.contains(Subtask.UNLOCK_MANIFOLDS)//TODO
         );
         subtasksCompletedPerTask = new int[]{0, 0, 0, 0};
     }
