@@ -9,7 +9,7 @@ softdepend: [PlaceholderAPI]
 commands:
   impostor:
     description: GreatImpostor command
-    usage: "§eTutorial: §b/impostor tutorial  §7|  §eStart game: §b/impostor start"
+    usage: "§eTutorial: §b/impostor tutorial  §7|  §eStart game: §b/impostor start <number of impostors>"
   vote:
     description: GreatImpostor Vote command
     usage: "§eVote: §b/vote <player>  §7|  §eSkip vote: §b/vote skip"

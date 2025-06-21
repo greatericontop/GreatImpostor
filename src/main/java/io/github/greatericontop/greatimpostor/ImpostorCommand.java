@@ -6,9 +6,12 @@ import net.kyori.adventure.text.Component;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.command.TabCompleter;
 import org.bukkit.entity.Player;
 
-public class ImpostorCommand implements CommandExecutor {
+import java.util.List;
+
+public class ImpostorCommand implements CommandExecutor, TabCompleter {
 
     private final GreatImpostorMain plugin;
     public ImpostorCommand(GreatImpostorMain plugin) {
@@ -48,24 +51,18 @@ public class ImpostorCommand implements CommandExecutor {
                 player.sendMessage("§cYou need §6impostor.admin §cto access these commands!");
                 return true;
             }
-            StartGame.startGame(plugin, 1, player);
-            return true;
-        }
-
-        if (args[0].equals("startTwo")) {
-            if (!player.hasPermission("impostor.admin")) {
-                player.sendMessage("§cYou need §6impostor.admin §cto access these commands!");
-                return true;
+            int impostorCount = 1;
+            if (args.length >= 2) {
+                try {
+                    impostorCount = Integer.parseInt(args[1]);
+                    StartGame.startGame(plugin, impostorCount, player);
+                    return true;
+                } catch (NumberFormatException e) {
+                    player.sendMessage("§cInvalid number of players specified!");
+                    return true;
+                }
             }
-            StartGame.startGame(plugin, 2, player);
-            return true;
-        }
-        if (args[0].equals("startThree")) {
-            if (!player.hasPermission("impostor.admin")) {
-                player.sendMessage("§cYou need §6impostor.admin §cto access these commands!");
-                return true;
-            }
-            StartGame.startGame(plugin, 3, player);
+            StartGame.startGame(plugin, impostorCount, player);
             return true;
         }
 
@@ -80,6 +77,17 @@ public class ImpostorCommand implements CommandExecutor {
         }
 
         return false;
+    }
+
+    @Override
+    public List<String> onTabComplete(CommandSender sender, Command command, String label, String[] args) {
+        if (args.length == 1) {
+            return List.of("start", "tutorial", "debug");
+        } else if (args.length == 2 && args[0].equals("start")) {
+            return List.of("<number of impostors>");
+        } else {
+            return List.of();
+        }
     }
 
 }

@@ -166,7 +166,9 @@ public class GreatImpostorMain extends JavaPlugin {
         gameManager.registerGameRunnable();
         gameManager.loadVents();
 
-        this.getCommand("impostor").setExecutor(new ImpostorCommand(this));
+        ImpostorCommand impostorCommand = new ImpostorCommand(this);
+        this.getCommand("impostor").setExecutor(impostorCommand);
+        this.getCommand("impostor").setTabCompleter(impostorCommand);
         this.getCommand("vote").setExecutor(new VotingCommand(this));
 
         clock = 1;
