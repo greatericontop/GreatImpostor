@@ -48,7 +48,13 @@ If it's in the main game, we probably have it too! Here are some of the highligh
 
 ## How to Play/Use
 
-[Click here to go to the tutorial](https://github.com/greatericontop/GreatImpostor/blob/main/Tutorial.md)
+[Click here to go to the tutorial.](https://github.com/greatericontop/GreatImpostor/blob/main/Tutorial.md)
 
 
-## .
+## Setup
+
+Yes, this plugin requires setup. Don't worry, it's not too hard!
+
+[Click here for the 5-minute quick setup (probably most people).](https://github.com/greatericontop/GreatImpostor/blob/main/SetupFast.md)
+
+[Click here if you want to make a custom map.](https://github.com/greatericontop/GreatImpostor/blob/main/SetupCustom.md)
