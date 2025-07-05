@@ -48,7 +48,7 @@ If it's in the main game, we probably have it too! Here are some of the highligh
 
 ## How to Play/Use
 
-[Click here to go to the tutorial]()
+[Click here to go to the tutorial](https://github.com/greatericontop/GreatImpostor/blob/main/Tutorial.md)
 
 
 ## .
