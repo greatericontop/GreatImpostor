@@ -1,0 +1,102 @@
+#
+# GreatImpostor config
+#
+
+#########################################################################################
+# THIS IS THE PREWRITTEN CONFIG FOR THE 5-MINUTE SETUP. FEEL FREE TO FURTHER CUSTOMIZE. #
+#########################################################################################
+
+
+
+
+# How many ticks you have to fix critical sabotages (reactor meltdown, oxygen depleted) before the crew dies
+# ex. 600 ticks = 30 seconds
+critical-sabotage-fix-ticks: 600
+
+# The maximum number of meetings each player can call per game
+max-meetings-per-player: 1
+
+
+
+
+# I wouldn't recommend touching anything below.
+
+enable-victory-checks: true
+
+cameras:
+- - 9430.5
+  - 139.5
+  - 9470.5
+- - 9456.5
+  - 139.5
+  - 9447.5
+- - 9482.5
+  - 139.5
+  - 9473.5
+- - 9516.5
+  - 139.5
+  - 9472.5
+
+sabotage-fix-coordinates:
+  reactor:
+  - 9418.5
+  - 9461.5
+  oxygen-in-oxygen:
+  - 9504.5
+  - 9461.5
+  oxygen-in-admin:
+  - 9503.5
+  - 9472.5
+
+starting-location:
+  world-name: world
+  x: 9482.5
+  y: 139.0
+  z: 9451.5
+
+vents:
+- - - 9453.5
+    - 139.2
+    - 9477.5
+  - - 9451.5
+    - 139.2
+    - 9464.5
+  - - 9446.5
+    - 139.2
+    - 9478.5
+- - - 9498.5
+    - 139.2
+    - 9451.5
+  - - 9489.5
+    - 139.2
+    - 9481.5
+  - - 9510.5
+    - 139.2
+    - 9472.5
+- - - 9527.5
+    - 139.2
+    - 9462.5
+  - - 9511.5
+    - 139.2
+    - 9441.5
+- - - 9527.5
+    - 139.2
+    - 9472.5
+  - - 9512.5
+    - 139.2
+    - 9503.5
+- - - 9416.5
+    - 139.2
+    - 9464.5
+  - - 9437.5
+    - 139.2
+    - 9437.5
+- - - 9416.5
+    - 139.2
+    - 9476.5
+  - - 9437.5
+    - 139.2
+    - 9506.5
+
+
+
