@@ -27,3 +27,6 @@ There are two ways to do this:
 3. [Click here to download the prewritten config file.](https://github.com/greatericontop/GreatImpostor/raw/refs/heads/main/prewritten-config-yml-here/config.yml)
 4. Delete the default config file (`plugins/GreatImpostor/config.yml`) and replace it with the one you just downloaded.
 
+---
+
+That's it! You can now start the server and start a game.
