@@ -6,32 +6,40 @@ The simple, easy-to-use, and clean Minecraft Among Us.
 
 If it's in the main game, we probably have it too! Here are some of the highlights:
 
-**Tasks in GUI menus** (show unlock manifolds)
+**Tasks in GUI menus**
+![manifolds task demo](https://raw.githubusercontent.com/greatericontop/GreatImpostor/main/assets/taskmanifolds-540p10.gif)
 
-
-**Sabotages** (show going to O2 & fixing O2)
-
+**Sabotages**
+![sabotage fix demo](https://raw.githubusercontent.com/greatericontop/GreatImpostor/main/assets/sabotagefix-360p10.gif)
 
 **Easily & seamlessly activate sabotages by hotkeying**
-
+![sabotage demo](https://raw.githubusercontent.com/greatericontop/GreatImpostor/main/assets/sabotagedemo-270p10.gif)
 
 **Fast venting**
-
+![venting demo](https://raw.githubusercontent.com/greatericontop/GreatImpostor/main/assets/ventingdemo-360p10.gif)
 
 **Security cameras**  
 *A fake player is spawned in the security room so the impostor can still kill crewmates if they are watching the cameras!*
+![security camera demo](https://raw.githubusercontent.com/greatericontop/GreatImpostor/main/assets/securitycams-360p10.gif)
 
+**Meetings & voting**
+![meeting and voting](https://raw.githubusercontent.com/greatericontop/GreatImpostor/main/assets/meetingvoting-540p10.gif)
 
-**Meetings & voting** (show emergency meeting + vote from player's POV + *maybe also show the meeting ending if there's space & the gif isn't too long*)
+**Killing & dead bodies**
+![kill and dead body report](https://raw.githubusercontent.com/greatericontop/GreatImpostor/main/assets/killselfreport-540p10.gif)
 
-
-**Killing & dead bodies** (show kill + self report + meeting start)
-
-
-**Visual tasks** (show medbay scan from second player's POV)
-
+**Visual tasks**
+![medbay scan visual task demo](https://raw.githubusercontent.com/greatericontop/GreatImpostor/main/assets/medbayscan-360p10.gif)
 
 **And more!**
-- Game start screen showing IMPOSTOR
-- Crewmate checking their tasks
-- Fix lights sabotage gif from crewmate POV
+![game start screen](https://raw.githubusercontent.com/greatericontop/GreatImpostor/main/assets/startscreen-360p10.gif)
+![check tasks with glass](https://raw.githubusercontent.com/greatericontop/GreatImpostor/main/assets/taskglass-360p10.gif)
+![fix lights sabotage showcase](https://raw.githubusercontent.com/greatericontop/GreatImpostor/main/assets/fixlightsdemo-360p10.gif)
+
+
+## How to Play/Use
+
+[Click here to go to the tutorial]()
+
+
+## .
