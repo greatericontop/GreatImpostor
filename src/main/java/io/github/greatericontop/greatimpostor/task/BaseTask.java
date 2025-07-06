@@ -38,7 +38,7 @@ public abstract class BaseTask implements Listener {
     /*
      * Activate the task for the player.
      */
-    public abstract void startTask(Player player); // TODO
+    public abstract void startTask(Player player);
 
     protected void taskSuccessful(Player player) {
         PlayerProfile profile = plugin.playerProfiles.get(player.getUniqueId());

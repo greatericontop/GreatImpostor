@@ -142,7 +142,7 @@ public abstract class PlayerProfile {
     public boolean isFullyCompleted(TaskType taskType) {
         // find the index
         int taskIndex = -1;
-        for (int i = 0; i < tasks.size(); i++) { // TODO doing this search every time is a little messy, maybe have better data structure for this
+        for (int i = 0; i < tasks.size(); i++) { // not O(1) but whatever
             if (tasks.get(i).getFullTask() == taskType) {
                 taskIndex = i;
                 break;

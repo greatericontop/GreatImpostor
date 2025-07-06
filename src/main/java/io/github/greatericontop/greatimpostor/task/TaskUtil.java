@@ -23,9 +23,9 @@ import io.github.greatericontop.greatimpostor.task.sabotage.BaseSabotageTask;
 
 public class TaskUtil {
 
+    // Just all the tasks so far. Could be better to use TaskType enum directly, but I guess this offers more
+    // flexibility in the future.
     public static TaskType[] INITIAL_TASKS = {
-            // TODO: isn't INITIAL_TASKS just all of them? is this even necessary?
-            //       use this for weights? but then you can't shuffle
             TaskType.WIRING,
             TaskType.REDIRECT_ACCEPT_POWER,
             TaskType.DOWNLOAD_UPLOAD_DATA,
