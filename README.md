@@ -1,6 +1,7 @@
 # GreatImpostor
 
 The simple, easy-to-use, and clean Minecraft Among Us.
+Because I wanted to play *sus* Minecraft game with the full set of features and without any headaches.
 
 ## Features
 
@@ -58,3 +59,8 @@ Yes, this plugin requires setup. Don't worry, it's not too hard!
 [Click here for the 5-minute quick setup (probably most people).](https://github.com/greatericontop/GreatImpostor/blob/main/SetupFast.md)
 
 [Click here if you want to make a custom map.](https://github.com/greatericontop/GreatImpostor/blob/main/SetupCustom.md)
+
+## Support
+
+To get support, report bugs, or make feature requests, please go to the [issues page](https://github.com/greatericontop/GreatImpostor/issues).
+
