@@ -20,6 +20,8 @@ There are two ways to do this:
 4. Teleport to these **exact** coordinates (activate fly first so you don't fall): `/tp @s 9712.5 200.0 9231.5`
 5. Use the command `//paste` to paste the schematic.
 
+*Note: both pre-built maps were made in 1.21.4, but you can probably load them in earlier versions.*
+
 ## Step 2: Install the config file
 
 1. Make sure you've started the server at least once with the plugin so that the folder `plugins/GreatImpostor` exists.
