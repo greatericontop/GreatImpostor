@@ -164,7 +164,7 @@ public class SabotageManager implements Listener {
         switch (activeSabotage) {
             case REACTOR, OXYGEN -> {}
             case LIGHTS -> {
-                for (Player player : Bukkit.getOnlinePlayers()) { // TODO: use PlayerProfile?
+                for (Player player : Bukkit.getOnlinePlayers()) {
                     // note: hunger will be handled later in GameManager
                     PlayerProfile profile = plugin.playerProfiles.get(player.getUniqueId());
                     if (profile == null)  continue;

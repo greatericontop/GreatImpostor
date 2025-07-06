@@ -46,7 +46,7 @@ public abstract class PlayerProfile {
     public static final int TASKS_PER = 4;
 
     protected final Random random;
-    public final List<Subtask> tasks = new ArrayList<>(); // TODO change back to protected
+    public final List<Subtask> tasks = new ArrayList<>();
     protected int[] subtasksCompletedPerTask = null;
     protected final Set<Subtask> tasksAlreadyCompleted = new HashSet<>();
     protected boolean alive;
