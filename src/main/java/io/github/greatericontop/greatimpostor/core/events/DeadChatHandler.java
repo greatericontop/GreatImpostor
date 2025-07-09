@@ -32,7 +32,7 @@ public class DeadChatHandler implements Listener {
         this.plugin = plugin;
     }
 
-    @EventHandler(priority = EventPriority.HIGH)
+    @EventHandler(priority = EventPriority.HIGH) // Tries to run after other chat format plugins
     public void onDeadChat(AsyncPlayerChatEvent event) {
         Player player = event.getPlayer();
         PlayerProfile profile = plugin.playerProfiles.get(player.getUniqueId());
