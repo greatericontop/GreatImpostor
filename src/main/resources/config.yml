@@ -3,10 +3,6 @@
 #
 
 
-# Map ID for map given to players
-map-id: 6789
-
-
 # This is the location everyone starts at during the beginning of a game or after the end of a meeting.
 # Also, this is the location where everyone is teleported to during a meeting.
 starting-location:
