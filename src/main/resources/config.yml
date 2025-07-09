@@ -32,6 +32,11 @@ vents: []
 cameras: []
 
 
+# Number of ticks a meeting lasts.
+# Default is 2100 ticks (1:45)
+meeting-time-ticks: 2100
+
+
 # Number of ticks you have to fix a critical sabotage (reactor, oxygen)
 # Default is 600 ticks (30 seconds)
 critical-sabotage-fix-ticks: 600

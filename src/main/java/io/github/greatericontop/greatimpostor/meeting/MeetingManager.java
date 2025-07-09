@@ -40,7 +40,6 @@ import java.util.SortedMap;
 import java.util.TreeMap;
 
 public class MeetingManager {
-    private static int MEETING_TIME_TICKS = 2100; // 1m 45s
 
     private int startTime = -1;
     private boolean meetingActive = false;
@@ -178,7 +177,7 @@ public class MeetingManager {
             player.sendActionBar(Component.text("§6Continuing soon!"));
             return;
         }
-        int secondsLeft = (MEETING_TIME_TICKS + startTime - plugin.getClock() + 19) / 20;
+        int secondsLeft = (plugin.getConfig().getInt("meeting-time-ticks") + startTime - plugin.getClock() + 19) / 20;
         String timeLeft = String.format("%d:%02d", secondsLeft / 60, secondsLeft % 60);
         player.sendActionBar(Component.text(String.format("§6Meeting - %s", timeLeft)));
     }
@@ -200,6 +199,7 @@ public class MeetingManager {
     }
 
     public void registerMeetingRunnable() {
+        int MEETING_TIME_TICKS = plugin.getConfig().getInt("meeting-time-ticks");
         new BukkitRunnable() {
             public void run() {
                 if (!isMeetingActive())  return;

@@ -9,6 +9,10 @@
 
 
 
+# Number of ticks a meeting lasts.
+# Default is 2100 ticks (1:45)
+meeting-time-ticks: 2100
+
 # How many ticks you have to fix critical sabotages (reactor meltdown, oxygen depleted) before the crew dies
 # ex. 600 ticks = 30 seconds
 critical-sabotage-fix-ticks: 600
