@@ -178,7 +178,7 @@ public class ImpostorCommand implements CommandExecutor, TabCompleter {
             return List.of("start", "tutorial", "config", "listimpostors", "debug");
         } else if (args.length == 2 && args[0].equals("start")) {
             return List.of("<number of impostors>");
-        } else if (args.length >= 2 && args[0].equals("listimpostors")) {
+        } else if (args.length >= 2 && args[0].equals("config")) {
             if (args.length == 2) {
                 return List.of("meeting-time-ticks", "critical-sabotage-fix-ticks", "max-meetings-per-player");
             } else if (args[1].equals("meeting-time-ticks") || args[1].equals("critical-sabotage-fix-ticks") || args[1].equals("max-meetings-per-player")) {
