@@ -125,6 +125,7 @@ public class ImpostorCommand implements CommandExecutor, TabCompleter {
                 plugin.getConfig().set(args[1], value);
                 plugin.saveConfig();
                 player.sendMessage(String.format("§3Successfully set §b%s §3to §b%d.", args[1], value));
+                return true;
             } else {
                 player.sendMessage("§cThat's not an option!");
                 return true;
