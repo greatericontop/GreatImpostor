@@ -22,6 +22,7 @@ import io.github.greatericontop.greatimpostor.core.profiles.ImpostorProfile;
 import io.github.greatericontop.greatimpostor.core.profiles.PlayerProfile;
 import net.kyori.adventure.inventory.Book;
 import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.event.ClickEvent;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -86,6 +87,50 @@ public class ImpostorCommand implements CommandExecutor, TabCompleter {
             return true;
         }
 
+        if (args[0].equals("config")) {
+            if (args.length == 1) {
+                player.sendMessage("§9--------------------------------------------------");
+                player.sendMessage("§bGame Config");
+                player.sendMessage("");
+                int meetingTimeTicks = plugin.getConfig().getInt("meeting-time-ticks");
+                player.sendMessage(Component.text(String.format("§3Meeting time: §e%d§3t    ", meetingTimeTicks))
+                        .append(Component.text("§7[edit]")
+                                .clickEvent(ClickEvent.suggestCommand(String.format("/impostor config meeting-time-ticks %d", meetingTimeTicks)))));
+                int criticalSabotageFixTicks = plugin.getConfig().getInt("critical-sabotage-fix-ticks");
+                player.sendMessage(Component.text(String.format("§3Critical sabotage fix time: §e%d§3t    ", criticalSabotageFixTicks))
+                        .append(Component.text("§7[edit]")
+                                .clickEvent(ClickEvent.suggestCommand(String.format("/impostor config critical-sabotage-fix-ticks %d", criticalSabotageFixTicks)))));
+                int maxMeetingsPerPlayer = plugin.getConfig().getInt("max-meetings-per-player");
+                player.sendMessage(Component.text(String.format("§3Max meetings per player: §e%d§3    ", maxMeetingsPerPlayer))
+                        .append(Component.text("§7[edit]")
+                                .clickEvent(ClickEvent.suggestCommand(String.format("/impostor config max-meetings-per-player %d", maxMeetingsPerPlayer)))));
+                player.sendMessage("§9--------------------------------------------------");
+                return true;
+            } else if (args[1].equals("meeting-time-ticks") || args[1].equals("critical-sabotage-fix-ticks") || args[1].equals("max-meetings-per-player")) {
+                if (args.length == 2) {
+                    player.sendMessage("§cSpecify a value!");
+                    return true;
+                }
+                int value;
+                try {
+                    value = Integer.parseInt(args[2]);
+                } catch (NumberFormatException e) {
+                    player.sendMessage("§cInvalid number specified!");
+                    return true;
+                }
+                if (value <= 0) {
+                    player.sendMessage("§cValue must be positive!");
+                    return true;
+                }
+                plugin.getConfig().set(args[1], value);
+                plugin.saveConfig();
+                player.sendMessage(String.format("§3Successfully set §b%s §3to §b%d.", args[1], value));
+            } else {
+                player.sendMessage("§cThat's not an option!");
+                return true;
+            }
+        }
+
         if (args[0].equals("listimpostors")) {
             PlayerProfile profile = plugin.playerProfiles.get(player.getUniqueId());
             if (profile == null) {
@@ -129,9 +174,17 @@ public class ImpostorCommand implements CommandExecutor, TabCompleter {
     @Override
     public List<String> onTabComplete(CommandSender sender, Command command, String label, String[] args) {
         if (args.length == 1) {
-            return List.of("start", "tutorial", "listimpostors", "debug");
+            return List.of("start", "tutorial", "config", "listimpostors", "debug");
         } else if (args.length == 2 && args[0].equals("start")) {
             return List.of("<number of impostors>");
+        } else if (args.length >= 2 && args[0].equals("listimpostors")) {
+            if (args.length == 2) {
+                return List.of("meeting-time-ticks", "critical-sabotage-fix-ticks", "max-meetings-per-player");
+            } else if (args[1].equals("meeting-time-ticks") || args[1].equals("critical-sabotage-fix-ticks") || args[1].equals("max-meetings-per-player")) {
+                return List.of("<integer>");
+            } else {
+                return List.of();
+            }
         } else {
             return List.of();
         }
