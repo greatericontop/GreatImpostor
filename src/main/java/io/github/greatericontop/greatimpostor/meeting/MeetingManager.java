@@ -149,6 +149,10 @@ public class MeetingManager {
 
     public void endMeeting() {
         PlayerProfile toEject = doHighestVoted();
+        if (toEject != null) {
+            toEject.die(); // perform eject
+        }
+
         Bukkit.broadcast(Component.text(""));
         if (toEject == null) {
             Bukkit.broadcast(Component.text("§bNobody was ejected!"));
@@ -163,11 +167,17 @@ public class MeetingManager {
             Bukkit.broadcast(Component.text(impMessage));
         }
         Bukkit.broadcast(Component.text(""));
-        Bukkit.broadcast(Component.text("§9--------------------------------------------------"));
-
-        if (toEject != null) {
-            toEject.die(); // perform eject
+        int playersLeft = 0;
+        int impostorsLeft = 0;
+        for (PlayerProfile profile : plugin.playerProfiles.values()) {
+            if (profile.isAlive()) {
+                playersLeft++;
+                if (profile.isImpostor())  impostorsLeft++;
+            }
         }
+        Bukkit.broadcast(Component.text(String.format("§bThere are §6%d §bimpostors left and §6%d §bplayers left.", impostorsLeft, playersLeft)));
+        Bukkit.broadcast(Component.text(""));
+        Bukkit.broadcast(Component.text("§9--------------------------------------------------"));
 
         postMeetingActive = true;
     }
