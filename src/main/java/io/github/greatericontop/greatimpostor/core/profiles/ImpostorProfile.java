@@ -28,6 +28,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.List;
 
@@ -54,11 +55,15 @@ public class ImpostorProfile extends PlayerProfile {
 
     @Override
     public void die() {
-        player.sendMessage("§6------------------------------");
-        player.sendMessage("§bOops! Looks like you §cdied§b!");
-        player.sendMessage("§7You may not report bodies, call meetings, vote, or fix sabotages.");
-        player.sendMessage("§7You can't kill, but you can still sabotage.");
-        player.sendMessage("§6------------------------------");
+        new BukkitRunnable() {
+            public void run() {
+                player.sendMessage("§6------------------------------");
+                player.sendMessage("§bOops! Looks like you §cdied§b!");
+                player.sendMessage("§7You may not report bodies, call meetings, vote, or fix sabotages.");
+                player.sendMessage("§7You can't kill, but you can still sabotage.");
+                player.sendMessage("§6------------------------------");
+            }
+        }.runTaskLater(plugin, 1L); // delay the message 1 tick so if the player is ejected, it happens after the meeting stats are sent\
         dieGeneric();
     }
 
