@@ -18,6 +18,8 @@ package io.github.greatericontop.greatimpostor;
  */
 
 import io.github.greatericontop.greatimpostor.core.StartGame;
+import io.github.greatericontop.greatimpostor.core.profiles.ImpostorProfile;
+import io.github.greatericontop.greatimpostor.core.profiles.PlayerProfile;
 import net.kyori.adventure.inventory.Book;
 import net.kyori.adventure.text.Component;
 import org.bukkit.command.Command;
@@ -26,6 +28,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
 import org.bukkit.entity.Player;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ImpostorCommand implements CommandExecutor, TabCompleter {
@@ -83,6 +86,33 @@ public class ImpostorCommand implements CommandExecutor, TabCompleter {
             return true;
         }
 
+        if (args[0].equals("listimpostors")) {
+            PlayerProfile profile = plugin.playerProfiles.get(player.getUniqueId());
+            if (profile == null) {
+                player.sendMessage("§cYou are not in a game!");
+                return true;
+            }
+            if (!(profile instanceof ImpostorProfile)) {
+                player.sendMessage("§cYou can only use this command as an impostor!");
+                return true;
+            }
+            List<String> impostorNames = new ArrayList<>();
+            for (PlayerProfile p : plugin.playerProfiles.values()) {
+                if (p instanceof ImpostorProfile && !profile.equals(p)) {
+                    impostorNames.add(String.format("§c%s§3", p.getPlayer().getName()));
+                }
+            }
+            if (impostorNames.isEmpty()) {
+                player.sendMessage("§3You are the only impostor!");
+            } else {
+                player.sendMessage(String.format("§3Your Fellow Impostors: %s", String.join(", ", impostorNames)));
+                if (args.length > 1 && args[1].equals("_showhint_")) {
+                    player.sendMessage("§3Use §b/impostor listimpostors §cto show this message again.");
+                }
+            }
+            return true;
+        }
+
         if (args[0].equals("debug")) {
             if (!player.hasPermission("impostor.admin")) {
                 player.sendMessage("§cYou need §6impostor.admin §cto access these commands!");
@@ -99,7 +129,7 @@ public class ImpostorCommand implements CommandExecutor, TabCompleter {
     @Override
     public List<String> onTabComplete(CommandSender sender, Command command, String label, String[] args) {
         if (args.length == 1) {
-            return List.of("start", "tutorial", "debug");
+            return List.of("start", "tutorial", "listimpostors", "debug");
         } else if (args.length == 2 && args[0].equals("start")) {
             return List.of("<number of impostors>");
         } else {

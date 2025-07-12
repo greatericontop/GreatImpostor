@@ -142,6 +142,7 @@ public class StartGame {
                     if (profile.isImpostor()) {
                         ImpostorProfile impostorProfile = (ImpostorProfile) profile;
                         impostorProfile.resetKillCooldown(true);
+                        impostorProfile.getPlayer().chat("/impostor listimpostors _showhint_");
                     }
                 }
                 plugin.gameManager.resetAllSabotageCooldowns(true);
