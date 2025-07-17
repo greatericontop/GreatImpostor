@@ -23,6 +23,8 @@ import io.github.greatericontop.greatimpostor.utils.PlayerColor;
 import io.github.greatericontop.greatimpostor.utils.ImpostorUtil;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Material;
+import org.bukkit.attribute.Attribute;
+import org.bukkit.attribute.AttributeModifier;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
@@ -31,6 +33,7 @@ import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.List;
+import java.util.UUID;
 
 public class ImpostorProfile extends PlayerProfile {
     private static final int SHORT_COOLDOWN_LEN = 200;
@@ -153,6 +156,8 @@ public class ImpostorProfile extends PlayerProfile {
         ItemStack kill = new ItemStack(Material.NETHERITE_SWORD, 1);
         ItemMeta im = kill.getItemMeta();
         im.addEnchant(Enchantment.DAMAGE_ALL, 1, true);
+        im.addAttributeModifier(Attribute.GENERIC_ATTACK_SPEED, new AttributeModifier(UUID.randomUUID(), "attack speed increase", 20.0, AttributeModifier.Operation.ADD_NUMBER));
+        im.addAttributeModifier(Attribute.GENERIC_ATTACK_DAMAGE, new AttributeModifier(UUID.randomUUID(), "attack damage put back to normal value", 7.0, AttributeModifier.Operation.ADD_NUMBER));
         im.displayName(Component.text("§4KILL"));
         kill.setItemMeta(im);
         inv.setItem(4, kill);
