@@ -210,10 +210,10 @@ public class MeetingManager {
     }
 
     public void registerMeetingRunnable() {
-        int MEETING_TIME_TICKS = plugin.getConfig().getInt("meeting-time-ticks");
         new BukkitRunnable() {
             public void run() {
                 if (!isMeetingActive())  return;
+                int MEETING_TIME_TICKS = plugin.getConfig().getInt("meeting-time-ticks");
                 int ticksLeft = MEETING_TIME_TICKS + startTime - plugin.getClock();
                 if (ticksLeft == 0) {
                     endMeeting();
