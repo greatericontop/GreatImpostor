@@ -104,9 +104,36 @@ public class ImpostorCommand implements CommandExecutor, TabCompleter {
                 player.sendMessage(Component.text(String.format("§3Max meetings per player: §e%d§3    ", maxMeetingsPerPlayer))
                         .append(Component.text("§7[edit]")
                                 .clickEvent(ClickEvent.suggestCommand(String.format("/impostor config max-meetings-per-player %d", maxMeetingsPerPlayer)))));
+                player.sendMessage("");
+                int cooldownKillGameStart = plugin.getConfig().getInt("impostor-cooldowns.kill-game-start");
+                player.sendMessage(Component.text(String.format("§3Cooldown kill (game start): §e%d§3t    ", cooldownKillGameStart))
+                        .append(Component.text("§7[edit]")
+                                .clickEvent(ClickEvent.suggestCommand(String.format("/impostor config cooldowns.kill-game-start %d", cooldownKillGameStart)))));
+                int cooldownSabotageGameStart = plugin.getConfig().getInt("impostor-cooldowns.sabotage-game-start");
+                player.sendMessage(Component.text(String.format("§3Cooldown sabotage (game start): §e%d§3t    ", cooldownSabotageGameStart))
+                        .append(Component.text("§7[edit]")
+                                .clickEvent(ClickEvent.suggestCommand(String.format("/impostor config cooldowns.sabotage-game-start %d", cooldownSabotageGameStart)))));
+                int cooldownKillAfterUse = plugin.getConfig().getInt("impostor-cooldowns.kill-after-use");
+                player.sendMessage(Component.text(String.format("§3Cooldown kill (after use): §e%d§3t    ", cooldownKillAfterUse))
+                        .append(Component.text("§7[edit]")
+                                .clickEvent(ClickEvent.suggestCommand(String.format("/impostor config cooldowns.kill-after-use %d", cooldownKillAfterUse)))));
+                int cooldownSabotageAfterUse = plugin.getConfig().getInt("impostor-cooldowns.sabotage-after-use");
+                player.sendMessage(Component.text(String.format("§3Cooldown sabotage (after use): §e%d§3t    ", cooldownSabotageAfterUse))
+                        .append(Component.text("§7[edit]")
+                                .clickEvent(ClickEvent.suggestCommand(String.format("/impostor config cooldowns.sabotage-after-use %d", cooldownSabotageAfterUse)))));
+                int cooldownKillAfterMeeting = plugin.getConfig().getInt("impostor-cooldowns.kill-after-meeting");
+                player.sendMessage(Component.text(String.format("§3Cooldown kill (after meeting): §e%d§3t    ", cooldownKillAfterMeeting))
+                        .append(Component.text("§7[edit]")
+                                .clickEvent(ClickEvent.suggestCommand(String.format("/impostor config cooldowns.kill-after-meeting %d", cooldownKillAfterMeeting)))));
+                int cooldownSabotageAfterMeeting = plugin.getConfig().getInt("impostor-cooldowns.sabotage-after-meeting");
+                player.sendMessage(Component.text(String.format("§3Cooldown sabotage (after meeting): §e%d§3t    ", cooldownSabotageAfterMeeting))
+                        .append(Component.text("§7[edit]")
+                                .clickEvent(ClickEvent.suggestCommand(String.format("/impostor config cooldowns.sabotage-after-meeting %d", cooldownSabotageAfterMeeting)))));
                 player.sendMessage("§9--------------------------------------------------");
                 return true;
-            } else if (args[1].equals("meeting-time-ticks") || args[1].equals("critical-sabotage-fix-ticks") || args[1].equals("max-meetings-per-player")) {
+            } else if (args[1].equals("meeting-time-ticks") || args[1].equals("critical-sabotage-fix-ticks") || args[1].equals("max-meetings-per-player")
+                    || args[1].equals("cooldowns.kill-game-start") || args[1].equals("cooldowns.sabotage-game-start") || args[1].equals("cooldowns.kill-after-use") || args[1].equals("cooldowns.sabotage-after-use") || args[1].equals("cooldowns.kill-after-meeting") || args[1].equals("cooldowns.sabotage-after-meeting")
+            ) {
                 if (args.length == 2) {
                     player.sendMessage("§cSpecify a value!");
                     return true;
@@ -121,6 +148,9 @@ public class ImpostorCommand implements CommandExecutor, TabCompleter {
                 if (value <= 0) {
                     player.sendMessage("§cValue must be positive!");
                     return true;
+                }
+                if (args[1].startsWith("cooldowns.")) {
+                    args[1] = args[1].replace("cooldowns.", "impostor-cooldowns.");
                 }
                 plugin.getConfig().set(args[1], value);
                 plugin.saveConfig();
@@ -180,8 +210,11 @@ public class ImpostorCommand implements CommandExecutor, TabCompleter {
             return List.of("<number of impostors>");
         } else if (args.length >= 2 && args[0].equals("config")) {
             if (args.length == 2) {
-                return List.of("meeting-time-ticks", "critical-sabotage-fix-ticks", "max-meetings-per-player");
-            } else if (args[1].equals("meeting-time-ticks") || args[1].equals("critical-sabotage-fix-ticks") || args[1].equals("max-meetings-per-player")) {
+                return List.of("meeting-time-ticks", "critical-sabotage-fix-ticks", "max-meetings-per-player",
+                        "cooldowns.kill-game-start", "cooldowns.sabotage-game-start", "cooldowns.kill-after-use", "cooldowns.sabotage-after-use", "cooldowns.kill-after-meeting", "cooldowns.sabotage-after-meeting");
+            } else if (args[1].equals("meeting-time-ticks") || args[1].equals("critical-sabotage-fix-ticks") || args[1].equals("max-meetings-per-player")
+                    || args[1].equals("cooldowns.kill-game-start") || args[1].equals("cooldowns.sabotage-game-start") || args[1].equals("cooldowns.kill-after-use") || args[1].equals("cooldowns.sabotage-after-use") || args[1].equals("cooldowns.kill-after-meeting") || args[1].equals("cooldowns.sabotage-after-meeting")
+            ) {
                 return List.of("<integer>");
             } else {
                 return List.of();
