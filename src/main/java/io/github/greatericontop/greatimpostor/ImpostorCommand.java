@@ -104,6 +104,10 @@ public class ImpostorCommand implements CommandExecutor, TabCompleter {
                 player.sendMessage(Component.text(String.format("§3Max meetings per player: §e%d§3    ", maxMeetingsPerPlayer))
                         .append(Component.text("§7[edit]")
                                 .clickEvent(ClickEvent.suggestCommand(String.format("/impostor config max-meetings-per-player %d", maxMeetingsPerPlayer)))));
+                boolean commsSabotagePreventsReporting = plugin.getConfig().getBoolean("comms-sabotage-prevents-reporting");
+                player.sendMessage(Component.text(String.format("§3Comms sabotage prevents reporting: §e%s§3    ", commsSabotagePreventsReporting))
+                        .append(Component.text("§7[edit]")
+                                .clickEvent(ClickEvent.suggestCommand(String.format("/impostor config comms-sabotage-prevents-reporting %s", !commsSabotagePreventsReporting)))));
                 player.sendMessage("");
                 int cooldownKillGameStart = plugin.getConfig().getInt("impostor-cooldowns.kill-game-start");
                 player.sendMessage(Component.text(String.format("§3Cooldown kill (game start): §e%d§3t    ", cooldownKillGameStart))
@@ -155,6 +159,24 @@ public class ImpostorCommand implements CommandExecutor, TabCompleter {
                 plugin.getConfig().set(args[1], value);
                 plugin.saveConfig();
                 player.sendMessage(String.format("§3Successfully set §b%s §3to §b%d.", args[1], value));
+                return true;
+            } else if (args[1].equals("comms-sabotage-prevents-reporting")) {
+                if (args.length == 2) {
+                    player.sendMessage("§cSpecify a value!");
+                    return true;
+                }
+                boolean value;
+                if (args[2].equalsIgnoreCase("true")) {
+                    value = true;
+                } else if (args[2].equalsIgnoreCase("false")) {
+                    value = false;
+                } else {
+                    player.sendMessage("§cInvalid value specified! Use 'true' or 'false'.");
+                    return true;
+                }
+                plugin.getConfig().set(args[1], value);
+                plugin.saveConfig();
+                player.sendMessage(String.format("§3Successfully set §b%s §3to §b%s.", args[1], value));
                 return true;
             } else {
                 player.sendMessage("§cThat's not an option!");
@@ -210,12 +232,14 @@ public class ImpostorCommand implements CommandExecutor, TabCompleter {
             return List.of("<number of impostors>");
         } else if (args.length >= 2 && args[0].equals("config")) {
             if (args.length == 2) {
-                return List.of("meeting-time-ticks", "critical-sabotage-fix-ticks", "max-meetings-per-player",
+                return List.of("meeting-time-ticks", "critical-sabotage-fix-ticks", "max-meetings-per-player", "comms-sabotage-prevents-reporting",
                         "cooldowns.kill-game-start", "cooldowns.sabotage-game-start", "cooldowns.kill-after-use", "cooldowns.sabotage-after-use", "cooldowns.kill-after-meeting", "cooldowns.sabotage-after-meeting");
             } else if (args[1].equals("meeting-time-ticks") || args[1].equals("critical-sabotage-fix-ticks") || args[1].equals("max-meetings-per-player")
                     || args[1].equals("cooldowns.kill-game-start") || args[1].equals("cooldowns.sabotage-game-start") || args[1].equals("cooldowns.kill-after-use") || args[1].equals("cooldowns.sabotage-after-use") || args[1].equals("cooldowns.kill-after-meeting") || args[1].equals("cooldowns.sabotage-after-meeting")
             ) {
                 return List.of("<integer>");
+            } else if (args[1].equals("comms-sabotage-prevents-reporting")) {
+                return List.of("true", "false");
             } else {
                 return List.of();
             }
