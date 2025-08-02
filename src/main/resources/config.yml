@@ -47,6 +47,21 @@ critical-sabotage-fix-ticks: 600
 max-meetings-per-player: 1
 
 
+impostor-cooldowns:
+  # How long before killing when the game starts (in ticks, default: 200t/10s)
+  kill-game-start: 200
+  # How long before sabotaging when the game starts (default: 200t/10s)
+  sabotage-game-start: 200
+  # How long before killing after killing (default: 600t/30s)
+  kill-after-use: 600
+  # How long before sabotaging after sabotaging (default: 600t/30s)
+  sabotage-after-use: 600
+  # How long before killing after a meeting ends (default: 600t/30s)
+  kill-after-meeting: 600
+  # How long before sabotaging after a meeting ends (default: 600t/30s)
+  sabotage-after-meeting: 600
+
+
 # Put the coordinates of the signs for each of the sabotage tasks here.
 # The format is [X, Z].
 sabotage-fix-coordinates:

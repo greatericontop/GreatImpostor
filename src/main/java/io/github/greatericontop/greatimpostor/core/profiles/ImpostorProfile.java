@@ -19,6 +19,7 @@ package io.github.greatericontop.greatimpostor.core.profiles;
 
 import io.github.greatericontop.greatimpostor.GreatImpostorMain;
 import io.github.greatericontop.greatimpostor.task.sabotage.Sabotage;
+import io.github.greatericontop.greatimpostor.utils.CooldownResetReason;
 import io.github.greatericontop.greatimpostor.utils.PlayerColor;
 import io.github.greatericontop.greatimpostor.utils.ImpostorUtil;
 import net.kyori.adventure.text.Component;
@@ -36,9 +37,6 @@ import java.util.List;
 import java.util.UUID;
 
 public class ImpostorProfile extends PlayerProfile {
-    private static final int SHORT_COOLDOWN_LEN = 200;
-    private static final int KILL_COOLDOWN_LEN = 700;
-    private static final int SABOTAGE_COOLDOWN_LEN = 600;
 
     public boolean isInVent;
     public int ventSystem = -1;
@@ -78,22 +76,30 @@ public class ImpostorProfile extends PlayerProfile {
     public boolean getCanKill() {
         return killCooldownTicks <= 0 && (!plugin.meetingManager.isMeetingActive()) && (!isInVent);
     }
-    public void resetKillCooldown(boolean isShort) {
-        killCooldownTicks = (isShort ? SHORT_COOLDOWN_LEN : KILL_COOLDOWN_LEN);
+    public void resetKillCooldown(CooldownResetReason reason) {
+        switch (reason) {
+            case GAME_START -> killCooldownTicks = plugin.getConfig().getInt("impostor-cooldowns.kill-game-start");
+            case AFTER_USE -> killCooldownTicks = plugin.getConfig().getInt("impostor-cooldowns.kill-after-use");
+            case AFTER_MEETING -> killCooldownTicks = plugin.getConfig().getInt("impostor-cooldowns.kill-after-meeting");
+        }
     }
     public boolean getCanSabotage() {
         return sabotageCooldownTicks <= 0 && (!plugin.meetingManager.isMeetingActive()) && (!isInVent);
     }
-    public void resetSabotageCooldownSelfOnly(boolean isShort) {
-        sabotageCooldownTicks = (isShort ? SHORT_COOLDOWN_LEN : SABOTAGE_COOLDOWN_LEN);
+    public void resetSabotageCooldownSelfOnly(CooldownResetReason reason) {
+        switch (reason) {
+            case GAME_START -> sabotageCooldownTicks = plugin.getConfig().getInt("impostor-cooldowns.sabotage-game-start");
+            case AFTER_USE -> sabotageCooldownTicks = plugin.getConfig().getInt("impostor-cooldowns.sabotage-after-use");
+            case AFTER_MEETING -> sabotageCooldownTicks = plugin.getConfig().getInt("impostor-cooldowns.sabotage-after-meeting");
+        }
     }
     public void applyVentEntrancePenalty() {
         // increased by 3 seconds each time you enter a vent (no penalty if ability is ready)
         if (killCooldownTicks > 0) {
-            killCooldownTicks = Math.min(killCooldownTicks + 60, KILL_COOLDOWN_LEN);
+            killCooldownTicks = Math.min(killCooldownTicks + 60, plugin.getConfig().getInt("impostor-cooldowns.kill-after-use"));
         }
         if (sabotageCooldownTicks > 0) {
-            sabotageCooldownTicks = Math.min(sabotageCooldownTicks + 60, SABOTAGE_COOLDOWN_LEN);
+            sabotageCooldownTicks = Math.min(sabotageCooldownTicks + 60, plugin.getConfig().getInt("impostor-cooldowns.sabotage-after-use"));
         }
     }
     public void tickCooldowns() {
