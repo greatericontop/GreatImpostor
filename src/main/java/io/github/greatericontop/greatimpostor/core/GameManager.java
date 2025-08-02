@@ -21,6 +21,7 @@ import io.github.greatericontop.greatimpostor.GreatImpostorMain;
 import io.github.greatericontop.greatimpostor.core.profiles.ImpostorProfile;
 import io.github.greatericontop.greatimpostor.task.sabotage.Sabotage;
 import io.github.greatericontop.greatimpostor.core.profiles.PlayerProfile;
+import io.github.greatericontop.greatimpostor.utils.CooldownResetReason;
 import io.github.greatericontop.greatimpostor.utils.ImpostorUtil;
 import io.github.greatericontop.greatimpostor.utils.PartialCoordinates;
 import net.kyori.adventure.text.Component;
@@ -50,11 +51,11 @@ public class GameManager {
         inventoryChangeRequested = true;
     }
 
-    public void resetAllSabotageCooldowns(boolean isShort) {
+    public void resetAllSabotageCooldowns(CooldownResetReason reason) {
         for (PlayerProfile profile : plugin.playerProfiles.values()) {
             if (profile.isImpostor()) {
                 ImpostorProfile impostorProfile = (ImpostorProfile) profile;
-                impostorProfile.resetSabotageCooldownSelfOnly(isShort);
+                impostorProfile.resetSabotageCooldownSelfOnly(reason);
             }
         }
     }

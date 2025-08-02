@@ -20,6 +20,7 @@ package io.github.greatericontop.greatimpostor.meeting;
 import io.github.greatericontop.greatimpostor.GreatImpostorMain;
 import io.github.greatericontop.greatimpostor.core.profiles.ImpostorProfile;
 import io.github.greatericontop.greatimpostor.core.profiles.PlayerProfile;
+import io.github.greatericontop.greatimpostor.utils.CooldownResetReason;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.title.Title;
 import org.bukkit.Bukkit;
@@ -231,9 +232,9 @@ public class MeetingManager {
                     for (PlayerProfile profile : plugin.playerProfiles.values()) {
                         if (profile.isImpostor()) {
                             ImpostorProfile impostorProfile = (ImpostorProfile) profile;
-                            impostorProfile.resetKillCooldown(false);
+                            impostorProfile.resetKillCooldown(CooldownResetReason.AFTER_MEETING);
                         }
-                        plugin.gameManager.resetAllSabotageCooldowns(false);
+                        plugin.gameManager.resetAllSabotageCooldowns(CooldownResetReason.AFTER_MEETING);
                         profile.getPlayer().setGameMode(GameMode.ADVENTURE);
                         profile.getPlayer().teleport(plugin.getStartingLocation());
                     }

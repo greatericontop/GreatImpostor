@@ -21,6 +21,7 @@ import io.github.greatericontop.greatimpostor.GreatImpostorMain;
 import io.github.greatericontop.greatimpostor.core.profiles.PlayerProfile;
 import io.github.greatericontop.greatimpostor.core.profiles.ImpostorProfile;
 import io.github.greatericontop.greatimpostor.task.TaskUtil;
+import io.github.greatericontop.greatimpostor.utils.CooldownResetReason;
 import io.github.greatericontop.greatimpostor.utils.ImpostorUtil;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.title.Title;
@@ -116,7 +117,7 @@ public class SabotageManager implements Listener {
         // All impostors' cooldowns are reset together.
         // They are not completely shared though, because individual impostors can, for example, have their cooldowns
         //   not run while they are hiding in vents.
-        plugin.gameManager.resetAllSabotageCooldowns(false);
+        plugin.gameManager.resetAllSabotageCooldowns(CooldownResetReason.AFTER_USE);
     }
 
     public void tickSabotages() {

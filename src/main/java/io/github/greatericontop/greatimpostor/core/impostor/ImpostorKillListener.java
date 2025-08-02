@@ -20,6 +20,7 @@ package io.github.greatericontop.greatimpostor.core.impostor;
 import io.github.greatericontop.greatimpostor.GreatImpostorMain;
 import io.github.greatericontop.greatimpostor.core.profiles.ImpostorProfile;
 import io.github.greatericontop.greatimpostor.core.profiles.PlayerProfile;
+import io.github.greatericontop.greatimpostor.utils.CooldownResetReason;
 import io.github.greatericontop.greatimpostor.utils.ImpostorUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.Color;
@@ -94,7 +95,7 @@ public class ImpostorKillListener implements Listener {
             player.sendMessage("§cDon't kill your fellow impostors!");
             return;
         }
-        impostorProfile.resetKillCooldown(false);
+        impostorProfile.resetKillCooldown(CooldownResetReason.AFTER_USE);
         if (isFakePlayerKill) {
             // Kick out of cameras (& removes armor stand) before killing the player
             plugin.securityCameraManager.exitCameras(victimProfile, victimPlayer);

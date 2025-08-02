@@ -21,6 +21,7 @@ import io.github.greatericontop.greatimpostor.GreatImpostorMain;
 import io.github.greatericontop.greatimpostor.core.profiles.CrewmateProfile;
 import io.github.greatericontop.greatimpostor.core.profiles.ImpostorProfile;
 import io.github.greatericontop.greatimpostor.core.profiles.PlayerProfile;
+import io.github.greatericontop.greatimpostor.utils.CooldownResetReason;
 import io.github.greatericontop.greatimpostor.utils.PlayerColor;
 import io.github.greatericontop.greatimpostor.utils.Shuffler;
 import net.kyori.adventure.text.Component;
@@ -141,11 +142,11 @@ public class StartGame {
                     profile.getPlayer().getInventory().setHeldItemSlot(0); // force reset held item so impostors don't reveal themselves
                     if (profile.isImpostor()) {
                         ImpostorProfile impostorProfile = (ImpostorProfile) profile;
-                        impostorProfile.resetKillCooldown(true);
+                        impostorProfile.resetKillCooldown(CooldownResetReason.GAME_START);
                         impostorProfile.getPlayer().chat("/impostor listimpostors _showhint_");
                     }
                 }
-                plugin.gameManager.resetAllSabotageCooldowns(true);
+                plugin.gameManager.resetAllSabotageCooldowns(CooldownResetReason.GAME_START);
             }
         }.runTaskLater(plugin, 80L);
 
