@@ -47,6 +47,11 @@ critical-sabotage-fix-ticks: 600
 max-meetings-per-player: 1
 
 
+# Whether the communications sabotage prevents body reporting. It does not in the original game, but I added this option
+# if you want to buff the sabotage slightly.
+comms-sabotage-prevents-reporting: false
+
+
 impostor-cooldowns:
   # How long before killing when the game starts (in ticks, default: 200t/10s)
   kill-game-start: 200

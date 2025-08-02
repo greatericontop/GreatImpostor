@@ -19,6 +19,7 @@ package io.github.greatericontop.greatimpostor.core.events;
 
 import io.github.greatericontop.greatimpostor.GreatImpostorMain;
 import io.github.greatericontop.greatimpostor.core.profiles.PlayerProfile;
+import io.github.greatericontop.greatimpostor.task.sabotage.Sabotage;
 import io.github.greatericontop.greatimpostor.utils.ImpostorUtil;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.title.Title;
@@ -66,6 +67,11 @@ public class BodyReportingListener implements Listener {
             // Dead body bypasses some sabotages and even cancels some
             if (plugin.sabotageManager.shouldRemoveWhenBodyReported()) {
                 plugin.sabotageManager.forceEndSabotage();
+            }
+            // Except comms if it's buffed
+            if (plugin.sabotageManager.getActiveSabotage() == Sabotage.COMMUNICATIONS && plugin.getConfig().getBoolean("comms-sabotage-prevents-reporting")) {
+                player.sendMessage("§cCommunications are down!");
+                return;
             }
             boolean noBodyFound = true; // no for-else :(
             for (Entity entity : player.getNearbyEntities(REPORT_DIST, REPORT_DIST, REPORT_DIST)) {
