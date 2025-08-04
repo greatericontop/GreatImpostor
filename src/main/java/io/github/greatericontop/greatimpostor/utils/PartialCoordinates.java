@@ -46,7 +46,7 @@ public record PartialCoordinates(double x, double y, double z, double yaw) {
     }
 
     public Location teleportLocation(World world) {
-        return new Location(world, x, y, z);
+        return new Location(world, x, y, z, (float) yaw, 0.0F);
     }
 
 }
