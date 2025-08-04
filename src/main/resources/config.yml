@@ -20,14 +20,15 @@ starting-location:
 #    - [10.5, 25.0, 0.5]  # coordinates of a third vent in the first system
 #
 #  - - [0.5, 25.0, -10.5]  # a second vent system
-#    - [0.5, 25.0, 10.5]  # coordinates of a second vent in the second system
+#    - [0.5, 25.0, 10.5, 90.0]  # coordinates of a second vent in the second system
+#                               # optionally, you can add a fourth number to specify the player's rotation/yaw
 vents: []
 
 
 # The list of the coordinates to teleport to when viewing security cameras
 # Example:
 #cameras:
-#  - [5.5, 25.0, 5.5]
+#  - [5.5, 25.0, 5.5, -90.0]  # (the rotation/yaw is optional)
 #  - [15.5, 25.0, 15.5]
 cameras: []
 
