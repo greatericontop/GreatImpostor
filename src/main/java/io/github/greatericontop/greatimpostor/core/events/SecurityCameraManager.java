@@ -64,7 +64,7 @@ public class SecurityCameraManager implements Listener {
     private void loadCamerasFromConfig() {
         plugin.getConfig().getList("cameras").forEach(rawCoords -> {
             List<Double> coords = (List<Double>) rawCoords;
-            cameraSystem.add(new PartialCoordinates(coords.get(0), coords.get(1), coords.get(2)));
+            cameraSystem.add(PartialCoordinates.fromConfigEntry(coords));
         });
     }
 

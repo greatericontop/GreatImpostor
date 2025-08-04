@@ -20,11 +20,25 @@ package io.github.greatericontop.greatimpostor.utils;
 import org.bukkit.Location;
 import org.bukkit.World;
 
-public record PartialCoordinates(double x, double y, double z) {
+import java.util.List;
+
+public record PartialCoordinates(double x, double y, double z, double yaw) {
+
+    // Supports old format (x, y, z) or new format to specify yaw (x, y, z, yaw)
+    public static PartialCoordinates fromConfigEntry(List<Double> configEntry) {
+        if (configEntry.size() == 3) {
+            return new PartialCoordinates(configEntry.get(0), configEntry.get(1), configEntry.get(2), 0.0);
+        } else if (configEntry.size() == 4) {
+            return new PartialCoordinates(configEntry.get(0), configEntry.get(1), configEntry.get(2), configEntry.get(3));
+        } else {
+            throw new IllegalArgumentException("Config entry must contain 3 or 4 values (x, y, z, optional yaw)");
+        }
+    }
 
     public static PartialCoordinates ofLocation(Location loc) {
-        return new PartialCoordinates(loc.getX(), loc.getY(), loc.getZ());
+        return new PartialCoordinates(loc.getX(), loc.getY(), loc.getZ(), loc.getYaw());
     }
+
 
     public boolean isClose(PartialCoordinates other) {
         // XZ allows you to click it if you're on top of the block (0.5+0.3=0.8), Y gives some vertical tolerance

@@ -183,7 +183,7 @@ public class GameManager {
         plugin.getConfig().getList("vents").forEach(ventSystem -> {
             List<List<Double>> convertedVentSystem = (List<List<Double>>) ventSystem;
             List<PartialCoordinates> ventSystemList = new ArrayList<>(convertedVentSystem.size());
-            convertedVentSystem.forEach(vent -> ventSystemList.add(new PartialCoordinates(vent.get(0), vent.get(1), vent.get(2))));
+            convertedVentSystem.forEach(vent -> ventSystemList.add(PartialCoordinates.fromConfigEntry(vent)));
             vents.add(ventSystemList);
         });
     }
