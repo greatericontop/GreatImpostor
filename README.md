@@ -52,6 +52,11 @@ If it's in the main game, we probably have it too! Here are some of the highligh
 [Click here to go to the tutorial.](https://github.com/greatericontop/GreatImpostor/blob/main/Tutorial.md)
 
 
+## Installation
+
+Download the jar file, place it in the plugins folder, and restart the server.
+
+
 ## Setup
 
 Yes, this plugin requires setup. Don't worry, it's not too hard!
