@@ -53,6 +53,10 @@ max-meetings-per-player: 1
 comms-sabotage-prevents-reporting: false
 
 
+# You can customize the impostor cooldowns here, and there's finer control over each scenario (on game start, after
+# actually using it, and after the game resumes after a meeting ends).
+# The defaults are what they are in the main game: 10 second cooldown at the start of the game and 30 seconds after
+# actually using it or a meeting
 impostor-cooldowns:
   # How long before killing when the game starts (in ticks, default: 200t/10s)
   kill-game-start: 200
