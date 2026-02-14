@@ -32,7 +32,8 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.util.Vector;
 
 public class PathfindingHelperListener implements Listener {
-    private static final int STEPS = 10;
+    private static final int STEPS_NORMAL = 10;
+    private static final int STEPS_SABOTAGE = 17;
     private static final int PARTICLE_STEP = 10;
     private static final int PARTICLE_STEP_DIAGONAL = 14;
 
@@ -57,19 +58,19 @@ public class PathfindingHelperListener implements Listener {
                 return;
             }
             XYZ target = plugin.mapGraph.signToGraph.get(currentSubtask);
-            showPath(player, target, true);
+            showPath(player, target, true, STEPS_NORMAL, Particle.WAX_OFF);
         }
     }
 
     public void showSabotagePath(Player player, SabotageSubtask subtask) {
         if (!plugin.mapGraph.sabotageSignToGraph.containsKey(subtask))  return;
         XYZ target = plugin.mapGraph.sabotageSignToGraph.get(subtask);
-        showPath(player, target, false);
+        showPath(player, target, false, STEPS_SABOTAGE, Particle.WAX_ON);
     }
 
-    private void showPath(Player player, XYZ target, boolean showHint) {
+    private void showPath(Player player, XYZ target, boolean showHint, int rayLength, Particle particle) {
         XYZ cur = new XYZ(player.getLocation().getBlockX(), plugin.mapGraph.yLevel, player.getLocation().getBlockZ());
-        for (int i = 0; i < STEPS; i++) {
+        for (int i = 0; i < rayLength; i++) {
             XYZ next = plugin.mapGraph.shortestPathsCache.get(target).get(cur);
             if (next == null) {
                 if (i == 0 && showHint) {
@@ -83,7 +84,7 @@ public class PathfindingHelperListener implements Listener {
             Vector vec = new Vector(next.x()-cur.x(), 0, next.z()-cur.z()).multiply(1.0/step);
             for (int j = 0; j < step; j++) {
                 loc.add(vec);
-                loc.getWorld().spawnParticle(Particle.WAX_OFF, loc, 1, 0.0, 0.0, 0.0, 0.0);
+                loc.getWorld().spawnParticle(particle, loc, 1, 0.0, 0.0, 0.0, 0.0);
             }
             cur = next;
         }
