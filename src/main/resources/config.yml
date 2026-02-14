@@ -72,14 +72,5 @@ impostor-cooldowns:
   sabotage-after-meeting: 600
 
 
-# Put the coordinates of the signs for each of the sabotage tasks here.
-# The format is [X, Z].
-sabotage-fix-coordinates:
-  # Only 1 set of coordinates for the reactor; it is suggested you just set this to one of the two signs
-  reactor: [0.5, 0.5]
-  oxygen-in-oxygen: [0.5, 0.5]
-  oxygen-in-admin: [0.5, 0.5]
-
-
 # This is for debug only. You should always leave this on.
 enable-victory-checks: true
