@@ -25,6 +25,7 @@ import io.github.greatericontop.greatimpostor.core.events.PlayerJoinHandler;
 import io.github.greatericontop.greatimpostor.core.events.SecurityCameraManager;
 import io.github.greatericontop.greatimpostor.core.profiles.PlayerProfile;
 import io.github.greatericontop.greatimpostor.core.impostor.ImpostorKillListener;
+import io.github.greatericontop.greatimpostor.pathfinding.MapGraph;
 import io.github.greatericontop.greatimpostor.task.maintaskexecutors.TaskAnalyzeSample;
 import io.github.greatericontop.greatimpostor.task.maintaskexecutors.TaskPrimeShields;
 import io.github.greatericontop.greatimpostor.task.maintaskexecutors.TaskSubmitScan;
@@ -92,6 +93,8 @@ public class GreatImpostorMain extends JavaPlugin {
     public SabotageManager sabotageManager;
     public VentManager ventManager;
     public SecurityCameraManager securityCameraManager;
+
+    public MapGraph mapGraph = null;
 
     public GameManager gameManager;
 

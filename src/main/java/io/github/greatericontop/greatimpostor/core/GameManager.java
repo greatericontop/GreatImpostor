@@ -19,8 +19,8 @@ package io.github.greatericontop.greatimpostor.core;
 
 import io.github.greatericontop.greatimpostor.GreatImpostorMain;
 import io.github.greatericontop.greatimpostor.core.profiles.ImpostorProfile;
-import io.github.greatericontop.greatimpostor.task.sabotage.Sabotage;
 import io.github.greatericontop.greatimpostor.core.profiles.PlayerProfile;
+import io.github.greatericontop.greatimpostor.task.sabotage.Sabotage;
 import io.github.greatericontop.greatimpostor.utils.CooldownResetReason;
 import io.github.greatericontop.greatimpostor.utils.ImpostorUtil;
 import io.github.greatericontop.greatimpostor.utils.PartialCoordinates;

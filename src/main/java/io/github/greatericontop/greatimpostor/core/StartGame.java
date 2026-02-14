@@ -21,6 +21,8 @@ import io.github.greatericontop.greatimpostor.GreatImpostorMain;
 import io.github.greatericontop.greatimpostor.core.profiles.CrewmateProfile;
 import io.github.greatericontop.greatimpostor.core.profiles.ImpostorProfile;
 import io.github.greatericontop.greatimpostor.core.profiles.PlayerProfile;
+import io.github.greatericontop.greatimpostor.pathfinding.MapGraph;
+import io.github.greatericontop.greatimpostor.pathfinding.XYZ;
 import io.github.greatericontop.greatimpostor.utils.CooldownResetReason;
 import io.github.greatericontop.greatimpostor.utils.PlayerColor;
 import io.github.greatericontop.greatimpostor.utils.Shuffler;
@@ -73,6 +75,16 @@ public class StartGame {
 
         // any task handlers that need resets
         plugin.taskAnalyzeSample.resetSelf();
+
+        // map graph generation
+        responsiblePlayer.sendMessage("§7Generating data structures for pathfinding, this may take a few seconds!");
+        XYZ startVertex = new XYZ(plugin.getStartingLocation().getBlockX(), plugin.getStartingLocation().getBlockY()+1, plugin.getStartingLocation().getBlockZ());
+        plugin.mapGraph = new MapGraph(plugin);
+        plugin.mapGraph.generate(plugin.getStartingLocation().getWorld(), startVertex);
+        plugin.mapGraph.findSignsInGraph(plugin.getStartingLocation().getWorld());
+        for (String s : plugin.mapGraph.messages) {
+            responsiblePlayer.sendMessage("§7" + s);
+        }
 
         for (int i = 0; i < players.length; i++) {
             Player currentPlayer = players[i];
