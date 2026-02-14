@@ -188,6 +188,37 @@ public class MapGraph {
                 generateSingleTargetShortestPath(vertex);
             }
         }
+
+        // Second pass: check within a 3x3 box as well in case the sign is on a ledge and can't be accessed directly
+        for (XYZ vertex : adj.keySet()) {
+            Location vertexLoc = vertex.toLocation(world);
+            for (int x = -1; x <= 1; x++) {
+                for (int z = -1; z <= 1; z++) {
+                    for (int y = -MAX_Y; y <= MAX_Y; y++) {
+                        Block b = world.getBlockAt(vertexLoc.clone().add(x, y, z));
+                        if (b.getType() != Material.OAK_SIGN && b.getType() != Material.OAK_WALL_SIGN)  continue;
+                        Sign signBlock = (Sign) b.getState();
+                        PersistentDataContainer pdc = signBlock.getPersistentDataContainer();
+                        if (!pdc.has(SignListener.TASK_SIGN_KEY, PersistentDataType.STRING))  continue;
+                        String subtaskName = pdc.get(SignListener.TASK_SIGN_KEY, PersistentDataType.STRING);
+                        if (subtaskName.startsWith("@"))  continue;
+                        Subtask subtask;
+                        try {
+                            subtask = Subtask.valueOf(subtaskName);
+                        } catch (IllegalArgumentException e) {
+                            messages.add("Found sign with invalid subtask name '%s'".formatted(subtaskName));
+                            plugin.getLogger().warning("Found sign with invalid subtask name '%s'".formatted(subtaskName));
+                            continue;
+                        }
+                        if (!signToGraph.containsKey(subtask)) {
+                            signToGraph.put(subtask, vertex);
+                            generateSingleTargetShortestPath(vertex);
+                        }
+                    }
+                }
+            }
+        }
+
         List<String> missing = new ArrayList<>();
         for (Subtask st : Subtask.values()) {
             if (!signToGraph.containsKey(st)) {
