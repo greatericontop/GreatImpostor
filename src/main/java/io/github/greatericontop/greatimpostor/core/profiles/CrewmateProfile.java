@@ -68,7 +68,7 @@ public class CrewmateProfile extends PlayerProfile {
         Material holding = player.getInventory().getItemInMainHand().getType();
         String tasks;
         if (holding == Material.RED_STAINED_GLASS || holding == Material.YELLOW_STAINED_GLASS) {
-            tasks = "§eLEFT CLICK §6to see where your task is!";
+            tasks = "§6[LEFT CLICK to see where your task is!]";
         } else {
             tasks = String.format("§6[Total Tasks Completed §e%d/%d§6]", taskStatus[0], taskStatus[1]);
         }

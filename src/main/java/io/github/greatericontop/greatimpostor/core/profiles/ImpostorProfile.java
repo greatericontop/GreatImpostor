@@ -125,7 +125,7 @@ public class ImpostorProfile extends PlayerProfile {
         Material holding = player.getInventory().getItemInMainHand().getType();
         String tasks;
         if (holding == Material.RED_STAINED_GLASS || holding == Material.YELLOW_STAINED_GLASS) {
-            tasks = "§eLEFT CLICK §6for task location";
+            tasks = "§6[LEFT CLICK for task location]";
         } else {
             tasks = String.format("§6[Tasks §e%d/%d§6]", taskStatus[0], taskStatus[1]);
         }
