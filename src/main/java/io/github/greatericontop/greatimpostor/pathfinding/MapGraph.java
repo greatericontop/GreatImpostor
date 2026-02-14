@@ -20,6 +20,7 @@ package io.github.greatericontop.greatimpostor.pathfinding;
 import io.github.greatericontop.greatimpostor.GreatImpostorMain;
 import io.github.greatericontop.greatimpostor.task.SignListener;
 import io.github.greatericontop.greatimpostor.task.Subtask;
+import io.github.greatericontop.greatimpostor.task.sabotage.SabotageSubtask;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.World;
@@ -50,6 +51,7 @@ public class MapGraph {
     public final Map<XYZ, Map<XYZ, XYZ>> shortestPathsCache = new HashMap<>();
     // Maps a subtask's sign to its XYZ location in the graph
     public final Map<Subtask, XYZ> signToGraph = new HashMap<>();
+    public final Map<SabotageSubtask, XYZ> sabotageSignToGraph = new HashMap<>();
 
     private final GreatImpostorMain plugin;
     public MapGraph(GreatImpostorMain plugin) {
@@ -171,7 +173,27 @@ public class MapGraph {
                 PersistentDataContainer pdc = signBlock.getPersistentDataContainer();
                 if (!pdc.has(SignListener.TASK_SIGN_KEY, PersistentDataType.STRING))  continue;
                 String subtaskName = pdc.get(SignListener.TASK_SIGN_KEY, PersistentDataType.STRING);
-                if (subtaskName.startsWith("@"))  continue;
+                if (subtaskName.startsWith("@")) {
+                    if (subtaskName.startsWith("@sabotage=")) {
+                        String sabotageSubtaskName = subtaskName.replaceFirst("@sabotage=", "");
+                        SabotageSubtask subtask;
+                        try {
+                            subtask = SabotageSubtask.valueOf(sabotageSubtaskName);
+                        } catch (IllegalArgumentException e) {
+                            messages.add("Found sign with invalid sabotage subtask name '%s'".formatted(subtaskName));
+                            plugin.getLogger().warning("Found sign with invalid sabotage subtask name '%s'".formatted(subtaskName));
+                            continue;
+                        }
+                        if (sabotageSignToGraph.containsKey(subtask)) {
+                            messages.add("Found multiple signs for subtask %s, ignoring all but the first one".formatted(subtask.name()));
+                            plugin.getLogger().warning("Found multiple signs for subtask %s, ignoring all but the first one".formatted(subtask.name()));
+                            continue;
+                        }
+                        sabotageSignToGraph.put(subtask, vertex);
+                        generateSingleTargetShortestPath(vertex);
+                    }
+                    continue;
+                }
                 Subtask subtask;
                 try {
                     subtask = Subtask.valueOf(subtaskName);
@@ -202,7 +224,24 @@ public class MapGraph {
                         PersistentDataContainer pdc = signBlock.getPersistentDataContainer();
                         if (!pdc.has(SignListener.TASK_SIGN_KEY, PersistentDataType.STRING))  continue;
                         String subtaskName = pdc.get(SignListener.TASK_SIGN_KEY, PersistentDataType.STRING);
-                        if (subtaskName.startsWith("@"))  continue;
+                        if (subtaskName.startsWith("@")) {
+                            if (subtaskName.startsWith("@sabotage=")) {
+                                String sabotageSubtaskName = subtaskName.replaceFirst("@sabotage=", "");
+                                SabotageSubtask subtask;
+                                try {
+                                    subtask = SabotageSubtask.valueOf(sabotageSubtaskName);
+                                } catch (IllegalArgumentException e) {
+                                    messages.add("Found sign with invalid sabotage subtask name '%s'".formatted(subtaskName));
+                                    plugin.getLogger().warning("Found sign with invalid sabotage subtask name '%s'".formatted(subtaskName));
+                                    continue;
+                                }
+                                if (!sabotageSignToGraph.containsKey(subtask)) {
+                                    sabotageSignToGraph.put(subtask, vertex);
+                                    generateSingleTargetShortestPath(vertex);
+                                }
+                            }
+                            continue;
+                        }
                         Subtask subtask;
                         try {
                             subtask = Subtask.valueOf(subtaskName);
@@ -223,6 +262,11 @@ public class MapGraph {
         List<String> missing = new ArrayList<>();
         for (Subtask st : Subtask.values()) {
             if (!signToGraph.containsKey(st)) {
+                missing.add(st.name());
+            }
+        }
+        for (SabotageSubtask st : SabotageSubtask.values()) {
+            if (!sabotageSignToGraph.containsKey(st)) {
                 missing.add(st.name());
             }
         }
