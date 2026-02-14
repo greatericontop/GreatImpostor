@@ -188,6 +188,16 @@ public class MapGraph {
                 generateSingleTargetShortestPath(vertex);
             }
         }
+        List<String> missing = new ArrayList<>();
+        for (Subtask st : Subtask.values()) {
+            if (!signToGraph.containsKey(st)) {
+                missing.add(st.name());
+            }
+        }
+        if (!missing.isEmpty()) {
+            messages.add("No signs found for subtasks: %s".formatted(String.join(", ", missing)));
+            plugin.getLogger().warning("No signs found for subtasks: %s".formatted(String.join(", ", missing)));
+        }
     }
 
 

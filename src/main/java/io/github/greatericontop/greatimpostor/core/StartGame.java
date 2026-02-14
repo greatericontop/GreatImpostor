@@ -78,7 +78,7 @@ public class StartGame {
 
         // map graph generation
         responsiblePlayer.sendMessage("§7Generating data structures for pathfinding, this may take a few seconds!");
-        XYZ startVertex = new XYZ(plugin.getStartingLocation().getBlockX(), plugin.getStartingLocation().getBlockY()+1, plugin.getStartingLocation().getBlockZ());
+        XYZ startVertex = new XYZ(plugin.getStartingLocation().getBlockX(), plugin.getStartingLocation().getBlockY(), plugin.getStartingLocation().getBlockZ());
         plugin.mapGraph = new MapGraph(plugin);
         plugin.mapGraph.generate(plugin.getStartingLocation().getWorld(), startVertex);
         plugin.mapGraph.findSignsInGraph(plugin.getStartingLocation().getWorld());

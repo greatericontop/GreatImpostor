@@ -32,8 +32,8 @@ public record XYZ(int x, int y, int z) {
     }
 
     public boolean isEmpty(World world) {
-        Material blockType = world.getBlockAt(x, y, z).getType();
-        return blockType.isAir();
+        Material mat = world.getBlockAt(x, y, z).getType();
+        return !(mat.isSolid() && mat.isOccluding());
     }
 
 
