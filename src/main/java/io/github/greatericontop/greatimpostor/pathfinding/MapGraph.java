@@ -40,7 +40,7 @@ import java.util.Set;
 public class MapGraph {
     // Note: understanding this class requires knowledge of graph algorithms
 
-    private static final int MAX_NODES = 15_000; // somewhat arbitrary, but should be enough for reasonably sized maps
+    private static final int MAX_NODES = 30_000; // somewhat arbitrary, but should be enough for reasonably sized maps
     private static final int MAX_Y = 3; // Search -3 to +3 in the y direction for signs
 
     public final List<String> messages = new ArrayList<>();
@@ -228,6 +228,9 @@ public class MapGraph {
         if (!missing.isEmpty()) {
             messages.add("No signs found for subtasks: %s".formatted(String.join(", ", missing)));
             plugin.getLogger().warning("No signs found for subtasks: %s".formatted(String.join(", ", missing)));
+        } else {
+            messages.add("Found signs for all subtasks!");
+            plugin.getLogger().info("Found signs for all subtasks!");
         }
     }
 

@@ -77,7 +77,8 @@ public class StartGame {
         plugin.taskAnalyzeSample.resetSelf();
 
         // map graph generation
-        responsiblePlayer.sendMessage("§7Generating data structures for pathfinding, this may take a few seconds!");
+        responsiblePlayer.sendMessage("§7Generating data structures for pathfinding...");
+        long start = System.currentTimeMillis();
         XYZ startVertex = new XYZ(plugin.getStartingLocation().getBlockX(), plugin.getStartingLocation().getBlockY(), plugin.getStartingLocation().getBlockZ());
         plugin.mapGraph = new MapGraph(plugin);
         plugin.mapGraph.generate(plugin.getStartingLocation().getWorld(), startVertex);
@@ -85,6 +86,7 @@ public class StartGame {
         for (String s : plugin.mapGraph.messages) {
             responsiblePlayer.sendMessage("§7" + s);
         }
+        responsiblePlayer.sendMessage(String.format("§7Finished setting up pathfinding in %dms!", System.currentTimeMillis()-start));
 
         for (int i = 0; i < players.length; i++) {
             Player currentPlayer = players[i];
