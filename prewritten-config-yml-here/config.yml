@@ -66,17 +66,6 @@ cameras:
   - 9472.5
   - 135.0
 
-sabotage-fix-coordinates:
-  reactor:
-  - 9418.5
-  - 9461.5
-  oxygen-in-oxygen:
-  - 9504.5
-  - 9461.5
-  oxygen-in-admin:
-  - 9503.5
-  - 9472.5
-
 starting-location:
   world-name: world
   x: 9482.5

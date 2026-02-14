@@ -5,6 +5,13 @@
 
 # This is the location everyone starts at during the beginning of a game or after the end of a meeting.
 # Also, this is the location where everyone is teleported to during a meeting.
+#
+# Also x2, the pathfinding algorithm (that guides players to their task signs) uses this location and flood fills
+# the map outwards. So make sure this location is unobstructed, and that the entire map is accessible by moving in
+# the X/Z directions (the flood fill does not move vertically at all).
+#
+# If the above section is confusing, don't worry too much about it. If you run into problems feel free to ask
+# for support on the GitHub!
 starting-location:
   world-name: world
   x: 0.0
