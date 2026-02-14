@@ -84,7 +84,7 @@ public class PathfindingHelperListener implements Listener {
             Vector vec = new Vector(next.x()-cur.x(), 0, next.z()-cur.z()).multiply(1.0/step);
             for (int j = 0; j < step; j++) {
                 loc.add(vec);
-                loc.getWorld().spawnParticle(particle, loc, 1, 0.0, 0.0, 0.0, 0.0);
+                player.spawnParticle(particle, loc, 1, 0.0, 0.0, 0.0, 0.0);
             }
             cur = next;
         }
