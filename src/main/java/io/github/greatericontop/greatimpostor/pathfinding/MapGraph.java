@@ -18,7 +18,15 @@ package io.github.greatericontop.greatimpostor.pathfinding;
  */
 
 import io.github.greatericontop.greatimpostor.GreatImpostorMain;
+import io.github.greatericontop.greatimpostor.task.SignListener;
+import io.github.greatericontop.greatimpostor.task.Subtask;
+import org.bukkit.Location;
+import org.bukkit.Material;
 import org.bukkit.World;
+import org.bukkit.block.Block;
+import org.bukkit.block.Sign;
+import org.bukkit.persistence.PersistentDataContainer;
+import org.bukkit.persistence.PersistentDataType;
 
 import java.util.ArrayDeque;
 import java.util.ArrayList;
@@ -33,23 +41,26 @@ public class MapGraph {
     // Note: understanding this class requires knowledge of graph algorithms
 
     private static final int MAX_NODES = 15_000; // somewhat arbitrary, but should be enough for reasonably sized maps
+    private static final int MAX_Y = 3; // Search -3 to +3 in the y direction for signs
 
+    public final List<String> messages = new ArrayList<>();
     private final Map<XYZ, List<XYZ>> adj = new HashMap<>();
     // XYZ target -> parent table
     private final Map<XYZ, Map<XYZ, XYZ>> shortestPathsCache = new HashMap<>();
+    // Maps a subtask's sign to its XYZ location in the graph
+    private final Map<Subtask, XYZ> signToGraph = new HashMap<>();
 
     private final GreatImpostorMain plugin;
     public MapGraph(GreatImpostorMain plugin) {
         this.plugin = plugin;
     }
 
-
-
     public void generate(World world, XYZ root) {
         if (!adj.isEmpty()) {
             throw new IllegalStateException("Graph has already been generated");
         }
         if (!root.isEmpty(world)) {
+            messages.add("Root vertex of the map graph is not air, cannot generate graph");
             plugin.getLogger().warning("Root vertex of the map graph is not air, cannot generate graph");
             return;
         }
@@ -119,10 +130,11 @@ public class MapGraph {
             }
         }
 
+        messages.add("Generated map graph with %d vertices!".formatted(adj.size()));
         plugin.getLogger().info("Generated map graph with %d vertices!".formatted(adj.size()));
     }
 
-    public void generateSingleTargetShortestPath(XYZ root) {
+    private void generateSingleTargetShortestPath(XYZ root) {
         if (adj.isEmpty()) {
             throw new IllegalStateException("Graph has not been generated yet");
         }
@@ -145,6 +157,38 @@ public class MapGraph {
         shortestPathsCache.put(root, parentTable);
     }
 
+    public void findSignsInGraph(World world) {
+        if (adj.isEmpty()) {
+            throw new IllegalStateException("Graph has not been generated yet");
+        }
+        for (XYZ vertex : adj.keySet()) {
+            Location vertexLoc = vertex.toLocation(world);
+            for (int y = -MAX_Y; y <= MAX_Y; y++) {
+                Block b = world.getBlockAt(vertexLoc.clone().add(0, y, 0));
+                if (b.getType() != Material.OAK_SIGN && b.getType() != Material.OAK_WALL_SIGN)  continue;
+                Sign signBlock = (Sign) b.getState();
+                PersistentDataContainer pdc = signBlock.getPersistentDataContainer();
+                if (!pdc.has(SignListener.TASK_SIGN_KEY, PersistentDataType.STRING))  continue;
+                String subtaskName = pdc.get(SignListener.TASK_SIGN_KEY, PersistentDataType.STRING);
+                if (subtaskName.startsWith("@"))  continue;
+                Subtask subtask;
+                try {
+                    subtask = Subtask.valueOf(subtaskName);
+                } catch (IllegalArgumentException e) {
+                    messages.add("Found sign with invalid subtask name '%s'".formatted(subtaskName));
+                    plugin.getLogger().warning("Found sign with invalid subtask name '%s'".formatted(subtaskName));
+                    continue;
+                }
+                if (signToGraph.containsKey(subtask)) {
+                    messages.add("Found multiple signs for subtask %s, ignoring all but the first one".formatted(subtask.name()));
+                    plugin.getLogger().warning("Found multiple signs for subtask %s, ignoring all but the first one".formatted(subtask.name()));
+                    continue;
+                }
+                signToGraph.put(subtask, vertex);
+                generateSingleTargetShortestPath(vertex);
+            }
+        }
+    }
 
 
 
