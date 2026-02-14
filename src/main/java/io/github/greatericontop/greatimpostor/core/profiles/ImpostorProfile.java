@@ -122,7 +122,13 @@ public class ImpostorProfile extends PlayerProfile {
         }
 
         int[] taskStatus = getTaskStatus(plugin.playerProfiles.values());
-        String tasks = String.format("§6[Tasks §e%d/%d§6]", taskStatus[0], taskStatus[1]);
+        Material holding = player.getInventory().getItemInMainHand().getType();
+        String tasks;
+        if (holding == Material.RED_STAINED_GLASS || holding == Material.YELLOW_STAINED_GLASS) {
+            tasks = "§eLEFT CLICK §6for task location";
+        } else {
+            tasks = String.format("§6[Tasks §e%d/%d§6]", taskStatus[0], taskStatus[1]);
+        }
         String kill;
         if (!this.isAlive()) {
             kill = "§c[Kill §7Dead§c]";

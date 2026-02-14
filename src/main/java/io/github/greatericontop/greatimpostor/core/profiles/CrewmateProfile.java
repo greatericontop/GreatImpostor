@@ -22,6 +22,7 @@ import io.github.greatericontop.greatimpostor.task.sabotage.Sabotage;
 import io.github.greatericontop.greatimpostor.utils.ImpostorUtil;
 import io.github.greatericontop.greatimpostor.utils.PlayerColor;
 import net.kyori.adventure.text.Component;
+import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.scheduler.BukkitRunnable;
@@ -64,7 +65,13 @@ public class CrewmateProfile extends PlayerProfile {
         }
 
         int[] taskStatus = getTaskStatus(plugin.playerProfiles.values());
-        String tasks = String.format("§6[Total Tasks Completed §e%d/%d§6]", taskStatus[0], taskStatus[1]);
+        Material holding = player.getInventory().getItemInMainHand().getType();
+        String tasks;
+        if (holding == Material.RED_STAINED_GLASS || holding == Material.YELLOW_STAINED_GLASS) {
+            tasks = "§eLEFT CLICK §6to see where your task is!";
+        } else {
+            tasks = String.format("§6[Total Tasks Completed §e%d/%d§6]", taskStatus[0], taskStatus[1]);
+        }
         String sabotage = "";
         if (plugin.sabotageManager.isSabotageActive()) {
             sabotage = String.format("   §d[%s]", plugin.sabotageManager.getActiveSabotage().getDisplayName());
