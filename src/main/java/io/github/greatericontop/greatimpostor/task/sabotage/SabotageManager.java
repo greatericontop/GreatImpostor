@@ -18,17 +18,14 @@ package io.github.greatericontop.greatimpostor.task.sabotage;
  */
 
 import io.github.greatericontop.greatimpostor.GreatImpostorMain;
-import io.github.greatericontop.greatimpostor.core.profiles.PlayerProfile;
 import io.github.greatericontop.greatimpostor.core.profiles.ImpostorProfile;
+import io.github.greatericontop.greatimpostor.core.profiles.PlayerProfile;
 import io.github.greatericontop.greatimpostor.task.TaskUtil;
 import io.github.greatericontop.greatimpostor.utils.CooldownResetReason;
-import io.github.greatericontop.greatimpostor.utils.ImpostorUtil;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.title.Title;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
-import org.bukkit.Location;
-import org.bukkit.Particle;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -36,7 +33,6 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerItemHeldEvent;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
-import org.bukkit.util.Vector;
 
 import java.time.Duration;
 
@@ -143,21 +139,15 @@ public class SabotageManager implements Listener {
             }
         }
 
-        double[][] poiCoordinates = activeSabotage.getPOICoordinates(plugin);
-        if (plugin.getClock() % 30 == 0) {
-            for (double[] coord : poiCoordinates) {
-                for (Player player : Bukkit.getOnlinePlayers()) {
-                    if (player.getGameMode() == GameMode.SPECTATOR) {
-                        // Don't show to impostors in vents who are in spectator
-                        continue;
-                    }
-                    Location loc = ImpostorUtil.forceLocationDownwards(player.getLocation());
-                    Vector arrowDirection = new Vector(coord[0] - loc.getX(), 0, coord[1] - loc.getZ())
-                            .normalize().multiply(0.09);
-                    for (int i = 0; i < 60; i++) {
-                        loc.add(arrowDirection);
-                        loc.getWorld().spawnParticle(Particle.WAX_OFF, loc, 1, 0.0, 0.0, 0.0);
-                    }
+        SabotageSubtask[] requiredSubtasks = activeSabotage.getRequiredSubtasks(plugin);
+        if (plugin.getClock() % 40 == 0) {
+            for (Player player : Bukkit.getOnlinePlayers()) {
+                if (player.getGameMode() == GameMode.SPECTATOR) {
+                    // Don't show to impostors in vents who are in spectator
+                    continue;
+                }
+                for (SabotageSubtask st : requiredSubtasks) {
+                    plugin.pathfindingHelperListener.showSabotagePath(player, st);
                 }
             }
         }

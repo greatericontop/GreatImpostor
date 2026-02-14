@@ -96,6 +96,7 @@ public class GreatImpostorMain extends JavaPlugin {
     public SecurityCameraManager securityCameraManager;
 
     public MapGraph mapGraph = null;
+    public PathfindingHelperListener pathfindingHelperListener;
 
     public GameManager gameManager;
 
@@ -125,7 +126,8 @@ public class GreatImpostorMain extends JavaPlugin {
         this.getServer().getPluginManager().registerEvents(new ImpostorKillListener(this), this);
         this.getServer().getPluginManager().registerEvents(new PlayerJoinHandler(this), this);
 
-        this.getServer().getPluginManager().registerEvents(new PathfindingHelperListener(this), this);
+        pathfindingHelperListener = new PathfindingHelperListener(this);
+        this.getServer().getPluginManager().registerEvents(pathfindingHelperListener, this);
 
         ventManager = new VentManager(this);
         this.getServer().getPluginManager().registerEvents(ventManager, this);

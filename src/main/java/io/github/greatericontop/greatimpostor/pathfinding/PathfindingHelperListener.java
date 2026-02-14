@@ -20,6 +20,7 @@ package io.github.greatericontop.greatimpostor.pathfinding;
 import io.github.greatericontop.greatimpostor.GreatImpostorMain;
 import io.github.greatericontop.greatimpostor.core.profiles.PlayerProfile;
 import io.github.greatericontop.greatimpostor.task.Subtask;
+import io.github.greatericontop.greatimpostor.task.sabotage.SabotageSubtask;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.Particle;
@@ -56,28 +57,36 @@ public class PathfindingHelperListener implements Listener {
                 return;
             }
             XYZ target = plugin.mapGraph.signToGraph.get(currentSubtask);
-
-            XYZ cur = new XYZ(player.getLocation().getBlockX(), plugin.mapGraph.yLevel, player.getLocation().getBlockZ());
-            for (int i = 0; i < STEPS; i++) {
-                XYZ next = plugin.mapGraph.shortestPathsCache.get(target).get(cur);
-                if (next == null) {
-                    if (i == 0) {
-                        player.sendMessage("§cYour current position is obstructed, please get back on the floor and try again!");
-                    }
-                    break;
-                }
-                // Draw from :cur: to :next:
-                int step = (cur.x() != next.x() && cur.z() != next.z()) ? PARTICLE_STEP_DIAGONAL : PARTICLE_STEP;
-                Location loc = new Location(player.getWorld(), cur.x()+0.5, cur.y()+0.5, cur.z()+0.5);
-                Vector vec = new Vector(next.x()-cur.x(), 0, next.z()-cur.z()).multiply(1.0/step);
-                for (int j = 0; j < step; j++) {
-                    loc.add(vec);
-                    loc.getWorld().spawnParticle(Particle.WAX_OFF, loc, 1, 0.0, 0.0, 0.0, 0.0);
-                }
-                cur = next;
-            }
+            showPath(player, target, true);
         }
     }
 
+    public void showSabotagePath(Player player, SabotageSubtask subtask) {
+        if (!plugin.mapGraph.sabotageSignToGraph.containsKey(subtask))  return;
+        XYZ target = plugin.mapGraph.sabotageSignToGraph.get(subtask);
+        showPath(player, target, false);
+    }
+
+    private void showPath(Player player, XYZ target, boolean showHint) {
+        XYZ cur = new XYZ(player.getLocation().getBlockX(), plugin.mapGraph.yLevel, player.getLocation().getBlockZ());
+        for (int i = 0; i < STEPS; i++) {
+            XYZ next = plugin.mapGraph.shortestPathsCache.get(target).get(cur);
+            if (next == null) {
+                if (i == 0 && showHint) {
+                    player.sendMessage("§cYour current position is obstructed, please get back on the floor and try again!");
+                }
+                break;
+            }
+            // Draw from :cur: to :next:
+            int step = (cur.x() != next.x() && cur.z() != next.z()) ? PARTICLE_STEP_DIAGONAL : PARTICLE_STEP;
+            Location loc = new Location(player.getWorld(), cur.x()+0.5, cur.y()+0.5, cur.z()+0.5);
+            Vector vec = new Vector(next.x()-cur.x(), 0, next.z()-cur.z()).multiply(1.0/step);
+            for (int j = 0; j < step; j++) {
+                loc.add(vec);
+                loc.getWorld().spawnParticle(Particle.WAX_OFF, loc, 1, 0.0, 0.0, 0.0, 0.0);
+            }
+            cur = next;
+        }
+    }
 
 }
