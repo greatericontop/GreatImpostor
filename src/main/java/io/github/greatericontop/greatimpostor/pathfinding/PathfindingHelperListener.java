@@ -33,6 +33,7 @@ import org.bukkit.util.Vector;
 public class PathfindingHelperListener implements Listener {
     private static final int STEPS = 10;
     private static final int PARTICLE_STEP = 10;
+    private static final int PARTICLE_STEP_DIAGONAL = 14;
 
     private final GreatImpostorMain plugin;
     public PathfindingHelperListener(GreatImpostorMain plugin) {
@@ -61,12 +62,14 @@ public class PathfindingHelperListener implements Listener {
                 XYZ next = plugin.mapGraph.shortestPathsCache.get(target).get(cur);
                 if (next == null)  break;
                 // Draw from :cur: to :next:
-                Location loc = new Location(player.getWorld(), cur.getX()+0.5, cur.getY()+0.5, cur.getZ()+0.5);
-                Vector vec = new Vector(next.getX()-cur.getX(), 0, next.getZ()-cur.getZ()).normalize().multiply(1.0/PARTICLE_STEP);
-                for (int j = 0; j < PARTICLE_STEP; j++) {
+                int step = (cur.x() != next.x() && cur.z() != next.z()) ? PARTICLE_STEP_DIAGONAL : PARTICLE_STEP;
+                Location loc = new Location(player.getWorld(), cur.x()+0.5, cur.y()+0.5, cur.z()+0.5);
+                Vector vec = new Vector(next.x()-cur.x(), 0, next.z()-cur.z()).multiply(1.0/step);
+                for (int j = 0; j < step; j++) {
                     loc.add(vec);
-                    loc.getWorld().spawnParticle(Particle.WAX_OFF, loc, 1, 0.0, 0.0, 0.0);
+                    loc.getWorld().spawnParticle(Particle.WAX_OFF, loc, 1, 0.0, 0.0, 0.0, 0.0);
                 }
+                cur = next;
             }
         }
     }

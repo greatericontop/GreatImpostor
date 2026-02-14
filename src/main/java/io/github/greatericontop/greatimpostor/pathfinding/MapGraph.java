@@ -65,7 +65,7 @@ public class MapGraph {
             plugin.getLogger().warning("Root vertex of the map graph is not air, cannot generate graph");
             return;
         }
-        yLevel = root.getY();
+        yLevel = root.y();
         Set<XYZ> visited = new HashSet<>();
         Queue<XYZ> vertexQueue = new ArrayDeque<>();
         vertexQueue.add(root);
