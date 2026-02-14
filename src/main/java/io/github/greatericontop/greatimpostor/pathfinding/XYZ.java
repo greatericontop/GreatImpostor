@@ -23,6 +23,16 @@ import org.bukkit.World;
 
 public record XYZ(int x, int y, int z) {
 
+    public int getX() {
+        return x;
+    }
+    public int getY() {
+        return y;
+    }
+    public int getZ() {
+        return z;
+    }
+
     public XYZ add(int x, int z) {
         return new XYZ(this.x + x, this.y, this.z + z);
     }

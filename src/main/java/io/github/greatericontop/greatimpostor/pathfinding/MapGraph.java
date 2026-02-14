@@ -43,12 +43,13 @@ public class MapGraph {
     private static final int MAX_NODES = 30_000; // somewhat arbitrary, but should be enough for reasonably sized maps
     private static final int MAX_Y = 3; // Search -3 to +3 in the y direction for signs
 
+    public int yLevel;
     public final List<String> messages = new ArrayList<>();
     private final Map<XYZ, List<XYZ>> adj = new HashMap<>();
     // XYZ target -> parent table
-    private final Map<XYZ, Map<XYZ, XYZ>> shortestPathsCache = new HashMap<>();
+    public final Map<XYZ, Map<XYZ, XYZ>> shortestPathsCache = new HashMap<>();
     // Maps a subtask's sign to its XYZ location in the graph
-    private final Map<Subtask, XYZ> signToGraph = new HashMap<>();
+    public final Map<Subtask, XYZ> signToGraph = new HashMap<>();
 
     private final GreatImpostorMain plugin;
     public MapGraph(GreatImpostorMain plugin) {
@@ -64,7 +65,7 @@ public class MapGraph {
             plugin.getLogger().warning("Root vertex of the map graph is not air, cannot generate graph");
             return;
         }
-
+        yLevel = root.getY();
         Set<XYZ> visited = new HashSet<>();
         Queue<XYZ> vertexQueue = new ArrayDeque<>();
         vertexQueue.add(root);

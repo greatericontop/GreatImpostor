@@ -26,6 +26,7 @@ import io.github.greatericontop.greatimpostor.core.events.SecurityCameraManager;
 import io.github.greatericontop.greatimpostor.core.profiles.PlayerProfile;
 import io.github.greatericontop.greatimpostor.core.impostor.ImpostorKillListener;
 import io.github.greatericontop.greatimpostor.pathfinding.MapGraph;
+import io.github.greatericontop.greatimpostor.pathfinding.PathfindingHelperListener;
 import io.github.greatericontop.greatimpostor.task.maintaskexecutors.TaskAnalyzeSample;
 import io.github.greatericontop.greatimpostor.task.maintaskexecutors.TaskPrimeShields;
 import io.github.greatericontop.greatimpostor.task.maintaskexecutors.TaskSubmitScan;
@@ -123,6 +124,9 @@ public class GreatImpostorMain extends JavaPlugin {
         this.getServer().getPluginManager().registerEvents(new DeadChatHandler(this), this);
         this.getServer().getPluginManager().registerEvents(new ImpostorKillListener(this), this);
         this.getServer().getPluginManager().registerEvents(new PlayerJoinHandler(this), this);
+
+        this.getServer().getPluginManager().registerEvents(new PathfindingHelperListener(this), this);
+
         ventManager = new VentManager(this);
         this.getServer().getPluginManager().registerEvents(ventManager, this);
         sabotageManager = new SabotageManager(this);
