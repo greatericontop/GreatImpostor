@@ -146,6 +146,7 @@ public class MapGraph {
         // Parent table also used to check visited
         Map<XYZ, XYZ> parentTable = new HashMap<>();
         Queue<XYZ> vertexQueue = new ArrayDeque<>();
+        parentTable.put(root, null);
         vertexQueue.add(root);
         while (!vertexQueue.isEmpty()) {
             XYZ vertex = vertexQueue.poll();
