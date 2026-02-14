@@ -60,7 +60,12 @@ public class PathfindingHelperListener implements Listener {
             XYZ cur = new XYZ(player.getLocation().getBlockX(), plugin.mapGraph.yLevel, player.getLocation().getBlockZ());
             for (int i = 0; i < STEPS; i++) {
                 XYZ next = plugin.mapGraph.shortestPathsCache.get(target).get(cur);
-                if (next == null)  break;
+                if (next == null) {
+                    if (i == 0) {
+                        player.sendMessage("§cYour current position is obstructed, please get back on the floor and try again!");
+                    }
+                    break;
+                }
                 // Draw from :cur: to :next:
                 int step = (cur.x() != next.x() && cur.z() != next.z()) ? PARTICLE_STEP_DIAGONAL : PARTICLE_STEP;
                 Location loc = new Location(player.getWorld(), cur.x()+0.5, cur.y()+0.5, cur.z()+0.5);
