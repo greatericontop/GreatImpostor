@@ -20,6 +20,10 @@ critical-sabotage-fix-ticks: 600
 # The maximum number of meetings each player can call per game
 max-meetings-per-player: 1
 
+# What percentage of the tasks must be completed for the crewmates to win.
+# Default is 100% in the original game, but you can lower this if desired.
+required-task-complete-percentage: 100.0
+
 # Whether the communications sabotage prevents body reporting. It does not in the original game, but I added this option
 # if you want to buff the sabotage slightly.
 comms-sabotage-prevents-reporting: false
