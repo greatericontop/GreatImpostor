@@ -104,6 +104,10 @@ public class ImpostorCommand implements CommandExecutor, TabCompleter {
                 player.sendMessage(Component.text(String.format("§3Max meetings per player: §e%d§3    ", maxMeetingsPerPlayer))
                         .append(Component.text("§7[edit]")
                                 .clickEvent(ClickEvent.suggestCommand(String.format("/impostor config max-meetings-per-player %d", maxMeetingsPerPlayer)))));
+                double requiredTaskCompletePercentage = plugin.getConfig().getDouble("required-task-complete-percentage");
+                player.sendMessage(Component.text(String.format("§3Required task complete percentage: §e%.1f§3%%    ", requiredTaskCompletePercentage))
+                        .append(Component.text("§7[edit]")
+                                .clickEvent(ClickEvent.suggestCommand(String.format("/impostor config required-task-complete-percentage %f", requiredTaskCompletePercentage)))));
                 boolean commsSabotagePreventsReporting = plugin.getConfig().getBoolean("comms-sabotage-prevents-reporting");
                 player.sendMessage(Component.text(String.format("§3Comms sabotage prevents reporting: §e%s§3    ", commsSabotagePreventsReporting))
                         .append(Component.text("§7[edit]")
@@ -178,6 +182,26 @@ public class ImpostorCommand implements CommandExecutor, TabCompleter {
                 plugin.saveConfig();
                 player.sendMessage(String.format("§3Successfully set §b%s §3to §b%s.", args[1], value));
                 return true;
+            } else if (args[1].equals("required-task-complete-percentage")) {
+                if (args.length == 2) {
+                    player.sendMessage("§cSpecify a value!");
+                    return true;
+                }
+                double value;
+                try {
+                    value = Double.parseDouble(args[2]);
+                } catch (NumberFormatException e) {
+                    player.sendMessage("§cInvalid number specified!");
+                    return true;
+                }
+                if (value <= 0.0 || value > 100.0) {
+                    player.sendMessage("§cValue must be between 0 and 100!");
+                    return true;
+                }
+                plugin.getConfig().set(args[1], value);
+                plugin.saveConfig();
+                player.sendMessage(String.format("§3Successfully set §b%s §3to §b%.1f.", args[1], value));
+                return true;
             } else {
                 player.sendMessage("§cThat's not an option!");
                 return true;
@@ -240,6 +264,8 @@ public class ImpostorCommand implements CommandExecutor, TabCompleter {
                 return List.of("<integer>");
             } else if (args[1].equals("comms-sabotage-prevents-reporting")) {
                 return List.of("true", "false");
+            } else if (args[1].equals("required-task-complete-percentage")) {
+                return List.of("<percentage>");
             } else {
                 return List.of();
             }
