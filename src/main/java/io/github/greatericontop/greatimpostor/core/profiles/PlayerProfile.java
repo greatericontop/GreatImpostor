@@ -96,7 +96,7 @@ public abstract class PlayerProfile {
     /*
      * Get the number of tasks completed and the number that need to be completed
      */
-    public static int[] getTaskStatus(Collection<PlayerProfile> profiles) {
+    public static int[] getTaskStatus(Collection<PlayerProfile> profiles, GreatImpostorMain plugin) {
         int completed = 0;
         int total = 0;
         for (PlayerProfile p : profiles) {
@@ -108,7 +108,9 @@ public abstract class PlayerProfile {
                 total++;
             }
         }
-        return new int[]{completed, total};
+        double required_percent = plugin.getConfig().getDouble("required-task-complete-percentage");
+        int adjustedTotal = (int) Math.ceil(total * required_percent / 100.0);
+        return new int[]{completed, adjustedTotal};
     }
 
     //

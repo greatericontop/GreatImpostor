@@ -121,7 +121,7 @@ public class ImpostorProfile extends PlayerProfile {
             return;
         }
 
-        int[] taskStatus = getTaskStatus(plugin.playerProfiles.values());
+        int[] taskStatus = getTaskStatus(plugin.playerProfiles.values(), plugin);
         Material holding = player.getInventory().getItemInMainHand().getType();
         String tasks;
         if (holding == Material.RED_STAINED_GLASS || holding == Material.YELLOW_STAINED_GLASS) {

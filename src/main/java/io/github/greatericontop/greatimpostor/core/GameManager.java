@@ -123,7 +123,7 @@ public class GameManager {
             return;
         }
         // all tasks completed
-        int[] taskStatus = PlayerProfile.getTaskStatus(plugin.playerProfiles.values());
+        int[] taskStatus = PlayerProfile.getTaskStatus(plugin.playerProfiles.values(), plugin);
         if (taskStatus[1] > 0 && taskStatus[0] == taskStatus[1]) { // at least one task and all tasks completed
             endGame("§bCrewmates win! §aAll tasks were completed!");
             return;
